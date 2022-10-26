@@ -6,6 +6,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { GetStarted } from './screens/get-started/GetStarted';
 import { Home } from './screens/home/Home';
 import { Login } from './screens/login/Login';
+import { Signup } from './screens/sign-up/SignUp';
 import { theme } from './style/theme';
 
 const navTheme = {
@@ -39,6 +40,7 @@ export default function App() {
                   <Stack.Screen name='Home' component={Home} />
                   <Stack.Screen name='GetStarted' component={GetStarted} />
                   <Stack.Screen name='Login' component={Login} />
+                  <Stack.Screen name='Signup' component={Signup} />
                </Stack.Navigator>
             </NavigationContainer>
          </ThemeProvider>

@@ -6,7 +6,7 @@ import { homeStyles } from './styles';
 
 export const Home = ({ navigation }) => {
    return (
-      <View style={global.screenContainer}>
+      <View style={global.screenCenter}>
          <View style={homeStyles.headingContainer}>
             <Logo />
             <Text h1>The MacroTrainer</Text>

@@ -1,6 +1,6 @@
 import { Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { ArrowBack } from '../../components/ArrowBack';
+import { ArrowBack } from '../../components/arrows/ArrowBack';
 import { global } from '../../style/global.styles';
 export const GetStarted = ({ navigation }) => {
    return (

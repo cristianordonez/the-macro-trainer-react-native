@@ -12,15 +12,15 @@ export const theme = createTheme({
       },
    },
    lightColors: {
-      primary: '#fff',
+      primary: 'blue',
+      secondary: 'purple',
+      background: '#ffffff',
    },
    darkColors: {
-      //   primary: '#dda0dd',
       primary: '#8859b6',
-      //   primary: '#14ffec',
-      //   primary: '#323232',
-      secondary: '',
+      secondary: '#18504C',
       background: '#080C24',
+      link: '#14ffec',
    },
    mode: 'dark',
 });
