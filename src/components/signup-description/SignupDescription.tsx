@@ -1,5 +1,7 @@
-import { Icon, Text } from '@rneui/themed';
+import { Avatar, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
+import { global } from '../../style/global.styles';
+import { descriptionStyles } from './styles';
 
 interface Props {
    logo: string;
@@ -13,11 +15,16 @@ export const SignupDescription = ({
    description,
    type,
 }: Props) => {
+   const { theme } = useTheme();
    return (
-      <View>
-         <Icon name={logo} type={type} />
-         <View>
-            <Text>{title}</Text>
+      <View style={[descriptionStyles.container, global.size]}>
+         <Avatar
+            rounded
+            icon={{ name: logo, type: type }}
+            containerStyle={{ backgroundColor: theme.colors.secondary }}
+         />
+         <View style={descriptionStyles.textContainer}>
+            <Text style={descriptionStyles.textStyle}>{title}</Text>
             <Text>{description}</Text>
          </View>
       </View>

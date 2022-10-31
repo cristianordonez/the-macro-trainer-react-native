@@ -1,13 +1,24 @@
-import { Text } from '@rneui/themed';
+import { LinearProgress, Text } from '@rneui/themed';
 import { View } from 'react-native';
+import { global } from '../../style/global.styles';
+import { customProgressStyles } from './styles';
 
 interface Props {
+   index: number;
    progress: number;
 }
-export const CustomLinearProgress = ({ progress }: Props) => {
+export const CustomLinearProgress = ({ index, progress }: Props) => {
    return (
-      <View>
-         <Text></Text>
-      </View>
+      <>
+         <View style={[customProgressStyles.container, global.size]}>
+            <Text style={global.textCenter}>{index}/6</Text>
+            <LinearProgress
+               value={progress}
+               variant='determinate'
+               color='primary'
+               style={customProgressStyles.progress}
+            />
+         </View>
+      </>
    );
 };

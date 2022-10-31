@@ -27,4 +27,8 @@ export const global = StyleSheet.create({
    gap: {
       paddingBottom: 10,
    },
+   size: {
+      width: '100%',
+      height: 'auto',
+   },
 });

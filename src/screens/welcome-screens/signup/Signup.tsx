@@ -1,9 +1,11 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, LinearProgress, Text } from '@rneui/themed';
+import { Button, Text } from '@rneui/themed';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { SignupDescription } from '../../../components/signup-description/SignupDescription';
 import { global } from '../../../style/global.styles';
+
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Signup'>;
 
 const cards = [
@@ -19,7 +21,7 @@ const cards = [
       logo: 'running',
       type: 'font-awesome-5',
       title: 'Your activity level',
-      description: 'How often and with how much intensity do you exercise',
+      description: 'How often/how intensely do you exercise',
    },
    {
       id: 3,
@@ -33,8 +35,8 @@ const cards = [
 export const Signup = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
-         <LinearProgress value={0} variant='determinate' color='primary' />
-         <Text style={global.textCenter}>
+         <CustomLinearProgress index={0} progress={0} />
+         <Text h4 style={global.textCenter}>
             First, let's calculate your daily calorie and macronutrient needs.
          </Text>
          <Text style={global.textCenter}>
