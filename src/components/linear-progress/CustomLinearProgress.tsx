@@ -14,6 +14,7 @@ export const CustomLinearProgress = ({ index, progress }: Props) => {
             <Text style={global.textCenter}>{index}/6</Text>
             <LinearProgress
                value={progress}
+               animation={false}
                variant='determinate'
                color='primary'
                style={customProgressStyles.progress}

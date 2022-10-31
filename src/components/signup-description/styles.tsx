@@ -9,7 +9,7 @@ export const descriptionStyles = StyleSheet.create({
       minWidth: '75%',
    },
    textStyle: {
-      fontFamily: 'Lato Bold',
+      fontFamily: 'Lato_Bold',
       fontWeight: 'bold',
    },
 });
