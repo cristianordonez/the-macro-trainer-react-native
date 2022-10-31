@@ -11,8 +11,8 @@ type Props = NativeStackScreenProps<WelcomeStackParamList, 'Height'>;
 export const Height = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
-         <Text>height</Text>
          <CustomLinearProgress index={5} progress={0.8} />
+         <Text h4>How tall are you?</Text>
          <Button
             onPress={() => navigation.navigate('Weight')}
             title={`Continue`}

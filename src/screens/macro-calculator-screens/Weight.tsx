@@ -12,7 +12,7 @@ export const Weight = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={6} progress={1} />
-         <Text>weight</Text>
+         <Text h4>What is your last known weight?</Text>
          <Button
             onPress={() => navigation.navigate('Main')}
             title={`Complete`}

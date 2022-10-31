@@ -11,8 +11,8 @@ type Props = NativeStackScreenProps<WelcomeStackParamList, 'Goals'>;
 export const Goals = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
-         <Text>goals</Text>
          <CustomLinearProgress index={1} progress={0.16} />
+         <Text h4>What are your goals?</Text>
          <Button
             onPress={() => navigation.navigate('ActivityLevel')}
             title={`Continue`}

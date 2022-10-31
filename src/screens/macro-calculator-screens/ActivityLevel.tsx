@@ -11,8 +11,8 @@ type Props = NativeStackScreenProps<WelcomeStackParamList, 'ActivityLevel'>;
 export const ActivityLevel = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
-         <Text>activity level</Text>
          <CustomLinearProgress index={2} progress={0.32} />
+         <Text h4>What is your activity level?</Text>
          <Button
             onPress={() => navigation.navigate('Gender')}
             title={`Continue`}
