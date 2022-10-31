@@ -1,12 +1,17 @@
 import { Button, Image, Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { global } from '../../style/global.styles';
-import { homeStyles } from './styles';
+import { global } from '../../../style/global.styles';
+import { mainStyles } from './styles';
 
-export const Home = ({ navigation }) => {
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { WelcomeStackParamList } from '../../../../types/types';
+
+type Props = NativeStackScreenProps<WelcomeStackParamList, 'Main'>;
+
+export const Main = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
-         <View style={homeStyles.headingContainer}>
+         <View style={mainStyles.headingContainer}>
             <Text style={[global.textCenter, global.gap]} h1>
                Welcome to MacroTrainer
             </Text>
@@ -15,13 +20,13 @@ export const Home = ({ navigation }) => {
                accomplish your goals.
             </Text>
          </View>
-         <View style={homeStyles.imageContainer}>
+         <View style={mainStyles.imageContainer}>
             <Image
-               style={homeStyles.image}
+               style={mainStyles.image}
                source={require('./dietitian.png')}
             />
          </View>
-         <View style={homeStyles.btnContainer}>
+         <View style={mainStyles.btnContainer}>
             <Button
                onPress={() => navigation.navigate('Signup')}
                raised

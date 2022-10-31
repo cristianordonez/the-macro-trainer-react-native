@@ -1,13 +1,17 @@
 import { AntDesign } from '@expo/vector-icons';
 import { Link } from '@react-navigation/native';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
-import { EmailInput } from '../../components/form-inputs/EmailInput';
-import { PasswordInput } from '../../components/form-inputs/PasswordInput';
-import { global } from '../../style/global.styles';
+import { WelcomeStackParamList } from '../../../../types/types';
+import { EmailInput } from '../../../components/form-inputs/EmailInput';
+import { PasswordInput } from '../../../components/form-inputs/PasswordInput';
+import { global } from '../../../style/global.styles';
 import { loginStyles } from './styles';
 
-export const Login = ({ navigation }) => {
+type Props = NativeStackScreenProps<WelcomeStackParamList, 'Login'>;
+
+export const Login = ({ navigation }: Props) => {
    const { theme } = useTheme();
    return (
       <>

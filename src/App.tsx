@@ -1,21 +1,13 @@
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { LinearProgress, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 import * as SplashScreen from 'expo-splash-screen';
 import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Logo } from './components/logo/Logo';
 import { useFonts } from './hooks/useFonts';
-import { Home } from './screens/home/Home';
-import { Login } from './screens/login/Login';
-import { MacroCalculator } from './screens/macro-calculator/index';
-import { Signup } from './screens/signup/Signup';
-
+import { WelcomeStackScreen } from './screens/welcome-screens/index';
 SplashScreen.preventAutoHideAsync();
-
-const Stack = createStackNavigator();
 
 export default function App() {
    const [isReady, setIsReady] = useState<boolean>(false);
@@ -60,43 +52,7 @@ export default function App() {
          <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
             <SafeAreaProvider>
                <NavigationContainer theme={navTheme}>
-                  <Stack.Navigator
-                     screenOptions={{
-                        headerTitle: (props) => <Logo />,
-                        headerBackTitleVisible: false,
-                        headerTitleContainerStyle: {},
-                        headerStyle: {
-                           backgroundColor: theme.colors.background,
-                        },
-                        headerTitleAlign: 'center',
-                        headerTintColor: theme.colors.black,
-                        headerShadowVisible: false,
-                        cardStyle: {
-                           backgroundColor: '#080C24',
-                           opacity: 1,
-                        },
-                     }}
-                     initialRouteName='Home'
-                  >
-                     <Stack.Screen name='Home' component={Home} />
-                     <Stack.Screen name='Login' component={Login} />
-                     <Stack.Screen
-                        options={{
-                           headerTitle: (props) => (
-                              <LinearProgress
-                                 value={10}
-                                 variant='determinate'
-                              />
-                           ),
-                        }}
-                        name='Signup'
-                        component={Signup}
-                     />
-                     <Stack.Screen
-                        name='MacroCalculator'
-                        component={MacroCalculator}
-                     />
-                  </Stack.Navigator>
+                  <WelcomeStackScreen />
                </NavigationContainer>
             </SafeAreaProvider>
          </View>
