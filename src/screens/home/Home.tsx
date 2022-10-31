@@ -5,7 +5,7 @@ import { homeStyles } from './styles';
 
 export const Home = ({ navigation }) => {
    return (
-      <View style={global.screenCenter}>
+      <View style={global.screenEnd}>
          <View style={homeStyles.headingContainer}>
             <Text style={[global.textCenter, global.gap]} h1>
                Welcome to MacroTrainer

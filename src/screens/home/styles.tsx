@@ -5,11 +5,10 @@ export const homeStyles = StyleSheet.create({
       flex: 1,
       paddingTop: 10,
       paddingBottom: 10,
-      // alignContent: 'center',
-      // justifyContent: 'space-between',
    },
    btnContainer: {
       flex: 1,
+      justifyContent: 'flex-end',
       width: '100%',
    },
    headingText: {
@@ -18,7 +17,8 @@ export const homeStyles = StyleSheet.create({
    imageContainer: {
       height: 175,
       width: 350,
-      flex: 2,
+      flex: 3,
+      justifyContent: 'flex-end',
    },
    image: {
       width: '100%',
