@@ -1,11 +1,12 @@
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { useTheme } from '@rneui/themed';
 import { View } from 'react-native';
+import { arrowStyles } from './styles';
 
 export const ArrowBack = ({ navigation }) => {
    const { theme } = useTheme();
    return (
-      <View>
+      <View style={arrowStyles.arrowBack}>
          <SimpleLineIcons
             style={{ color: theme.colors.black }}
             onPress={() => navigation.goBack()}

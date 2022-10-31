@@ -1,6 +1,6 @@
 import { createTheme } from '@rneui/themed';
 
-export const theme = createTheme({
+export const customTheme = createTheme({
    components: {
       Button: {
          titleStyle: {
@@ -8,7 +8,7 @@ export const theme = createTheme({
          },
       },
       Text: {
-         style: { color: 'white' },
+         style: { color: 'white', fontFamily: 'Lato' },
       },
    },
    lightColors: {

@@ -1,11 +1,9 @@
+import { AntDesign } from '@expo/vector-icons';
 import { Link } from '@react-navigation/native';
-
 import { Button, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
-import { ArrowBack } from '../../components/arrows/ArrowBack';
 import { EmailInput } from '../../components/form-inputs/EmailInput';
 import { PasswordInput } from '../../components/form-inputs/PasswordInput';
-import { Logo } from '../../components/logo/Logo';
 import { global } from '../../style/global.styles';
 import { loginStyles } from './styles';
 
@@ -14,38 +12,59 @@ export const Login = ({ navigation }) => {
    return (
       <>
          <View style={global.screenEnd}>
-            <View style={global.arrowBack}>
-               <ArrowBack navigation={navigation} />
-            </View>
             <View style={loginStyles.heading}>
-               <Text style={global.textCenter} h1>
-                  Welcome to the MacroTrainer
+               <Text style={[global.textCenter, global.gap]} h1>
+                  Welcome Back
                </Text>
-               <Logo />
+               <Text style={global.textCenter}>
+                  Please log in below to get started
+               </Text>
             </View>
             <View style={loginStyles.form}>
                <EmailInput />
                <PasswordInput />
-               <View style={loginStyles.buttonTextContainer}>
-                  <Button size='lg'>Log in</Button>
-                  <Text
-                     style={{ color: theme.colors.link, textAlign: 'center' }}
-                  >
-                     Forgot password?
-                  </Text>
-               </View>
-               <View style={loginStyles.buttonTextContainer}>
-                  <Button size='lg' color='secondary'>
-                     Sign in with Google
-                  </Button>
-                  <View style={loginStyles.navigationText}>
-                     <Text>Don't have an account?</Text>
-                     <Link style={loginStyles.link} to={{ screen: 'Signup' }}>
-                        <Text style={{ color: theme.colors.link }}>
-                           Create Account
-                        </Text>
-                     </Link>
+               <Text
+                  style={{
+                     color: theme.colors.link,
+                     textAlign: 'right',
+                     ...global.gap,
+                  }}
+               >
+                  Forgot your password?
+               </Text>
+               <Button size='lg'>Log in</Button>
+
+               <View style={global.rowCenter}>
+                  <View
+                     style={{
+                        flex: 1,
+                        height: 1,
+                        backgroundColor: theme.colors.divider,
+                     }}
+                  />
+                  <View>
+                     <Text style={loginStyles.formText}>OR</Text>
                   </View>
+                  <View
+                     style={{
+                        flex: 1,
+                        height: 1,
+                        backgroundColor: theme.colors.divider,
+                     }}
+                  />
+               </View>
+
+               <Button size='lg' color='#DB4437' containerStyle={global.gap}>
+                  Sign in with Google{' '}
+                  <AntDesign name='google' size={24} color='white' />
+               </Button>
+               <View style={loginStyles.navigationText}>
+                  <Text>Don't have an account?</Text>
+                  <Link style={loginStyles.link} to={{ screen: 'Signup' }}>
+                     <Text style={{ color: theme.colors.link }}>
+                        Create Account
+                     </Text>
+                  </Link>
                </View>
             </View>
          </View>
