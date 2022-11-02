@@ -11,7 +11,7 @@ export const CustomLinearProgress = ({ index, progress }: Props) => {
    return (
       <>
          <View style={[customProgressStyles.container, global.size]}>
-            <Text style={global.textCenter}>{index}/6</Text>
+            <Text style={global.textCenter}>{index}/7</Text>
             <LinearProgress
                value={progress}
                animation={false}

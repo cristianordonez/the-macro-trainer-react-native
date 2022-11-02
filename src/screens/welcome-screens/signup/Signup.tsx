@@ -48,6 +48,7 @@ export const Signup = ({ navigation }: Props) => {
                key={card.id}
                logo={card.logo}
                title={card.title}
+               id={card.id}
                description={card.description}
                type={card.type}
             />

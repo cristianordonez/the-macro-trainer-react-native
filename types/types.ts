@@ -8,6 +8,15 @@ type WelcomeStackParamList = {
    Age: undefined;
    Height: undefined;
    Weight: undefined;
+   CompleteRegistration: undefined;
 };
 
-export { WelcomeStackParamList };
+type CardOptionType = {
+   logo: string;
+   type: string;
+   description: string;
+   title: string;
+   id: number;
+};
+
+export { WelcomeStackParamList, CardOptionType };

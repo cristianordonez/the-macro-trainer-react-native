@@ -8,6 +8,7 @@ import { Gender } from '../macro-calculator-screens/Gender';
 import { Goals } from '../macro-calculator-screens/Goals';
 import { Height } from '../macro-calculator-screens/Height';
 import { Weight } from '../macro-calculator-screens/Weight';
+import { CompleteRegistration } from './complete-registration-form/CompleteRegistration';
 import { Login } from './login/Login';
 import { Main } from './main/Main';
 import { Signup } from './signup/Signup';
@@ -44,6 +45,10 @@ export const WelcomeStackScreen = () => {
          <WelcomeStack.Screen name='Age' component={Age} />
          <WelcomeStack.Screen name='Height' component={Height} />
          <WelcomeStack.Screen name='Weight' component={Weight} />
+         <WelcomeStack.Screen
+            name='CompleteRegistration'
+            component={CompleteRegistration}
+         />
       </WelcomeStack.Navigator>
    );
 };

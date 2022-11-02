@@ -1,4 +1,4 @@
-import { Button, Image, Text } from '@rneui/themed';
+import { Button, Image, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { global } from '../../../style/global.styles';
 import { mainStyles } from './styles';
@@ -9,6 +9,7 @@ import { WelcomeStackParamList } from '../../../../types/types';
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Main'>;
 
 export const Main = ({ navigation }: Props) => {
+   const { theme } = useTheme();
    return (
       <View style={global.screenEnd}>
          <View style={mainStyles.headingContainer}>
@@ -38,6 +39,7 @@ export const Main = ({ navigation }: Props) => {
                onPress={() => navigation.navigate('Login')}
                title='Log in'
                size='lg'
+               titleStyle={{ color: theme.colors.black }}
                type='clear'
             />
          </View>

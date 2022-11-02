@@ -17,6 +17,14 @@ export const global = StyleSheet.create({
       paddingRight: 10,
       paddingBottom: '5%',
    },
+   containerCenter: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   screenTitle: {
+      paddingTop: '20%',
+   },
    textCenter: {
       textAlign: 'center',
    },
@@ -30,5 +38,16 @@ export const global = StyleSheet.create({
    size: {
       width: '100%',
       height: 'auto',
+   },
+   cardRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+   },
+   cardText: {
+      minWidth: '75%',
+   },
+   textBold: {
+      fontFamily: 'Lato_Bold',
+      fontWeight: 'bold',
    },
 });

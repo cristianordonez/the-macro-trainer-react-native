@@ -11,7 +11,7 @@ type Props = NativeStackScreenProps<WelcomeStackParamList, 'Weight'>;
 export const Weight = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
-         <CustomLinearProgress index={6} progress={1} />
+         <CustomLinearProgress index={6} progress={0.82} />
          <Text h4>What is your last known weight?</Text>
          <Button
             onPress={() => navigation.navigate('Main')}

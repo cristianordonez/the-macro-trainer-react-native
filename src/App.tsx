@@ -7,6 +7,7 @@ import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from './hooks/useFonts';
 import { WelcomeStackScreen } from './screens/welcome-screens/index';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
