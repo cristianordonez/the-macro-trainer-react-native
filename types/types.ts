@@ -14,7 +14,7 @@ type WelcomeStackParamList = {
 type CardOptionType = {
    logo: string;
    type: string;
-   description: string;
+   description: string | null;
    title: string;
    id: number;
 };

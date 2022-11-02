@@ -43,11 +43,14 @@ export const global = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-around',
    },
-   cardText: {
+   cardTextContainer: {
       minWidth: '75%',
+      maxWidth: '75%',
    },
    textBold: {
       fontFamily: 'Lato_Bold',
       fontWeight: 'bold',
+      fontSize: 16,
+      paddingBottom: 5,
    },
 });

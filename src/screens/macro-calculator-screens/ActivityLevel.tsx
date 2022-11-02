@@ -21,14 +21,16 @@ const cards = [
       logo: 'walking',
       type: 'font-awesome-5',
       title: 'Moderately Active',
-      description: 'About 150 minutes of exercise per week',
+      description:
+         'About 150 minutes moderate intensity or 75 minutes high intensity exercise per week',
       id: 1,
    },
    {
       logo: 'running',
       type: 'font-awesome-5',
       title: 'Active',
-      description: 'Greater than 250 minutes of exercise per week',
+      description:
+         'About 250 minutes moderate intensity or 150 minutes high intensity exercise per week',
       id: 2,
    },
 ];

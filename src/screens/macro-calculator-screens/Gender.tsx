@@ -11,24 +11,24 @@ type Props = NativeStackScreenProps<WelcomeStackParamList, 'Gender'>;
 
 const cards = [
    {
-      logo: 'scale-bathroom',
-      type: 'material-community',
-      title: 'Lose weight',
-      description: 'Achieve healthy, maintainable weight loss ',
+      logo: 'male-symbol',
+      type: 'foundation',
+      title: 'Male',
+      description: null,
       id: 0,
    },
    {
-      logo: 'balance-scale',
-      type: 'font-awesome',
-      title: 'Maintain',
-      description: 'Keep weight stable while staying in shape',
+      logo: 'female-symbol',
+      type: 'foundation',
+      title: 'Female',
+      description: null,
       id: 1,
    },
    {
       logo: 'weight-lifter',
       type: 'material-community',
-      title: 'Gain muscle',
-      description: 'Increase in weight and strength',
+      title: 'Non-binary',
+      description: null,
       id: 2,
    },
 ];

@@ -18,8 +18,8 @@ export const SignupDescription = ({
             icon={{ name: logo, type: type }}
             containerStyle={{ backgroundColor: theme.colors.secondary }}
          />
-         <View style={global.cardText}>
-            <Text style={global.textBold}>{title}</Text>
+         <View style={global.cardTextContainer}>
+            <Text style={[global.textBold]}>{title}</Text>
             <Text>{description}</Text>
          </View>
       </View>
