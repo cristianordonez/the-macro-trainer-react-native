@@ -19,4 +19,8 @@ type CardOptionType = {
    id: number;
 };
 
-export { WelcomeStackParamList, CardOptionType };
+type AgeItemType = {
+   id: string;
+   title: string;
+};
+export { WelcomeStackParamList, CardOptionType, AgeItemType };

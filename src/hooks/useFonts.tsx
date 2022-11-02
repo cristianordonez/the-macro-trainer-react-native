@@ -8,5 +8,5 @@ export const useFonts = async () => {
       Lato_Bold: require('../../assets/fonts/Lato-Bold.ttf'),
       Fontello: require('../../assets/fonts/fontello.ttf'),
    });
-   registerCustomIconType('fontello', Icon);
+   registerCustomIconType('Fontello', Icon); //customId (first arg) must match above key
 };

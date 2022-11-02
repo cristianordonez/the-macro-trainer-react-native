@@ -25,7 +25,7 @@ const cards = [
       id: 1,
    },
    {
-      logo: 'weight-lifter',
+      logo: 'gender-non-binary',
       type: 'material-community',
       title: 'Non-binary',
       description: null,

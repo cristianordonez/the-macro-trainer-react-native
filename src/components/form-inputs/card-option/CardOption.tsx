@@ -1,4 +1,4 @@
-import { Avatar, CheckBox, Icon, Text, useTheme } from '@rneui/themed';
+import { Avatar, Text, useTheme } from '@rneui/themed';
 import { Dispatch, SetStateAction } from 'react';
 import { TouchableHighlight, View } from 'react-native';
 import { CardOptionType } from '../../../../types/types';
@@ -33,32 +33,10 @@ export const CardOption = ({
                containerStyle={{ backgroundColor: theme.colors.secondary }}
             />
             <View style={global.cardTextContainer}>
-               <Text style={global.textBold}>{title}</Text>
-               {description ? <Text>{description}</Text> : null}
-               <CheckBox
-                  center
-                  containerStyle={{ backgroundColor: theme.colors.background }}
-                  checkedIcon={
-                     <Icon
-                        name='radio-button-checked'
-                        type='material'
-                        color={theme.colors.primary}
-                        size={25}
-                        iconStyle={{ alignSelf: 'flex-end' }}
-                     />
-                  }
-                  uncheckedIcon={
-                     <Icon
-                        name='radio-button-unchecked'
-                        type='material'
-                        color='grey'
-                        size={25}
-                        iconStyle={{ marginRight: 10 }}
-                     />
-                  }
-                  checked={true}
-                  onPress={() => setActiveId(id)}
-               />
+               <View style={global.size}>
+                  <Text style={global.textBold}>{title}</Text>
+                  {description ? <Text>{description}</Text> : null}
+               </View>
             </View>
          </View>
       </TouchableHighlight>
