@@ -2,10 +2,10 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WelcomeStackParamList } from '../../../types/types';
-import { CardOption } from '../../components/form-inputs/card-option/CardOption';
-import { CustomLinearProgress } from '../../components/linear-progress/CustomLinearProgress';
-import { global } from '../../style/global.styles';
+import { WelcomeStackParamList } from '../../../../types/types';
+import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
+import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
+import { global } from '../../../style/global.styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'ActivityLevel'>;
 

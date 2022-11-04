@@ -21,6 +21,6 @@ type CardOptionType = {
 
 type AgeItemType = {
    id: string;
-   title: string;
+   value: string;
 };
 export { WelcomeStackParamList, CardOptionType, AgeItemType };
