@@ -1,3 +1,5 @@
+import { ViewToken } from 'react-native';
+
 type WelcomeStackParamList = {
    Main: undefined;
    Login: undefined;
@@ -23,4 +25,19 @@ type AgeItemType = {
    id: string;
    value: string;
 };
-export { WelcomeStackParamList, CardOptionType, AgeItemType };
+
+type ViewableItems = {
+   viewableItems: ViewToken[];
+};
+
+type RenderItemType = {
+   item: AgeItemType;
+};
+
+export {
+   WelcomeStackParamList,
+   CardOptionType,
+   AgeItemType,
+   ViewableItems,
+   RenderItemType,
+};

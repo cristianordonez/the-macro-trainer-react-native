@@ -1,28 +1,30 @@
-import React, { useCallback, useState } from 'react';
+import React, { Dispatch, SetStateAction, useCallback, useRef } from 'react';
 import {
+   Dimensions,
    FlatList,
    NativeScrollEvent,
    NativeSyntheticEvent,
    SafeAreaView,
-   ViewToken,
 } from 'react-native';
-import { AgeItemType } from '../../../../types/types';
+import {
+   AgeItemType,
+   RenderItemType,
+   ViewableItems,
+} from '../../../../types/types';
 import { global } from '../../../style/global.styles';
 import { AgeSliderItem } from './AgeSliderItem';
-type RenderItemType = {
-   item: AgeItemType;
-};
-export const AgeSlider = () => {
-   const [selectedId, setSelectedId] = useState('18');
 
+interface Props {
+   selectedId: string;
+   setSelectedId: Dispatch<SetStateAction<string>>;
+}
+export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
    let DATA = [
       {
          id: '0',
          value: '0',
       },
    ];
-
-   // (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 
    const handleScroll = async (
       event: NativeSyntheticEvent<NativeScrollEvent>
@@ -40,18 +42,32 @@ export const AgeSlider = () => {
       const { height } = event.nativeEvent.layoutMeasurement;
    };
 
-   const renderItem = ({ item }: RenderItemType) => {
-      const opacity = item.id === selectedId ? 1 : 0.5;
-      const fontSize = item.id === selectedId ? 32 : 20;
-      return (
-         <AgeSliderItem
-            item={item}
-            setSelectedId={setSelectedId}
-            opacity={{ opacity }}
-            fontSize={{ fontSize }}
-         />
-      );
+   const viewabilityConfig = {
+      viewAreaCoveragePercentThreshold: 100,
+      waitForInteraction: true,
    };
+   const ref = useRef<FlatList>(null);
+
+   const onViewableItemsChanged = useCallback(
+      ({ viewableItems }: ViewableItems) => {
+         const itemsInView = viewableItems.filter(
+            ({ item }: { item: AgeItemType }) => item.id && item.value
+         );
+         let currentId;
+         console.log('itemsInView.length: ', itemsInView.length);
+         if (itemsInView.length === 0) {
+            return;
+         } else if (itemsInView.length >= 2) {
+            currentId = itemsInView[1].item.id;
+         } else {
+            currentId = itemsInView[0].item.id;
+         }
+         console.log('itemsInView: ', itemsInView);
+
+         setSelectedId(currentId);
+      },
+      []
+   );
 
    const updateData = () => {
       let result = [];
@@ -64,43 +80,65 @@ export const AgeSlider = () => {
 
    updateData();
 
-   type ViewableItems = {
-      viewableItems: ViewToken[];
-   };
+   const { width, height } = Dimensions.get('window');
 
-   const viewabilityConfig = {
-      viewAreaCoveragePercentThreshold: 100,
-      waitForInteraction: true,
-   };
+   const ITEM_SIZE = width / 6.38;
+   const SPACING = 10;
+   const FULL_SIZE = ITEM_SIZE + SPACING * 2;
 
-   const onViewableItemsChanged = useCallback(
-      ({ viewableItems }: ViewableItems) => {
-         console.log('viewableItems:', viewableItems);
-         setSelectedId(viewableItems[0].item.id);
-      },
-      []
-   );
+   const renderItem = ({ item }: RenderItemType) => {
+      const opacity = item.id === selectedId ? 1 : 0.5;
+      const fontSize = item.id === selectedId ? 20 : 20;
+      const paddingRight = item.id === '99' ? 0 : 0;
+      return (
+         <AgeSliderItem
+            item={item}
+            setSelectedId={setSelectedId}
+            opacity={{ opacity }}
+            fontSize={{ fontSize }}
+            width={{ width: ITEM_SIZE }}
+            height={{ height: 150 }}
+            marginHorizontal={{ marginHorizontal: SPACING }}
+            paddingRight={{ paddingRight }}
+         />
+      );
+   };
 
    return (
-      <SafeAreaView style={[global.size]}>
+      <SafeAreaView
+         style={[
+            global.size,
+            // { alignItems: 'center', justifyContent: 'center' },
+         ]}
+      >
          <FlatList
             data={DATA}
+            ref={ref}
             horizontal={true}
             renderItem={renderItem}
+            contentContainerStyle={{
+               alignItems: 'center',
+               justifyContent: 'center',
+               // marginHorizontal: SPACING,
+               paddingRight: 150,
+               paddingLeft: 150,
+               // marginRight: 125,
+               // paddingLeft: 5,
+            }}
             keyExtractor={(item) => item.id}
             extraData={selectedId}
-            snapToAlignment='center'
-            onScroll={handleScroll}
-            getItemLayout={(data, index) => ({
-               length: 75,
-               offset: 75 * index,
-               index,
-            })}
-            centerContent={true}
             showsHorizontalScrollIndicator={false}
             viewabilityConfig={viewabilityConfig}
-            // snapToInterval={Dimensions.get('window').width / 4}
+            decelerationRate='fast'
+            onScroll={handleScroll}
+            // getItemLayout={(data, index) => ({
+            //    length: 75,
+            //    offset: 75 * index,
+            //    index,
+            // })}
             onViewableItemsChanged={onViewableItemsChanged}
+            snapToAlignment='center'
+            snapToInterval={FULL_SIZE}
          />
       </SafeAreaView>
    );
