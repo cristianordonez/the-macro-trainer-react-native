@@ -1,9 +1,17 @@
 import { StyleSheet } from 'react-native';
 
 export const ageSliderStyles = StyleSheet.create({
-   container: {
-      // width: 75,
-      // height: 250,
+   contentContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingRight: 150,
+      paddingLeft: 150,
+   },
+   contentContainerText: {
+      // display: 'flex',
+      bottom: 200,
+   },
+   sliderItemContainer: {
       alignItems: 'center',
       justifyContent: 'center',
    },

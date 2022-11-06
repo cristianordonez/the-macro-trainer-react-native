@@ -22,27 +22,22 @@ interface Props {
    marginHorizontal: {
       marginHorizontal: number;
    };
-   paddingRight: {
-      paddingRight: number;
-   };
 }
 export const AgeSliderItem = ({
    item,
    setSelectedId,
    opacity,
    fontSize,
-   width,
    height,
+   width,
    marginHorizontal,
-   paddingRight,
 }: Props) => {
    return (
       <TouchableOpacity
          style={[
-            paddingRight,
-            ageSliderStyles.container,
-            width,
+            ageSliderStyles.sliderItemContainer,
             height,
+            width,
             marginHorizontal,
          ]}
          onPress={() => setSelectedId(item.id)}

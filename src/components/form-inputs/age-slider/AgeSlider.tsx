@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction, useCallback, useRef } from 'react';
+import { Text } from '@rneui/themed';
+import React, { Dispatch, SetStateAction, useRef } from 'react';
 import {
    Dimensions,
    FlatList,
@@ -6,13 +7,10 @@ import {
    NativeSyntheticEvent,
    SafeAreaView,
 } from 'react-native';
-import {
-   AgeItemType,
-   RenderItemType,
-   ViewableItems,
-} from '../../../../types/types';
+import { RenderItemType } from '../../../../types/types';
 import { global } from '../../../style/global.styles';
 import { AgeSliderItem } from './AgeSliderItem';
+import { ageSliderStyles } from './styles';
 
 interface Props {
    selectedId: string;
@@ -26,20 +24,17 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
       },
    ];
 
+   const { width } = Dimensions.get('window');
+   const ITEM_SIZE = width / 6.71;
+   const SPACING = 10;
+   const FULL_SIZE = ITEM_SIZE + SPACING * 2;
+
    const handleScroll = async (
       event: NativeSyntheticEvent<NativeScrollEvent>
    ) => {
-      // console.log(
-      //    'event.nativeEvent.layoutMeasurement:',
-      //    event.nativeEvent.layoutMeasurement
-      // );
-      // console.log(
-      //    'event.nativeEvent.contentOffset: ',
-      //    event.nativeEvent.contentOffset
-      // );
-      // console.log('event.nativeEvent: ', event.nativeEvent);
       const { x } = event.nativeEvent.contentOffset;
-      const { height } = event.nativeEvent.layoutMeasurement;
+      const currentIndex = x / FULL_SIZE;
+      setSelectedId(Math.round(currentIndex) + '');
    };
 
    const viewabilityConfig = {
@@ -48,31 +43,10 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
    };
    const ref = useRef<FlatList>(null);
 
-   const onViewableItemsChanged = useCallback(
-      ({ viewableItems }: ViewableItems) => {
-         const itemsInView = viewableItems.filter(
-            ({ item }: { item: AgeItemType }) => item.id && item.value
-         );
-         let currentId;
-         console.log('itemsInView.length: ', itemsInView.length);
-         if (itemsInView.length === 0) {
-            return;
-         } else if (itemsInView.length >= 2) {
-            currentId = itemsInView[1].item.id;
-         } else {
-            currentId = itemsInView[0].item.id;
-         }
-         console.log('itemsInView: ', itemsInView);
-
-         setSelectedId(currentId);
-      },
-      []
-   );
-
    const updateData = () => {
       let result = [];
       for (let i = 18; i < 100; i++) {
-         let currentItem = { id: i + '', value: i + '' };
+         let currentItem = { id: i - 18 + '', value: i + '' };
          result.push(currentItem);
       }
       DATA = result;
@@ -80,16 +54,9 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
 
    updateData();
 
-   const { width, height } = Dimensions.get('window');
-
-   const ITEM_SIZE = width / 6.38;
-   const SPACING = 10;
-   const FULL_SIZE = ITEM_SIZE + SPACING * 2;
-
    const renderItem = ({ item }: RenderItemType) => {
       const opacity = item.id === selectedId ? 1 : 0.5;
-      const fontSize = item.id === selectedId ? 20 : 20;
-      const paddingRight = item.id === '99' ? 0 : 0;
+      const fontSize = 30;
       return (
          <AgeSliderItem
             item={item}
@@ -97,49 +64,41 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
             opacity={{ opacity }}
             fontSize={{ fontSize }}
             width={{ width: ITEM_SIZE }}
-            height={{ height: 150 }}
+            height={{ height: 100 }}
             marginHorizontal={{ marginHorizontal: SPACING }}
-            paddingRight={{ paddingRight }}
          />
       );
    };
 
    return (
-      <SafeAreaView
-         style={[
-            global.size,
-            // { alignItems: 'center', justifyContent: 'center' },
-         ]}
-      >
+      <SafeAreaView style={[global.containerCenter]}>
          <FlatList
             data={DATA}
             ref={ref}
             horizontal={true}
             renderItem={renderItem}
-            contentContainerStyle={{
-               alignItems: 'center',
-               justifyContent: 'center',
-               // marginHorizontal: SPACING,
-               paddingRight: 150,
-               paddingLeft: 150,
-               // marginRight: 125,
-               // paddingLeft: 5,
-            }}
+            contentContainerStyle={ageSliderStyles.contentContainer}
             keyExtractor={(item) => item.id}
             extraData={selectedId}
             showsHorizontalScrollIndicator={false}
             viewabilityConfig={viewabilityConfig}
             decelerationRate='fast'
             onScroll={handleScroll}
-            // getItemLayout={(data, index) => ({
-            //    length: 75,
-            //    offset: 75 * index,
-            //    index,
-            // })}
-            onViewableItemsChanged={onViewableItemsChanged}
+            getItemLayout={(data, index) => ({
+               length: 78,
+               offset: 78 * index,
+               index,
+            })}
+            // onViewableItemsChanged={onViewableItemsChanged}
             snapToAlignment='center'
             snapToInterval={FULL_SIZE}
          />
+         <Text
+            style={[global.textCenter, ageSliderStyles.contentContainerText]}
+            h4
+         >
+            Years old
+         </Text>
       </SafeAreaView>
    );
 };

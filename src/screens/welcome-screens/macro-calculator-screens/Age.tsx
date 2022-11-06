@@ -10,16 +10,15 @@ import { global } from '../../../style/global.styles';
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Age'>;
 
 export const Age = ({ navigation }: Props) => {
-   const [selectedId, setSelectedId] = useState('18');
+   const [selectedId, setSelectedId] = useState<string>('0');
 
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={4} progress={0.56} />
-         <Text h4>How old are you?</Text>
+         <Text style={global.screenTitle} h4>
+            How old are you?
+         </Text>
          <AgeSlider selectedId={selectedId} setSelectedId={setSelectedId} />
-
-         <Text style={global.textBold}>{selectedId}</Text>
-         <Text style={global.textBold}>years old</Text>
          <Button
             onPress={() => navigation.navigate('Height')}
             title={`Continue`}
