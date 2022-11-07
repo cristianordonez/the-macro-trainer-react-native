@@ -17,7 +17,6 @@ export const global = StyleSheet.create({
       paddingRight: 10,
       paddingBottom: '5%',
    },
-
    containerCenter: {
       flex: 1,
       alignItems: 'center',
@@ -53,5 +52,20 @@ export const global = StyleSheet.create({
       fontWeight: 'bold',
       fontSize: 16,
       paddingBottom: 5,
+   },
+   toggleContainer: {
+      width: 100,
+      height: 'auto',
+   },
+   inputContainer: {
+      width: 200,
+   },
+   inputRow: {
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center',
+      width: '100%',
+      height: '75%',
    },
 });

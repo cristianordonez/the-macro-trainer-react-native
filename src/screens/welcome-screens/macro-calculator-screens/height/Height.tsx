@@ -51,9 +51,7 @@ export const Height = ({ navigation }: Props) => {
             <Text h4 style={global.screenTitle}>
                How tall are you?
             </Text>
-            <View
-               style={[{ width: '100%', height: '75%' }, heightStyles.inputRow]}
-            >
+            <View style={[global.inputRow]}>
                {selectedIndex === 0 ? (
                   <DropDownGroup
                      openFt={openFt}
@@ -72,7 +70,7 @@ export const Height = ({ navigation }: Props) => {
                      setCurrentInchValue={setCurrentInchValue}
                   />
                ) : (
-                  <View style={heightStyles.inputContainer}>
+                  <View style={global.inputContainer}>
                      <CustomNumberInput
                         placeholder={'Cm'}
                         secureTextEntry={false}
@@ -81,7 +79,7 @@ export const Height = ({ navigation }: Props) => {
                      />
                   </View>
                )}
-               <View style={heightStyles.toggleContainer}>
+               <View style={global.toggleContainer}>
                   <CustomButtonGroup
                      buttons={['ft', 'cm']}
                      selectedIndex={selectedIndex}

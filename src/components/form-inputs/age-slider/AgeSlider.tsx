@@ -31,13 +31,6 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
       },
    ]);
 
-   // let data = [
-   //    {
-   //       id: '0',
-   //       value: '18',
-   //    },
-   // ];
-
    const { width } = Dimensions.get('window');
    const ITEM_SIZE = width / 6.7;
    const SPACING = 10;
@@ -68,7 +61,6 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
          let currentItem = { id: i - 18 + '', value: i + '' };
          result.push(currentItem);
       }
-      // data = result;
       setData(result);
    };
 
