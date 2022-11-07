@@ -8,7 +8,6 @@ export const ageSliderStyles = StyleSheet.create({
       paddingLeft: 150,
    },
    contentContainerText: {
-      // display: 'flex',
       bottom: 200,
    },
    sliderItemContainer: {

@@ -17,6 +17,7 @@ export const customTheme = createTheme({
       background: '#ffffff',
       link: '#14ffec',
       searchBg: '#151E34',
+      grey0: '#292d3e',
    },
    darkColors: {
       primary: '#8859b6',
@@ -24,6 +25,7 @@ export const customTheme = createTheme({
       background: '#080C24',
       link: '#14ffec',
       searchBg: '#151E34',
+      grey0: '#292d3e',
    },
    mode: 'dark',
 });

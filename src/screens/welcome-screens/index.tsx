@@ -8,7 +8,7 @@ import { ActivityLevel } from './macro-calculator-screens/ActivityLevel';
 import { Age } from './macro-calculator-screens/Age';
 import { Gender } from './macro-calculator-screens/Gender';
 import { Goals } from './macro-calculator-screens/Goals';
-import { Height } from './macro-calculator-screens/Height';
+import { Height } from './macro-calculator-screens/height/Height';
 import { Weight } from './macro-calculator-screens/Weight';
 import { Main } from './main/Main';
 import { Signup } from './signup/Signup';

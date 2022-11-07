@@ -1,5 +1,12 @@
 import { Text } from '@rneui/themed';
-import React, { Dispatch, SetStateAction, useRef } from 'react';
+import React, {
+   Dispatch,
+   SetStateAction,
+   useCallback,
+   useEffect,
+   useRef,
+   useState,
+} from 'react';
 import {
    Dimensions,
    FlatList,
@@ -17,25 +24,37 @@ interface Props {
    setSelectedId: Dispatch<SetStateAction<string>>;
 }
 export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
-   let DATA = [
+   const [data, setData] = useState([
       {
          id: '0',
-         value: '0',
+         value: '18',
       },
-   ];
+   ]);
+
+   // let data = [
+   //    {
+   //       id: '0',
+   //       value: '18',
+   //    },
+   // ];
 
    const { width } = Dimensions.get('window');
-   const ITEM_SIZE = width / 6.71;
+   const ITEM_SIZE = width / 6.7;
    const SPACING = 10;
    const FULL_SIZE = ITEM_SIZE + SPACING * 2;
 
-   const handleScroll = async (
-      event: NativeSyntheticEvent<NativeScrollEvent>
-   ) => {
-      const { x } = event.nativeEvent.contentOffset;
-      const currentIndex = x / FULL_SIZE;
-      setSelectedId(Math.round(currentIndex) + '');
-   };
+   console.log('width: ', width);
+   console.log('ITEM_SIZE: ', ITEM_SIZE);
+   console.log('FULL_SIZE: ', FULL_SIZE);
+   const handleScroll = useCallback(
+      (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+         const { x } = event.nativeEvent.contentOffset;
+         const currentIndex = x / FULL_SIZE;
+         console.log('x: ', x);
+         setSelectedId(Math.round(currentIndex) + '');
+      },
+      []
+   );
 
    const viewabilityConfig = {
       viewAreaCoveragePercentThreshold: 100,
@@ -49,14 +68,17 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
          let currentItem = { id: i - 18 + '', value: i + '' };
          result.push(currentItem);
       }
-      DATA = result;
+      // data = result;
+      setData(result);
    };
 
-   updateData();
+   useEffect(() => {
+      updateData();
+   }, []);
 
    const renderItem = ({ item }: RenderItemType) => {
       const opacity = item.id === selectedId ? 1 : 0.5;
-      const fontSize = 30;
+      const fontSize = 24;
       return (
          <AgeSliderItem
             item={item}
@@ -73,7 +95,7 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
    return (
       <SafeAreaView style={[global.containerCenter]}>
          <FlatList
-            data={DATA}
+            data={data}
             ref={ref}
             horizontal={true}
             renderItem={renderItem}
@@ -89,7 +111,6 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
                offset: 78 * index,
                index,
             })}
-            // onViewableItemsChanged={onViewableItemsChanged}
             snapToAlignment='center'
             snapToInterval={FULL_SIZE}
          />

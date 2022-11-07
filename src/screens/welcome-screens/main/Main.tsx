@@ -28,8 +28,9 @@ export const Main = ({ navigation }: Props) => {
             />
          </View>
          <View style={mainStyles.btnContainer}>
+            {/* change back to signup */}
             <Button
-               onPress={() => navigation.navigate('Signup')}
+               onPress={() => navigation.navigate('Age')}
                raised
                title='Get started'
                type='solid'
