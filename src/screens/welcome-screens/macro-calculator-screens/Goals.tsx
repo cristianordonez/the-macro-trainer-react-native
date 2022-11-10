@@ -1,21 +1,25 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text } from '@rneui/themed';
+import { updateGoal } from '../../../app/reducers/userReducer';
+
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WelcomeStackParamList } from '../../../../types/types';
+import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
+import { useAppDispatch } from '../../../app/hooks/reduxHooks';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { global } from '../../../style/global.styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Goals'>;
 
-const cards = [
+const cards: CardOptionType[] = [
    {
       logo: 'scale-bathroom',
       type: 'material-community',
       title: 'Lose weight',
       description: 'Achieve healthy, maintainable weight loss ',
       id: 0,
+      value: 'weight_loss',
    },
    {
       logo: 'balance-scale',
@@ -23,6 +27,7 @@ const cards = [
       title: 'Maintain',
       description: 'Keep weight stable while staying in shape',
       id: 1,
+      value: 'maintain',
    },
    {
       logo: 'weight-lifter',
@@ -30,10 +35,20 @@ const cards = [
       title: 'Gain muscle',
       description: 'Increase in weight and strength',
       id: 2,
+      value: 'weight_gain',
    },
 ];
+
 export const Goals = ({ navigation }: Props) => {
-   const [activeId, setActiveId] = useState<number | null>(null);
+   const [activeVal, setActiveVal] = useState<CardOptionType['value']>('');
+
+   const dispatch = useAppDispatch();
+
+   const handlePress = () => {
+      const action = updateGoal(activeVal);
+      dispatch(action);
+      navigation.navigate('ActivityLevel');
+   };
 
    return (
       <View style={global.screenEnd}>
@@ -50,16 +65,13 @@ export const Goals = ({ navigation }: Props) => {
                   description={card.description}
                   title={card.title}
                   id={card.id}
-                  activeId={activeId}
-                  setActiveId={setActiveId}
+                  value={card.value}
+                  activeVal={activeVal}
+                  setActiveVal={setActiveVal}
                />
             ))}
          </View>
-         <Button
-            onPress={() => navigation.navigate('ActivityLevel')}
-            title={`Continue`}
-            size='lg'
-         />
+         <Button onPress={handlePress} title={`Continue`} size='lg' />
       </View>
    );
 };

@@ -32,7 +32,7 @@ const cards = [
    },
 ];
 
-export const Signup = ({ navigation }: Props) => {
+export const SignupInfo = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={0} progress={0} />

@@ -7,7 +7,7 @@ export const global = StyleSheet.create({
       justifyContent: 'center',
       paddingLeft: 10,
       paddingRight: 10,
-      paddingBottom: '5%',
+      paddingBottom: '15%',
    },
    screenEnd: {
       flex: 1,
@@ -15,7 +15,7 @@ export const global = StyleSheet.create({
       justifyContent: 'space-between',
       paddingLeft: 10,
       paddingRight: 10,
-      paddingBottom: '5%',
+      paddingBottom: 50,
    },
    containerCenter: {
       flex: 1,

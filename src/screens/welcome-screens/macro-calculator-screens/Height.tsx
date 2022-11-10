@@ -1,14 +1,13 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text, useTheme } from '@rneui/themed';
+import { Button, Text } from '@rneui/themed';
 import React, { useCallback, useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
-import { WelcomeStackParamList } from '../../../../../types/types';
-import { CustomButtonGroup } from '../../../../components/form-inputs/custom-button-group/CustomButtonGroup';
-import { CustomNumberInput } from '../../../../components/form-inputs/custom-number-input/CustomNumberInput';
-import { DropDownGroup } from '../../../../components/form-inputs/drop-down-group/DropDownGroup';
-import { CustomLinearProgress } from '../../../../components/linear-progress/CustomLinearProgress';
-import { global } from '../../../../style/global.styles';
-import { makeHeightStyles } from './styles';
+import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
+import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
+import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
+import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
+import { global } from '../../../style/global.styles';
 
 type DropDownItem = {
    label: string;
@@ -18,17 +17,16 @@ type DropDownItem = {
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Height'>;
 
 export const Height = ({ navigation }: Props) => {
-   const { theme } = useTheme();
-
    const [selectedIndex, setSelectedIndex] = useState(0);
+   const [ftItems, setFtItems] = useState<[] | DropDownItem[]>([]);
    const [openFt, setOpenFt] = useState(false);
    const [currentFtValue, setCurrentFtValue] = useState<null | number>(null);
-   const [ftItems, setFtItems] = useState<[] | DropDownItem[]>([]);
+   const [inchItems, setInchItems] = useState<[] | DropDownItem[]>([]);
    const [openInch, setOpenInch] = useState<boolean>(false);
    const [currentInchValue, setCurrentInchValue] = useState<null | number>(
       null
    );
-   const [inchItems, setInchItems] = useState<[] | DropDownItem[]>([]);
+   const [currentCmVal, setCurrentCmVal] = useState<string>('0');
 
    const onFtOpen = useCallback(() => {
       setOpenInch(false);
@@ -38,7 +36,16 @@ export const Height = ({ navigation }: Props) => {
       setOpenFt(false);
    }, []);
 
-   const heightStyles = makeHeightStyles(theme.colors);
+   const handlePress = () => {
+      console.log('selectedIndex: ', selectedIndex);
+      console.log('currentFtValue: ', currentFtValue);
+      console.log('currentCmVal: ', currentCmVal);
+      console.log('curentInchValue: ', currentInchValue);
+      // navigation.navigate('Weight');
+
+      //todo send heightMetric (either inch or cm), currentFtValue, currentInchValue,
+   };
+
    return (
       <TouchableWithoutFeedback
          onPress={() => {
@@ -75,7 +82,9 @@ export const Height = ({ navigation }: Props) => {
                         placeholder={'Cm'}
                         secureTextEntry={false}
                         keyboardType={'numeric'}
+                        setVal={setCurrentCmVal}
                         rightLabelVal={'cm'}
+                        value={currentCmVal}
                      />
                   </View>
                )}
@@ -87,11 +96,7 @@ export const Height = ({ navigation }: Props) => {
                   />
                </View>
             </View>
-            <Button
-               onPress={() => navigation.navigate('Weight')}
-               title={`Continue`}
-               size='lg'
-            />
+            <Button onPress={handlePress} title={`Continue`} size='lg' />
          </View>
       </TouchableWithoutFeedback>
    );

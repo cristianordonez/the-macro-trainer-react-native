@@ -12,6 +12,7 @@ type Props = NativeStackScreenProps<WelcomeStackParamList, 'Weight'>;
 
 export const Weight = ({ navigation }: Props) => {
    const [selectedIndex, setSelectedIndex] = useState(0);
+   const [currentWeight, setCurrentWeight] = useState<string>('0');
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={6} progress={0.82} />
@@ -24,6 +25,8 @@ export const Weight = ({ navigation }: Props) => {
                   placeholder={selectedIndex === 0 ? 'lbs' : 'kg'}
                   secureTextEntry={false}
                   keyboardType={'numeric'}
+                  value={currentWeight}
+                  setVal={setCurrentWeight}
                   rightLabelVal={selectedIndex === 0 ? 'lbs' : 'kg'}
                />
             </View>
@@ -36,7 +39,7 @@ export const Weight = ({ navigation }: Props) => {
             </View>
          </View>
          <Button
-            onPress={() => navigation.navigate('Main')}
+            onPress={() => navigation.navigate('CompleteRegistration')}
             title={`Complete`}
             size='lg'
          />

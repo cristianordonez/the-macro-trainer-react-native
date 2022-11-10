@@ -2,20 +2,23 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WelcomeStackParamList } from '../../../../types/types';
+import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
+import { useAppDispatch } from '../../../app/hooks/reduxHooks';
+import { updateGender } from '../../../app/reducers/userReducer';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { global } from '../../../style/global.styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Gender'>;
 
-const cards = [
+const cards: CardOptionType[] = [
    {
       logo: 'male-symbol',
       type: 'foundation',
       title: 'Male',
       description: null,
       id: 0,
+      value: 'male',
    },
    {
       logo: 'female-symbol',
@@ -23,6 +26,7 @@ const cards = [
       title: 'Female',
       description: null,
       id: 1,
+      value: 'female',
    },
    {
       logo: 'gender-non-binary',
@@ -30,11 +34,19 @@ const cards = [
       title: 'Non-binary',
       description: null,
       id: 2,
+      value: 'non_binary',
    },
 ];
 
 export const Gender = ({ navigation }: Props) => {
-   const [activeId, setActiveId] = useState<number | null>(null);
+   const [activeVal, setActiveVal] = useState<CardOptionType['value']>('');
+   const dispatch = useAppDispatch();
+
+   const handlePress = () => {
+      const action = updateGender(activeVal);
+      dispatch(action);
+      navigation.navigate('Age');
+   };
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={3} progress={0.42} />
@@ -50,17 +62,14 @@ export const Gender = ({ navigation }: Props) => {
                   type={card.type}
                   description={card.description}
                   title={card.title}
+                  value={card.value}
                   id={card.id}
-                  activeId={activeId}
-                  setActiveId={setActiveId}
+                  activeVal={activeVal}
+                  setActiveVal={setActiveVal}
                />
             ))}
          </View>
-         <Button
-            onPress={() => navigation.navigate('Age')}
-            title={`Continue`}
-            size='lg'
-         />
+         <Button onPress={handlePress} title={`Continue`} size='lg' />
       </View>
    );
 };

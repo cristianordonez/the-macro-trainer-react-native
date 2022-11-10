@@ -2,20 +2,23 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
-import { WelcomeStackParamList } from '../../../../types/types';
+import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
+import { useAppDispatch } from '../../../app/hooks/reduxHooks';
+import { updateActivityLevel } from '../../../app/reducers/userReducer';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { global } from '../../../style/global.styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'ActivityLevel'>;
 
-const cards = [
+const cards: CardOptionType[] = [
    {
       logo: 'sitting',
       type: 'Fontello',
       title: 'Sedentary',
       description: 'Little to no exercise',
       id: 0,
+      value: 'sedentary',
    },
    {
       logo: 'walking',
@@ -24,6 +27,7 @@ const cards = [
       description:
          'About 150 minutes moderate intensity or 75 minutes high intensity exercise per week',
       id: 1,
+      value: 'moderatelyActive',
    },
    {
       logo: 'running',
@@ -32,11 +36,19 @@ const cards = [
       description:
          'About 250 minutes moderate intensity or 150 minutes high intensity exercise per week',
       id: 2,
+      value: 'active',
    },
 ];
 
 export const ActivityLevel = ({ navigation }: Props) => {
-   const [activeId, setActiveId] = useState<number | null>(null);
+   const [activeVal, setActiveVal] = useState<CardOptionType['value']>('');
+   const dispatch = useAppDispatch();
+
+   const handlePress = () => {
+      const action = updateActivityLevel(activeVal);
+      dispatch(action);
+      navigation.navigate('Gender');
+   };
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={2} progress={0.28} />
@@ -52,16 +64,13 @@ export const ActivityLevel = ({ navigation }: Props) => {
                   description={card.description}
                   title={card.title}
                   id={card.id}
-                  activeId={activeId}
-                  setActiveId={setActiveId}
+                  value={card.value}
+                  activeVal={activeVal}
+                  setActiveVal={setActiveVal}
                />
             ))}
          </View>
-         <Button
-            onPress={() => navigation.navigate('Gender')}
-            title={`Continue`}
-            size='lg'
-         />
+         <Button onPress={handlePress} title={`Continue`} size='lg' />
       </View>
    );
 };

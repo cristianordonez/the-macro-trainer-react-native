@@ -1,5 +1,6 @@
 import { Icon, Input, useTheme } from '@rneui/themed';
 import { KeyboardTypeOptions } from 'react-native';
+import { TextContentType } from '../../../../types/types';
 import { inputStyles } from './styles';
 
 interface Props {
@@ -8,28 +9,29 @@ interface Props {
    keyboardType: KeyboardTypeOptions | undefined;
    iconName: string;
    iconType: string;
-   label: 'Email' | 'Password';
+   textContentType: TextContentType;
+   label: 'Email' | 'Password' | 'Username' | 'Confirm Password';
 }
 
 export const CustomInput = ({
    placeholder,
    secureTextEntry,
    keyboardType,
+   textContentType,
    iconName,
    iconType,
    label,
 }: Props) => {
    const { theme } = useTheme();
 
-   const textContentType = label === 'Email' ? 'emailAddress' : 'password';
    return (
       <Input
          placeholder={placeholder}
          containerStyle={inputStyles.input}
-         textContentType={textContentType}
          secureTextEntry={secureTextEntry}
          keyboardType={keyboardType}
          keyboardAppearance='dark'
+         textContentType={textContentType}
          returnKeyType='done'
          inputContainerStyle={inputStyles.input}
          leftIcon={

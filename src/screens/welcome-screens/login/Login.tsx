@@ -31,6 +31,7 @@ export const Login = ({ navigation }: Props) => {
                   iconName={'email'}
                   iconType={'material-community'}
                   label={'Email'}
+                  textContentType='emailAddress'
                />
                <CustomInput
                   placeholder='Password'
@@ -39,6 +40,7 @@ export const Login = ({ navigation }: Props) => {
                   iconName={'key'}
                   iconType={'entypo'}
                   label={'Password'}
+                  textContentType='password'
                />
                <Text
                   style={{

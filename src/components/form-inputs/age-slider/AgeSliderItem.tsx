@@ -6,7 +6,7 @@ import { ageSliderStyles } from './styles';
 
 interface Props {
    item: AgeItemType;
-   setSelectedId: Dispatch<SetStateAction<string>>;
+   setSelectedVal: Dispatch<SetStateAction<string>>;
    opacity: {
       opacity: number;
    };
@@ -25,7 +25,7 @@ interface Props {
 }
 export const AgeSliderItem = ({
    item,
-   setSelectedId,
+   setSelectedVal,
    opacity,
    fontSize,
    height,
@@ -40,7 +40,7 @@ export const AgeSliderItem = ({
             width,
             marginHorizontal,
          ]}
-         onPress={() => setSelectedId(item.id)}
+         onPress={() => setSelectedVal(item.value)}
       >
          <Text style={[opacity, fontSize]}>{item.value}</Text>
       </TouchableOpacity>

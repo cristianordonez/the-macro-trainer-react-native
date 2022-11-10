@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '@rneui/themed';
+import { FieldValues } from 'react-hook-form';
 import { WelcomeStackParamList } from '../../../types/types';
 import { Logo } from '../../components/logo/Logo';
 import { CompleteRegistration } from './complete-registration-form/CompleteRegistration';
@@ -8,16 +9,49 @@ import { ActivityLevel } from './macro-calculator-screens/ActivityLevel';
 import { Age } from './macro-calculator-screens/Age';
 import { Gender } from './macro-calculator-screens/Gender';
 import { Goals } from './macro-calculator-screens/Goals';
-import { Height } from './macro-calculator-screens/height/Height';
+import { Height } from './macro-calculator-screens/Height';
 import { Weight } from './macro-calculator-screens/Weight';
 import { Main } from './main/Main';
-import { Signup } from './signup/Signup';
+import { SignupInfo } from './signup-info/SignupInfo';
 
 const WelcomeStack = createStackNavigator<WelcomeStackParamList>();
 
+type FormData = {
+   firstName: string;
+   lastName: string;
+};
+
 export const WelcomeStackScreen = () => {
    const { theme } = useTheme();
+   // const {
+   //    control,
+   //    handleSubmit,
+   //    formState: { errors },
+   // } = useForm({
+   //    defaultValues: {
+   //       goals: '',
+   //       activityLevel: '',
+   //       gender: '',
+   //       age: 18,
+   //       numFt: 5,
+   //       numInch: 0,
+   //       numCm: 0,
+   //       heightMetric: 'ft',
+   //       weight: 0,
+   //       weightMetric: 'lb',
+   //       username: '',
+   //       email: '',
+   //       password: '',
+   //       confirmPassword: '',
+   //    },
+   // });
+
+   //todo use store to save all data except that on last screen
+
+   const onSubmit = (data: FieldValues) => console.log(data);
+
    return (
+      // <form onSubmit={handleSubmit(onSubmit)}>
       <WelcomeStack.Navigator
          screenOptions={{
             headerTitle: (props) => <Logo />,
@@ -38,7 +72,7 @@ export const WelcomeStackScreen = () => {
       >
          <WelcomeStack.Screen name='Main' component={Main} />
          <WelcomeStack.Screen name='Login' component={Login} />
-         <WelcomeStack.Screen name='Signup' component={Signup} />
+         <WelcomeStack.Screen name='Signup' component={SignupInfo} />
          <WelcomeStack.Screen name='Goals' component={Goals} />
          <WelcomeStack.Screen name='ActivityLevel' component={ActivityLevel} />
          <WelcomeStack.Screen name='Gender' component={Gender} />
@@ -50,5 +84,6 @@ export const WelcomeStackScreen = () => {
             component={CompleteRegistration}
          />
       </WelcomeStack.Navigator>
+      // </form>
    );
 };

@@ -20,13 +20,13 @@ import { AgeSliderItem } from './AgeSliderItem';
 import { ageSliderStyles } from './styles';
 
 interface Props {
-   selectedId: string;
-   setSelectedId: Dispatch<SetStateAction<string>>;
+   selectedVal: string;
+   setSelectedVal: Dispatch<SetStateAction<string>>;
 }
-export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
+export const AgeSlider = ({ selectedVal, setSelectedVal }: Props) => {
    const [data, setData] = useState([
       {
-         id: '0',
+         index: '0',
          value: '18',
       },
    ]);
@@ -36,15 +36,11 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
    const SPACING = 10;
    const FULL_SIZE = ITEM_SIZE + SPACING * 2;
 
-   console.log('width: ', width);
-   console.log('ITEM_SIZE: ', ITEM_SIZE);
-   console.log('FULL_SIZE: ', FULL_SIZE);
    const handleScroll = useCallback(
       (event: NativeSyntheticEvent<NativeScrollEvent>) => {
          const { x } = event.nativeEvent.contentOffset;
          const currentIndex = x / FULL_SIZE;
-         console.log('x: ', x);
-         setSelectedId(Math.round(currentIndex) + '');
+         setSelectedVal(Math.round(currentIndex + 18) + '');
       },
       []
    );
@@ -58,7 +54,7 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
    const updateData = () => {
       let result = [];
       for (let i = 18; i < 100; i++) {
-         let currentItem = { id: i - 18 + '', value: i + '' };
+         let currentItem = { index: i - 18 + '', value: i + '' };
          result.push(currentItem);
       }
       setData(result);
@@ -69,12 +65,12 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
    }, []);
 
    const renderItem = ({ item }: RenderItemType) => {
-      const opacity = item.id === selectedId ? 1 : 0.5;
+      const opacity = item.value === selectedVal ? 1 : 0.5;
       const fontSize = 24;
       return (
          <AgeSliderItem
             item={item}
-            setSelectedId={setSelectedId}
+            setSelectedVal={setSelectedVal}
             opacity={{ opacity }}
             fontSize={{ fontSize }}
             width={{ width: ITEM_SIZE }}
@@ -92,8 +88,7 @@ export const AgeSlider = ({ selectedId, setSelectedId }: Props) => {
             horizontal={true}
             renderItem={renderItem}
             contentContainerStyle={ageSliderStyles.contentContainer}
-            keyExtractor={(item) => item.id}
-            extraData={selectedId}
+            keyExtractor={(item) => item.index}
             showsHorizontalScrollIndicator={false}
             viewabilityConfig={viewabilityConfig}
             decelerationRate='fast'

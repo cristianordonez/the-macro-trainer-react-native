@@ -4,10 +4,9 @@ import { TouchableHighlight, View } from 'react-native';
 import { CardOptionType } from '../../../../types/types';
 import { global } from '../../../style/global.styles';
 import { makeCardStyles } from './makeCardStyles';
-
 interface Props extends CardOptionType {
-   activeId: number | null;
-   setActiveId: Dispatch<SetStateAction<number | null>>;
+   activeVal: CardOptionType['value'];
+   setActiveVal: Dispatch<SetStateAction<CardOptionType['value']>>;
 }
 
 export const CardOption = ({
@@ -15,16 +14,17 @@ export const CardOption = ({
    type,
    title,
    description,
-   id,
-   activeId,
-   setActiveId,
+   value,
+   activeVal,
+   setActiveVal,
 }: Props) => {
    const { theme } = useTheme();
    const cardStyles = makeCardStyles(theme.colors);
+
    return (
       <TouchableHighlight
-         style={activeId === id ? cardStyles.active : cardStyles.inactive}
-         onPress={() => setActiveId(id)}
+         style={activeVal === value ? cardStyles.active : cardStyles.inactive}
+         onPress={() => setActiveVal(value)}
       >
          <View style={[cardStyles.container]}>
             <Avatar

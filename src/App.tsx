@@ -27,7 +27,6 @@ export default function App() {
    };
 
    useEffect(() => {
-      //loads fonts and all data before app is shown to users
       async function prepare() {
          try {
             await useFonts();
