@@ -3,6 +3,8 @@ import { Button, Text } from '@rneui/themed';
 import React, { useCallback, useState } from 'react';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { useAppDispatch } from '../../../app/hooks/reduxHooks';
+import { updateHeight } from '../../../app/reducers/userReducer';
 import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
@@ -17,15 +19,15 @@ type DropDownItem = {
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Height'>;
 
 export const Height = ({ navigation }: Props) => {
+   const dispatch = useAppDispatch();
+
    const [selectedIndex, setSelectedIndex] = useState(0);
    const [ftItems, setFtItems] = useState<[] | DropDownItem[]>([]);
    const [openFt, setOpenFt] = useState(false);
-   const [currentFtValue, setCurrentFtValue] = useState<null | number>(null);
+   const [currentFtVal, setCurrentFtVal] = useState<null | number>(null);
    const [inchItems, setInchItems] = useState<[] | DropDownItem[]>([]);
    const [openInch, setOpenInch] = useState<boolean>(false);
-   const [currentInchValue, setCurrentInchValue] = useState<null | number>(
-      null
-   );
+   const [currentInchVal, setCurrentInchVal] = useState<null | number>(null);
    const [currentCmVal, setCurrentCmVal] = useState<string>('0');
 
    const onFtOpen = useCallback(() => {
@@ -38,12 +40,20 @@ export const Height = ({ navigation }: Props) => {
 
    const handlePress = () => {
       console.log('selectedIndex: ', selectedIndex);
-      console.log('currentFtValue: ', currentFtValue);
+      console.log('currentFtVal: ', currentFtVal);
       console.log('currentCmVal: ', currentCmVal);
-      console.log('curentInchValue: ', currentInchValue);
-      // navigation.navigate('Weight');
-
-      //todo send heightMetric (either inch or cm), currentFtValue, currentInchValue,
+      console.log('curentInchValue: ', currentInchVal);
+      let height, heightMetric;
+      if (selectedIndex === 0) {
+         height = Number(currentFtVal) * 12 + Number(currentInchVal);
+         heightMetric = 'inch';
+      } else {
+         height = Number(currentCmVal);
+         heightMetric = 'cm';
+      }
+      const action = updateHeight({ height, heightMetric });
+      dispatch(action);
+      navigation.navigate('Weight');
    };
 
    return (
@@ -71,10 +81,10 @@ export const Height = ({ navigation }: Props) => {
                      setInchItems={setInchItems}
                      onFtOpen={onFtOpen}
                      onInchOpen={onInchOpen}
-                     currentFtValue={currentFtValue}
-                     setCurrentFtValue={setCurrentFtValue}
-                     currentInchValue={currentInchValue}
-                     setCurrentInchValue={setCurrentInchValue}
+                     currentFtVal={currentFtVal}
+                     setCurrentFtVal={setCurrentFtVal}
+                     currentInchVal={currentInchVal}
+                     setCurrentInchVal={setCurrentInchVal}
                   />
                ) : (
                   <View style={global.inputContainer}>

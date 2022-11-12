@@ -18,10 +18,10 @@ interface Props {
    setInchItems: Dispatch<SetStateAction<[] | DropDownItem[]>>;
    onFtOpen: () => void;
    onInchOpen: () => void;
-   currentFtValue: null | number;
-   setCurrentFtValue: Dispatch<SetStateAction<null | number>>;
-   currentInchValue: null | number;
-   setCurrentInchValue: Dispatch<SetStateAction<null | number>>;
+   currentFtVal: null | number;
+   setCurrentFtVal: Dispatch<SetStateAction<null | number>>;
+   currentInchVal: null | number;
+   setCurrentInchVal: Dispatch<SetStateAction<null | number>>;
 }
 export const DropDownGroup = ({
    openFt,
@@ -34,10 +34,10 @@ export const DropDownGroup = ({
    setInchItems,
    onFtOpen,
    onInchOpen,
-   currentFtValue,
-   setCurrentFtValue,
-   currentInchValue,
-   setCurrentInchValue,
+   currentFtVal,
+   setCurrentFtVal,
+   currentInchVal,
+   setCurrentInchVal,
 }: Props) => {
    useEffect(() => {
       let feetItems = [] as unknown as DropDownItem[];
@@ -65,11 +65,11 @@ export const DropDownGroup = ({
             onOpen={onFtOpen}
             placeholder='ft'
             textStyle={dropDownGroupStyles.text}
-            value={currentFtValue}
+            value={currentFtVal}
             items={ftItems}
             setOpen={setOpenFt}
             containerStyle={dropDownGroupStyles.pickerContainer}
-            setValue={setCurrentFtValue}
+            setValue={setCurrentFtVal}
             setItems={setFtItems}
          />
          <DropDownPicker
@@ -79,11 +79,11 @@ export const DropDownGroup = ({
             textStyle={dropDownGroupStyles.text}
             onOpen={onInchOpen}
             theme={'DARK'}
-            value={currentInchValue}
+            value={currentInchVal}
             items={inchItems}
             containerStyle={dropDownGroupStyles.pickerContainer}
             setOpen={setOpenInch}
-            setValue={setCurrentInchValue}
+            setValue={setCurrentInchVal}
             setItems={setInchItems}
          />
       </>

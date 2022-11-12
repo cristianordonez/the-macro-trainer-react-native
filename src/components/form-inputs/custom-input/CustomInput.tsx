@@ -1,48 +1,71 @@
 import { Icon, Input, useTheme } from '@rneui/themed';
+import { Control, Controller } from 'react-hook-form';
 import { KeyboardTypeOptions } from 'react-native';
 import { TextContentType } from '../../../../types/types';
 import { inputStyles } from './styles';
 
 interface Props {
-   placeholder: string;
    secureTextEntry: boolean;
    keyboardType: KeyboardTypeOptions | undefined;
    iconName: string;
    iconType: string;
    textContentType: TextContentType;
    label: 'Email' | 'Password' | 'Username' | 'Confirm Password';
+   control: Control<
+      {
+         username: string;
+         email: string;
+         password: string;
+         confirmPassword: string;
+      },
+      any
+   >;
+   name: 'email' | 'password' | 'username' | 'confirmPassword';
 }
 
 export const CustomInput = ({
-   placeholder,
    secureTextEntry,
    keyboardType,
    textContentType,
    iconName,
    iconType,
    label,
+   control,
+   name,
 }: Props) => {
    const { theme } = useTheme();
 
    return (
-      <Input
-         placeholder={placeholder}
-         containerStyle={inputStyles.input}
-         secureTextEntry={secureTextEntry}
-         keyboardType={keyboardType}
-         keyboardAppearance='dark'
-         textContentType={textContentType}
-         returnKeyType='done'
-         inputContainerStyle={inputStyles.input}
-         leftIcon={
-            <Icon
-               name={iconName}
-               type={iconType}
-               size={20}
-               color={theme.colors.black}
+      <Controller
+         control={control}
+         rules={{
+            required: true,
+         }}
+         render={({ field: { onChange, onBlur, value } }) => (
+            <Input
+               containerStyle={inputStyles.input}
+               onBlur={onBlur}
+               onChangeText={onChange}
+               value={value}
+               placeholder={label}
+               secureTextEntry={secureTextEntry}
+               keyboardAppearance='dark'
+               keyboardType={keyboardType}
+               inputContainerStyle={inputStyles.input}
+               textContentType={textContentType}
+               label={label}
+               returnKeyType='done'
+               leftIcon={
+                  <Icon
+                     name={iconName}
+                     type={iconType}
+                     size={20}
+                     color={theme.colors.black}
+                  />
+               }
             />
-         }
-         label={label}
+         )}
+         name={name}
       />
    );
 };

@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '@rneui/themed';
-import { FieldValues } from 'react-hook-form';
 import { WelcomeStackParamList } from '../../../types/types';
 import { Logo } from '../../components/logo/Logo';
 import { CompleteRegistration } from './complete-registration-form/CompleteRegistration';
@@ -16,42 +15,10 @@ import { SignupInfo } from './signup-info/SignupInfo';
 
 const WelcomeStack = createStackNavigator<WelcomeStackParamList>();
 
-type FormData = {
-   firstName: string;
-   lastName: string;
-};
-
 export const WelcomeStackScreen = () => {
    const { theme } = useTheme();
-   // const {
-   //    control,
-   //    handleSubmit,
-   //    formState: { errors },
-   // } = useForm({
-   //    defaultValues: {
-   //       goals: '',
-   //       activityLevel: '',
-   //       gender: '',
-   //       age: 18,
-   //       numFt: 5,
-   //       numInch: 0,
-   //       numCm: 0,
-   //       heightMetric: 'ft',
-   //       weight: 0,
-   //       weightMetric: 'lb',
-   //       username: '',
-   //       email: '',
-   //       password: '',
-   //       confirmPassword: '',
-   //    },
-   // });
-
-   //todo use store to save all data except that on last screen
-
-   const onSubmit = (data: FieldValues) => console.log(data);
 
    return (
-      // <form onSubmit={handleSubmit(onSubmit)}>
       <WelcomeStack.Navigator
          screenOptions={{
             headerTitle: (props) => <Logo />,
@@ -84,6 +51,5 @@ export const WelcomeStackScreen = () => {
             component={CompleteRegistration}
          />
       </WelcomeStack.Navigator>
-      // </form>
    );
 };

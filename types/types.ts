@@ -13,6 +13,17 @@ type UserState = {
    weightMetric: 'lb' | 'kg';
 };
 
+type GlobalUserState = {
+   goal: string;
+   activityLevel: string;
+   gender: string;
+   age: number;
+   height: number;
+   heightMetric: string;
+   weight: number;
+   weightMetric: string;
+};
+
 type WelcomeStackParamList = {
    Main: undefined;
    Login: undefined;
@@ -85,4 +96,5 @@ export {
    ViewableItems,
    RenderItemType,
    TextContentType,
+   GlobalUserState,
 };
