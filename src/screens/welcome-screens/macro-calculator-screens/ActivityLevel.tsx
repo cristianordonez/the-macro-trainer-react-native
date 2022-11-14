@@ -3,11 +3,12 @@ import { Button, Text } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
-import { useAppDispatch } from '../../../app/hooks/reduxHooks';
-import { updateActivityLevel } from '../../../app/reducers/userReducer';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { updateActivityLevel } from '../../../reducers/userReducer';
 import { global } from '../../../style/global.styles';
+import { createAlert } from '../../../utils/createAlert';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'ActivityLevel'>;
 
@@ -45,9 +46,16 @@ export const ActivityLevel = ({ navigation }: Props) => {
    const dispatch = useAppDispatch();
 
    const handlePress = () => {
-      const action = updateActivityLevel(activeVal);
-      dispatch(action);
-      navigation.navigate('Gender');
+      if (activeVal === '') {
+         createAlert({
+            heading: 'Alert',
+            body: 'Please select an activity level.',
+         });
+      } else {
+         const action = updateActivityLevel(activeVal);
+         dispatch(action);
+         navigation.navigate('Gender');
+      }
    };
    return (
       <View style={global.screenEnd}>

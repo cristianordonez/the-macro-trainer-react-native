@@ -3,11 +3,12 @@ import { Button, Text } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
-import { useAppDispatch } from '../../../app/hooks/reduxHooks';
-import { updateGoal } from '../../../app/reducers/userReducer';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { updateGoal } from '../../../reducers/userReducer';
 import { global } from '../../../style/global.styles';
+import { createAlert } from '../../../utils/createAlert';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Goals'>;
 
@@ -40,13 +41,19 @@ const cards: CardOptionType[] = [
 
 export const Goals = ({ navigation }: Props) => {
    const [activeVal, setActiveVal] = useState<CardOptionType['value']>('');
-
    const dispatch = useAppDispatch();
 
    const handlePress = () => {
-      const action = updateGoal(activeVal);
-      dispatch(action);
-      navigation.navigate('ActivityLevel');
+      if (activeVal === '') {
+         createAlert({
+            heading: 'Hold on!',
+            body: 'Please select a goal.',
+         });
+      } else {
+         const action = updateGoal(activeVal);
+         dispatch(action);
+         navigation.navigate('ActivityLevel');
+      }
    };
 
    return (

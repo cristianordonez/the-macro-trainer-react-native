@@ -37,12 +37,15 @@ type WelcomeStackParamList = {
    CompleteRegistration: undefined;
 };
 
-type CardOptionType = {
+type MainScreenCard = {
    logo: string;
    type: string;
    description: string | null;
    title: string;
    id: number;
+};
+
+type CardOptionType = MainScreenCard & {
    value: UserState['goal'] | UserState['activityLevel'] | UserState['gender'];
 };
 
@@ -89,12 +92,21 @@ type TextContentType =
    | 'newPassword'
    | 'oneTimeCode';
 
+type SignupForm = {
+   username: string;
+   email: string;
+   password: string;
+   confirmPassword: string;
+};
+
 export {
    WelcomeStackParamList,
    CardOptionType,
    AgeItemType,
+   SignupForm,
    ViewableItems,
    RenderItemType,
    TextContentType,
    GlobalUserState,
+   MainScreenCard,
 };

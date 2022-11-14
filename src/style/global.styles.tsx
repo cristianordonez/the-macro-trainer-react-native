@@ -35,6 +35,10 @@ export const global = StyleSheet.create({
    gap: {
       paddingBottom: 10,
    },
+   fullSize: {
+      width: '100%',
+      height: '100%',
+   },
    size: {
       width: '100%',
       height: 'auto',

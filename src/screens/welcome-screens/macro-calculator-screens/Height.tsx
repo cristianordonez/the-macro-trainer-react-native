@@ -1,15 +1,16 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text } from '@rneui/themed';
 import React, { useCallback, useState } from 'react';
-import { TouchableWithoutFeedback, View } from 'react-native';
+import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
-import { useAppDispatch } from '../../../app/hooks/reduxHooks';
-import { updateHeight } from '../../../app/reducers/userReducer';
 import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
+import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { updateHeight } from '../../../reducers/userReducer';
 import { global } from '../../../style/global.styles';
+import { createAlert } from '../../../utils/createAlert';
 
 type DropDownItem = {
    label: string;
@@ -39,17 +40,30 @@ export const Height = ({ navigation }: Props) => {
    }, []);
 
    const handlePress = () => {
-      console.log('selectedIndex: ', selectedIndex);
-      console.log('currentFtVal: ', currentFtVal);
-      console.log('currentCmVal: ', currentCmVal);
-      console.log('curentInchValue: ', currentInchVal);
       let height, heightMetric;
       if (selectedIndex === 0) {
-         height = Number(currentFtVal) * 12 + Number(currentInchVal);
-         heightMetric = 'inch';
+         if (currentFtVal === null || currentInchVal === null) {
+            createAlert({
+               heading: 'Hold on!',
+               body: 'Please finish selecting your height.',
+            });
+            return;
+         } else {
+            height = Number(currentFtVal) * 12 + Number(currentInchVal);
+            heightMetric = 'inch';
+         }
       } else {
-         height = Number(currentCmVal);
-         heightMetric = 'cm';
+         if (Number(currentCmVal) < 90 || Number(currentCmVal) > 240) {
+            createAlert({
+               heading: 'Hold on!',
+               body: 'Please enter a height between 90 and 240 cm.',
+            });
+
+            return;
+         } else {
+            height = Number(currentCmVal);
+            heightMetric = 'cm';
+         }
       }
       const action = updateHeight({ height, heightMetric });
       dispatch(action);
@@ -58,10 +72,14 @@ export const Height = ({ navigation }: Props) => {
 
    return (
       <TouchableWithoutFeedback
-         onPress={() => {
-            setOpenFt(false);
-            setOpenInch(false);
-         }}
+         onPress={
+            selectedIndex === 0
+               ? () => {
+                    setOpenFt(false);
+                    setOpenInch(false);
+                 }
+               : Keyboard.dismiss
+         }
       >
          <View style={global.screenEnd}>
             <CustomLinearProgress index={5} progress={0.68} />

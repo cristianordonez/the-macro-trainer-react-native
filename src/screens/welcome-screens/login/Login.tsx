@@ -4,7 +4,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
-import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
+// import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
 import { global } from '../../../style/global.styles';
 import { loginStyles } from './styles';
 
@@ -24,8 +24,7 @@ export const Login = ({ navigation }: Props) => {
                </Text>
             </View>
             <View style={loginStyles.form}>
-               <CustomInput
-                  placeholder='email@address.com'
+               {/* <CustomInput
                   secureTextEntry={false}
                   keyboardType={'email-address'}
                   iconName={'email'}
@@ -34,14 +33,13 @@ export const Login = ({ navigation }: Props) => {
                   textContentType='emailAddress'
                />
                <CustomInput
-                  placeholder='Password'
                   secureTextEntry={true}
                   keyboardType={'default'}
                   iconName={'key'}
                   iconType={'entypo'}
                   label={'Password'}
                   textContentType='password'
-               />
+               /> */}
                <Text
                   style={{
                      color: theme.colors.link,

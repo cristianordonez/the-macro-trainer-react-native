@@ -1,5 +1,5 @@
 import { Icon, Input, useTheme } from '@rneui/themed';
-import { Control, Controller } from 'react-hook-form';
+import { Control, Controller, FieldValues } from 'react-hook-form';
 import { KeyboardTypeOptions } from 'react-native';
 import { TextContentType } from '../../../../types/types';
 import { inputStyles } from './styles';
@@ -11,15 +11,7 @@ interface Props {
    iconType: string;
    textContentType: TextContentType;
    label: 'Email' | 'Password' | 'Username' | 'Confirm Password';
-   control: Control<
-      {
-         username: string;
-         email: string;
-         password: string;
-         confirmPassword: string;
-      },
-      any
-   >;
+   control: Control<FieldValues, unknown>;
    name: 'email' | 'password' | 'username' | 'confirmPassword';
 }
 
@@ -53,7 +45,6 @@ export const CustomInput = ({
                keyboardType={keyboardType}
                inputContainerStyle={inputStyles.input}
                textContentType={textContentType}
-               label={label}
                returnKeyType='done'
                leftIcon={
                   <Icon

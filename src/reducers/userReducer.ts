@@ -1,5 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { GlobalUserState } from '../../../types/types';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { GlobalUserState, SignupForm } from '../../types/types';
 import { RootState } from '../store';
 
 const initialState: GlobalUserState = {
@@ -12,6 +12,14 @@ const initialState: GlobalUserState = {
    weight: 0,
    weightMetric: 'lb',
 };
+
+//THUNKS
+export const createAccount = createAsyncThunk(
+   'user/createAccount',
+   async (data: SignupForm, thunkAPI) => {
+      console.log('data in create account thunk: ', data);
+   }
+);
 
 const userSlice = createSlice({
    name: 'user',
@@ -39,6 +47,17 @@ const userSlice = createSlice({
          state.weight = weight;
          state.weightMetric = weightMetric;
       },
+   },
+   extraReducers: (builder) => {
+      builder.addCase(createAccount.pending, (state, action) => {
+         console.log('action: ', action);
+      }),
+         builder.addCase(createAccount.fulfilled, (state, action) => {
+            console.log('action.payload: ', action.payload);
+         }),
+         builder.addCase(createAccount.rejected, (state, action) => {
+            console.log('action.payload: ', action.payload);
+         });
    },
 });
 

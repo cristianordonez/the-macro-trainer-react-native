@@ -3,8 +3,8 @@ import { Button, Text } from '@rneui/themed';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
-import { SignupDescription } from '../../../components/signup-description/SignupDescription';
 import { global } from '../../../style/global.styles';
+import { SignupDescription } from './signup-description/SignupDescription';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Signup'>;
 

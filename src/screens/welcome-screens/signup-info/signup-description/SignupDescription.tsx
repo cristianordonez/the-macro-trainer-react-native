@@ -1,7 +1,7 @@
 import { Avatar, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
-import { CardOptionType } from '../../../types/types';
-import { global } from '../../style/global.styles';
+import { MainScreenCard } from '../../../../../types/types';
+import { global } from '../../../../style/global.styles';
 
 export const SignupDescription = ({
    logo,
@@ -9,7 +9,7 @@ export const SignupDescription = ({
    description,
    type,
    id,
-}: CardOptionType) => {
+}: MainScreenCard) => {
    const { theme } = useTheme();
    return (
       <View style={[global.cardRow, global.size]}>
