@@ -4,20 +4,37 @@ import { RootState } from '../store';
 
 const initialState: GlobalUserState = {
    goal: '',
-   activityLevel: '',
+   activityLevel: 1.2,
    gender: '',
    age: 18,
    height: 0,
-   heightMetric: 'inch',
+   heightMetric: 'ft',
    weight: 0,
    weightMetric: 'lb',
+   isLoggedIn: false,
 };
 
 //THUNKS
 export const createAccount = createAsyncThunk(
    'user/createAccount',
-   async (data: SignupForm, thunkAPI) => {
-      console.log('data in create account thunk: ', data);
+   async (formData: SignupForm, { rejectWithValue }) => {
+      try {
+         const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+         };
+         //first send req to /api/auth/signup with body of username, password, email
+         const response = await fetch(
+            'http://192.168.1.8:8080/api/signup',
+            requestOptions
+         );
+         return JSON.stringify(response);
+         //then send request to create goals for user (need to create this route)
+      } catch (err) {
+         console.log('err: ', err);
+         return rejectWithValue(err);
+      }
    }
 );
 
@@ -50,13 +67,13 @@ const userSlice = createSlice({
    },
    extraReducers: (builder) => {
       builder.addCase(createAccount.pending, (state, action) => {
-         console.log('action: ', action);
+         //todo activate loading screen while request is finishing
       }),
          builder.addCase(createAccount.fulfilled, (state, action) => {
-            console.log('action.payload: ', action.payload);
+            console.log('action in fulfilled add case: ', action.payload);
          }),
          builder.addCase(createAccount.rejected, (state, action) => {
-            console.log('action.payload: ', action.payload);
+            console.log('action.payload rejected reducer:', action.payload);
          });
    },
 });

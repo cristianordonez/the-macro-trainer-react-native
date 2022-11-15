@@ -2,7 +2,7 @@ import { ViewToken } from 'react-native';
 
 type UserState = {
    goal: 'weight_loss' | 'maintain' | 'weight_gain' | '';
-   activityLevel: 'sedentary' | 'moderatelyActive' | 'active' | '';
+   activityLevel: 1 | 1.2 | 1.5;
    gender: 'male' | 'female' | 'non_binary' | '';
    age: number;
    numFt: number;
@@ -14,14 +14,15 @@ type UserState = {
 };
 
 type GlobalUserState = {
-   goal: string;
-   activityLevel: string;
-   gender: string;
+   goal: 'weight_loss' | 'maintain' | 'weight_gain' | '';
+   activityLevel: 1 | 1.2 | 1.5;
+   gender: 'male' | 'female' | 'non_binary' | '';
    age: number;
    height: number;
-   heightMetric: string;
+   heightMetric: 'ft' | 'cm';
    weight: number;
-   weightMetric: string;
+   weightMetric: 'lb' | 'kg';
+   isLoggedIn: boolean;
 };
 
 type WelcomeStackParamList = {
@@ -34,6 +35,7 @@ type WelcomeStackParamList = {
    Age: undefined;
    Height: undefined;
    Weight: undefined;
+   CalculatedGoals: undefined;
    CompleteRegistration: undefined;
 };
 
@@ -99,6 +101,13 @@ type SignupForm = {
    confirmPassword: string;
 };
 
+type Goals = {
+   total_fat: number;
+   total_protein: number;
+   total_calories: number;
+   total_carbohydrates: number;
+};
+
 export {
    WelcomeStackParamList,
    CardOptionType,
@@ -109,4 +118,5 @@ export {
    TextContentType,
    GlobalUserState,
    MainScreenCard,
+   Goals,
 };

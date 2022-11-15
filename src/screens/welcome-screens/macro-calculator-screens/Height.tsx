@@ -50,7 +50,7 @@ export const Height = ({ navigation }: Props) => {
             return;
          } else {
             height = Number(currentFtVal) * 12 + Number(currentInchVal);
-            heightMetric = 'inch';
+            heightMetric = 'ft';
          }
       } else {
          if (Number(currentCmVal) < 90 || Number(currentCmVal) > 240) {

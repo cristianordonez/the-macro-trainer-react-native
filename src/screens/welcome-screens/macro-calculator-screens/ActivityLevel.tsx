@@ -19,7 +19,7 @@ const cards: CardOptionType[] = [
       title: 'Sedentary',
       description: 'Little to no exercise',
       id: 0,
-      value: 'sedentary',
+      value: 1,
    },
    {
       logo: 'walking',
@@ -28,7 +28,7 @@ const cards: CardOptionType[] = [
       description:
          'About 150 minutes moderate intensity or 75 minutes high intensity exercise per week',
       id: 1,
-      value: 'moderatelyActive',
+      value: 1.2,
    },
    {
       logo: 'running',
@@ -37,12 +37,12 @@ const cards: CardOptionType[] = [
       description:
          'About 250 minutes moderate intensity or 150 minutes high intensity exercise per week',
       id: 2,
-      value: 'active',
+      value: 1.5,
    },
 ];
 
 export const ActivityLevel = ({ navigation }: Props) => {
-   const [activeVal, setActiveVal] = useState<CardOptionType['value']>('');
+   const [activeVal, setActiveVal] = useState<CardOptionType['value']>(1.2);
    const dispatch = useAppDispatch();
 
    const handlePress = () => {

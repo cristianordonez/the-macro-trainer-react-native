@@ -17,6 +17,7 @@ import { CustomLinearProgress } from '../../../components/linear-progress/Custom
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { createAccount } from '../../../reducers/userReducer';
 import { global } from '../../../style/global.styles';
+
 type Props = NativeStackScreenProps<
    WelcomeStackParamList,
    'CompleteRegistration'
@@ -29,6 +30,7 @@ const formSchema = yup.object().shape({
       .min(3, 'Username must be at least 3 characters long'),
    email: yup
       .string()
+      .email('Pleae enter a valid email address.')
       .required('Email is required')
       .min(3, 'Username must be at least 3 characters long'),
    password: yup
@@ -43,18 +45,17 @@ const formSchema = yup.object().shape({
 
 export const CompleteRegistration = ({ route, navigation }: Props) => {
    const dispatch = useAppDispatch();
-
    const formOptions = { resolver: yupResolver(formSchema) };
-
    const { control, handleSubmit, formState, reset } =
       useForm<SignupForm>(formOptions);
-
    const { errors } = formState;
-   console.log('errors: ', errors);
 
-   const onSubmit = (data: SignupForm) => {
-      console.log('here in onsubmit');
-      dispatch(createAccount(data));
+   const onSubmit = async (data: SignupForm) => {
+      try {
+         await dispatch(createAccount(data));
+      } catch (err) {
+         console.log('err in onsubmit: ', err);
+      }
       // navigation.navigate('Main');
    };
 

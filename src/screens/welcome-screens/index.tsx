@@ -2,6 +2,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useTheme } from '@rneui/themed';
 import { WelcomeStackParamList } from '../../../types/types';
 import { Logo } from '../../components/logo/Logo';
+import { CalculatedGoals } from './calculated-goals/CalculatedGoals';
 import { CompleteRegistration } from './complete-registration-form/CompleteRegistration';
 import { Login } from './login/Login';
 import { ActivityLevel } from './macro-calculator-screens/ActivityLevel';
@@ -46,6 +47,10 @@ export const WelcomeStackScreen = () => {
          <WelcomeStack.Screen name='Age' component={Age} />
          <WelcomeStack.Screen name='Height' component={Height} />
          <WelcomeStack.Screen name='Weight' component={Weight} />
+         <WelcomeStack.Screen
+            name='CalculatedGoals'
+            component={CalculatedGoals}
+         />
          <WelcomeStack.Screen
             name='CompleteRegistration'
             component={CompleteRegistration}

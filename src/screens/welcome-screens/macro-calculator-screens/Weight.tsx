@@ -7,6 +7,7 @@ import { CustomButtonGroup } from '../../../components/form-inputs/custom-button
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { getCalculatedGoals } from '../../../reducers/goalsReducer';
 import { updateWeight } from '../../../reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
@@ -44,12 +45,13 @@ export const Weight = ({ navigation }: Props) => {
          weightMetric,
       });
       dispatch(action);
-      navigation.navigate('CompleteRegistration');
+      dispatch(getCalculatedGoals());
+      navigation.navigate('CalculatedGoals');
    };
    return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View style={[global.screenEnd]}>
-            <CustomLinearProgress index={6} progress={0.82} />
+            <CustomLinearProgress index={6} progress={1} />
             <Text h4 style={[global.screenTitle, global.textCenter]}>
                What is your last known weight?
             </Text>
@@ -72,7 +74,7 @@ export const Weight = ({ navigation }: Props) => {
                   />
                </View>
             </View>
-            <Button onPress={handlePress} title={`Complete`} size='lg' />
+            <Button onPress={handlePress} title={`Calculate Goals`} size='lg' />
          </View>
       </TouchableWithoutFeedback>
    );
