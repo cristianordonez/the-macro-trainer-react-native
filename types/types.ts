@@ -2,7 +2,7 @@ import { ViewToken } from 'react-native';
 
 type UserState = {
    goal: 'weight_loss' | 'maintain' | 'weight_gain' | '';
-   activityLevel: 1 | 1.2 | 1.5;
+   activityLevel: 1 | 1.2 | 1.5 | 0;
    gender: 'male' | 'female' | 'non_binary' | '';
    age: number;
    numFt: number;
@@ -106,6 +106,7 @@ type Goals = {
    total_protein: number;
    total_calories: number;
    total_carbohydrates: number;
+   status: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
 export {

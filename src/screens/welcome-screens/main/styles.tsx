@@ -14,15 +14,4 @@ export const mainStyles = StyleSheet.create({
    headingText: {
       paddingBottom: 50,
    },
-   imageContainer: {
-      height: 175,
-      width: 350,
-      flex: 3,
-      justifyContent: 'flex-end',
-   },
-   image: {
-      width: '100%',
-      height: undefined,
-      aspectRatio: 1,
-   },
 });

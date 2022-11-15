@@ -1,10 +1,10 @@
-import { Button, Image, Text, useTheme } from '@rneui/themed';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Button, Text, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
+import { WelcomeStackParamList } from '../../../../types/types';
+import { LoadingImage } from '../../../components/loading-image/LoadingImage';
 import { global } from '../../../style/global.styles';
 import { mainStyles } from './styles';
-
-import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { WelcomeStackParamList } from '../../../../types/types';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Main'>;
 
@@ -21,12 +21,7 @@ export const Main = ({ navigation }: Props) => {
                accomplish your goals.
             </Text>
          </View>
-         <View style={mainStyles.imageContainer}>
-            <Image
-               style={mainStyles.image}
-               source={require('./dietitian.png')}
-            />
-         </View>
+         <LoadingImage />
          <View style={mainStyles.btnContainer}>
             <Button
                onPress={() => navigation.navigate('Signup')}

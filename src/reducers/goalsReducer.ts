@@ -8,6 +8,7 @@ const initialState: Goals = {
    total_protein: 0,
    total_carbohydrates: 0,
    total_calories: 0,
+   status: 'idle',
 };
 
 //THUNKS
@@ -28,10 +29,14 @@ export const getCalculatedGoals = createAsyncThunk(
 const goalSlice = createSlice({
    name: 'goals',
    initialState,
-   reducers: {},
+   reducers: {
+      resetStatus(state, action) {
+         state.status = 'idle';
+      },
+   },
    extraReducers: (builder) => {
       builder.addCase(getCalculatedGoals.pending, (state, action) => {
-         //todo activate loading screen while request is finishing
+         state.status = 'loading';
       }),
          builder.addCase(getCalculatedGoals.fulfilled, (state, action) => {
             console.log('action in fulfilled add case: ', action.payload);
@@ -45,15 +50,16 @@ const goalSlice = createSlice({
             state.total_carbohydrates = total_carbohydrates;
             state.total_fat = total_fat;
             state.total_protein = total_protein;
+            state.status = 'succeeded';
          }),
          builder.addCase(getCalculatedGoals.rejected, (state, action) => {
-            console.log('action.payload rejected reducer:', action.payload);
+            state.status = 'failed';
          });
    },
 });
 
 //these will create the action object for us so we can dispatch it
-export const {} = goalSlice.actions;
+export const { resetStatus } = goalSlice.actions;
 
 //this will allow us to get the state when calling useAppSelector
 export const selectGoals = (state: RootState) => state.goal;

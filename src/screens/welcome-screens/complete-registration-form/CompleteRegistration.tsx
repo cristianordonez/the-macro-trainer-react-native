@@ -55,8 +55,9 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
          await dispatch(createAccount(data));
       } catch (err) {
          console.log('err in onsubmit: ', err);
+      } finally {
+         // navigation.navigate('Main');
       }
-      // navigation.navigate('Main');
    };
 
    return (

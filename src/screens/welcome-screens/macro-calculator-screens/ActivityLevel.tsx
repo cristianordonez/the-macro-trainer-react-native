@@ -42,11 +42,11 @@ const cards: CardOptionType[] = [
 ];
 
 export const ActivityLevel = ({ navigation }: Props) => {
-   const [activeVal, setActiveVal] = useState<CardOptionType['value']>(1.2);
+   const [activeVal, setActiveVal] = useState<CardOptionType['value']>(0);
    const dispatch = useAppDispatch();
 
    const handlePress = () => {
-      if (activeVal === '') {
+      if (activeVal === 0) {
          createAlert({
             heading: 'Alert',
             body: 'Please select an activity level.',

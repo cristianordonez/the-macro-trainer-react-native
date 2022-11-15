@@ -7,7 +7,10 @@ import { CustomButtonGroup } from '../../../components/form-inputs/custom-button
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { getCalculatedGoals } from '../../../reducers/goalsReducer';
+import {
+   getCalculatedGoals,
+   resetStatus,
+} from '../../../reducers/goalsReducer';
 import { updateWeight } from '../../../reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
@@ -44,9 +47,12 @@ export const Weight = ({ navigation }: Props) => {
          weight: Number(currentWeight),
          weightMetric,
       });
+      dispatch(resetStatus);
       dispatch(action);
-      dispatch(getCalculatedGoals());
       navigation.navigate('CalculatedGoals');
+      setTimeout(() => {
+         dispatch(getCalculatedGoals());
+      }, 2000);
    };
    return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
