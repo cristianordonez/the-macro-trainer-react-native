@@ -23,7 +23,7 @@ export const Weight = ({ navigation }: Props) => {
    const [currentWeight, setCurrentWeight] = useState<string>('0');
 
    const handlePress = () => {
-      let weightMetric, weight;
+      let weightMetric;
       if (selectedIndex === 0) {
          weightMetric = 'lb';
          if (Number(currentWeight) < 75 || Number(currentWeight) > 450) {
@@ -47,12 +47,10 @@ export const Weight = ({ navigation }: Props) => {
          weight: Number(currentWeight),
          weightMetric,
       });
-      dispatch(resetStatus);
       dispatch(action);
+      dispatch(resetStatus);
+      dispatch(getCalculatedGoals());
       navigation.navigate('CalculatedGoals');
-      setTimeout(() => {
-         dispatch(getCalculatedGoals());
-      }, 2000);
    };
    return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

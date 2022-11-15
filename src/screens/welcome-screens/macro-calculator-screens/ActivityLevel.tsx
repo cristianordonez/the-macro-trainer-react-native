@@ -48,7 +48,7 @@ export const ActivityLevel = ({ navigation }: Props) => {
    const handlePress = () => {
       if (activeVal === 0) {
          createAlert({
-            heading: 'Alert',
+            heading: 'Hold on!',
             body: 'Please select an activity level.',
          });
       } else {

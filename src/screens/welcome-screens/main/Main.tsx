@@ -21,7 +21,10 @@ export const Main = ({ navigation }: Props) => {
                accomplish your goals.
             </Text>
          </View>
-         <LoadingImage />
+
+         <View style={mainStyles.imageContainer}>
+            <LoadingImage />
+         </View>
          <View style={mainStyles.btnContainer}>
             <Button
                onPress={() => navigation.navigate('Signup')}

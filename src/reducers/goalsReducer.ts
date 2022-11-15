@@ -11,7 +11,6 @@ const initialState: Goals = {
    status: 'idle',
 };
 
-//THUNKS
 export const getCalculatedGoals = createAsyncThunk(
    'goals/getCalculatedGoals',
    async (data, { getState }) => {
