@@ -6,7 +6,7 @@ import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { updateGender } from '../../../reducers/userReducer';
+import { updateGender } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 
@@ -57,7 +57,7 @@ export const Gender = ({ navigation }: Props) => {
    };
    return (
       <View style={global.screenEnd}>
-         <CustomLinearProgress index={3} progress={0.42} />
+         <CustomLinearProgress index={3} progress={0.48} />
          <Text h4 style={global.screenTitle}>
             {' '}
             What is your gender?

@@ -1,7 +1,7 @@
 import { ThemeProvider } from '@rneui/themed';
 import { Provider } from 'react-redux';
+import { store } from './redux/store/store';
 import App from './screens/App';
-import { store } from './store';
 import { customTheme } from './style/customTheme';
 
 export default function Main() {

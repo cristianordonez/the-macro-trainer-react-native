@@ -8,7 +8,7 @@ import { CustomNumberInput } from '../../../components/form-inputs/custom-number
 import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { updateHeight } from '../../../reducers/userReducer';
+import { updateHeight } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 
@@ -82,7 +82,7 @@ export const Height = ({ navigation }: Props) => {
          }
       >
          <View style={global.screenEnd}>
-            <CustomLinearProgress index={5} progress={0.68} />
+            <CustomLinearProgress index={5} progress={0.8} />
             <Text h4 style={global.screenTitle}>
                How tall are you?
             </Text>

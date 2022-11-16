@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { GlobalUserState, SignupForm } from '../../types/types';
-import { RootState } from '../store';
+import { GlobalUserState, SignupForm } from '../../../types/types';
+import { RootState } from '../store/store';
 
 const initialState: GlobalUserState = {
    goal: '',

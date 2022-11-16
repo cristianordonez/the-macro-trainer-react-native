@@ -6,8 +6,8 @@ import { WelcomeStackParamList } from '../../../../types/types';
 import { LoadingImage } from '../../../components/loading-image/LoadingImage';
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
 import { useAppSelector } from '../../../hooks/reduxHooks';
-import { selectGoals } from '../../../reducers/goalsReducer';
-import { selectUser } from '../../../reducers/userReducer';
+import { selectGoals } from '../../../redux/reducers/goalsReducer';
+import { selectUser } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createChartData } from '../../../utils/createChartData';
 
@@ -33,12 +33,22 @@ export const CalculatedGoals = ({ navigation }: Props) => {
       userState.goal
    );
    console.log('data: ', data);
+   console.log('goalState: ', goalState);
    if (goalState.status === 'succeeded') {
       return (
          <View style={[global.screenEnd]}>
             <>
+               <Text>{data[0].weight}</Text>
+               <Text>Start</Text>
+               <Text>{data[data.length - 1].weight}</Text>
+               <Text>Expected</Text>
+               <Text>3 month goal</Text>
                <WeightChart data={data} />
-               <Button onPress={handlePress} title={`Complete`} size='lg' />
+               <Button
+                  onPress={handlePress}
+                  title={`Continue to create account`}
+                  size='lg'
+               />
             </>
          </View>
       );

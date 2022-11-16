@@ -1,4 +1,4 @@
-import { GlobalUserState } from '../../types/types';
+import { GlobalUserState } from '../../../types/types';
 
 export const getGoals = async ({
    goal,

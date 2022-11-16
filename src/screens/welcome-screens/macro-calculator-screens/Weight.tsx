@@ -10,8 +10,8 @@ import { useAppDispatch } from '../../../hooks/reduxHooks';
 import {
    getCalculatedGoals,
    resetStatus,
-} from '../../../reducers/goalsReducer';
-import { updateWeight } from '../../../reducers/userReducer';
+} from '../../../redux/reducers/goalsReducer';
+import { updateWeight } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 

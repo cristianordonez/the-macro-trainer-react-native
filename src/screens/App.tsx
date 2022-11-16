@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from '../hooks/useFonts';
+import { global } from '../style/global.styles';
 import { WelcomeStackScreen } from './welcome-screens/index';
 
 SplashScreen.preventAutoHideAsync();
@@ -49,7 +50,7 @@ export default function App() {
       return null;
    } else {
       return (
-         <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+         <View style={global.flex} onLayout={onLayoutRootView}>
             <SafeAreaProvider>
                <NavigationContainer theme={navTheme}>
                   <WelcomeStackScreen />

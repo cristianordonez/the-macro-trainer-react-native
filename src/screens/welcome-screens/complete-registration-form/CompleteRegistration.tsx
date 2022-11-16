@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button, Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -15,8 +15,9 @@ import { SignupForm, WelcomeStackParamList } from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { createAccount } from '../../../reducers/userReducer';
+import { createAccount } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
+import { makeRegistrationStyles } from './styles';
 
 type Props = NativeStackScreenProps<
    WelcomeStackParamList,
@@ -45,6 +46,7 @@ const formSchema = yup.object().shape({
 
 export const CompleteRegistration = ({ route, navigation }: Props) => {
    const dispatch = useAppDispatch();
+   const { theme } = useTheme();
    const formOptions = { resolver: yupResolver(formSchema) };
    const { control, handleSubmit, formState, reset } =
       useForm<SignupForm>(formOptions);
@@ -60,6 +62,7 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
       }
    };
 
+   const registrationStyles = makeRegistrationStyles(theme.colors);
    return (
       <KeyboardAvoidingView
          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -72,16 +75,7 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                   Great! Complete your registration
                </Text>
 
-               <View
-                  style={[
-                     {
-                        width: '100%',
-                        flex: 1,
-                        justifyContent: 'space-evenly',
-                        paddingBottom: 25,
-                     },
-                  ]}
-               >
+               <View style={[registrationStyles.formContainer]}>
                   <View>
                      <CustomInput
                         secureTextEntry={false}
@@ -94,7 +88,7 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                         textContentType='username'
                      />
                      {errors.username && (
-                        <Text style={{ color: 'red' }}>
+                        <Text style={registrationStyles.errorMessage}>
                            {errors.username.message}
                         </Text>
                      )}
@@ -111,7 +105,7 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                         textContentType='emailAddress'
                      />
                      {errors.email && (
-                        <Text style={{ color: 'red' }}>
+                        <Text style={registrationStyles.errorMessage}>
                            {errors.email.message}
                         </Text>
                      )}
@@ -128,7 +122,7 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                         textContentType='password'
                      />
                      {errors.password && (
-                        <Text style={{ color: 'red' }}>
+                        <Text style={registrationStyles.errorMessage}>
                            {errors.password.message}
                         </Text>
                      )}
@@ -145,7 +139,7 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                         textContentType='password'
                      />
                      {errors.confirmPassword && (
-                        <Text style={{ color: 'red' }}>
+                        <Text style={registrationStyles.errorMessage}>
                            {errors.confirmPassword.message}
                         </Text>
                      )}

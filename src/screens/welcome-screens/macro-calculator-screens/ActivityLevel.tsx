@@ -6,7 +6,7 @@ import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { updateActivityLevel } from '../../../reducers/userReducer';
+import { updateActivityLevel } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 
@@ -59,7 +59,7 @@ export const ActivityLevel = ({ navigation }: Props) => {
    };
    return (
       <View style={global.screenEnd}>
-         <CustomLinearProgress index={2} progress={0.28} />
+         <CustomLinearProgress index={2} progress={0.32} />
          <Text h3 style={global.screenTitle}>
             What is your activity level?
          </Text>

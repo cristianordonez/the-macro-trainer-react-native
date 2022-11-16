@@ -6,12 +6,13 @@ import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
 // import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
 import { global } from '../../../style/global.styles';
-import { loginStyles } from './styles';
+import { makeLoginStyles } from './styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Login'>;
 
 export const Login = ({ navigation }: Props) => {
    const { theme } = useTheme();
+   const loginStyles = makeLoginStyles(theme.colors);
    return (
       <>
          <View style={global.screenEnd}>
@@ -41,34 +42,22 @@ export const Login = ({ navigation }: Props) => {
                   textContentType='password'
                /> */}
                <Text
-                  style={{
-                     color: theme.colors.link,
-                     textAlign: 'right',
-                     ...global.gap,
-                  }}
+                  style={[
+                     global.gap,
+                     loginStyles.textLink,
+                     loginStyles.textRight,
+                  ]}
                >
                   Forgot your password?
                </Text>
                <Button size='lg'>Log in</Button>
 
                <View style={global.rowCenter}>
-                  <View
-                     style={{
-                        flex: 1,
-                        height: 1,
-                        backgroundColor: theme.colors.divider,
-                     }}
-                  />
+                  <View style={loginStyles.dividerLine} />
                   <View>
                      <Text style={loginStyles.formText}>OR</Text>
                   </View>
-                  <View
-                     style={{
-                        flex: 1,
-                        height: 1,
-                        backgroundColor: theme.colors.divider,
-                     }}
-                  />
+                  <View style={loginStyles.dividerLine} />
                </View>
 
                <Button size='lg' color='#DB4437' containerStyle={global.gap}>
@@ -78,9 +67,7 @@ export const Login = ({ navigation }: Props) => {
                <View style={loginStyles.navigationText}>
                   <Text>Don't have an account?</Text>
                   <Link style={loginStyles.link} to={{ screen: 'Signup' }}>
-                     <Text style={{ color: theme.colors.link }}>
-                        Create Account
-                     </Text>
+                     <Text style={loginStyles.textLink}>Create Account</Text>
                   </Link>
                </View>
             </View>

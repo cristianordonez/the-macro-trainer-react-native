@@ -1,4 +1,4 @@
-import { Text, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import {
    VictoryAxis,
@@ -8,6 +8,7 @@ import {
    VictoryTheme,
 } from 'victory-native';
 import { ChartValue } from '../../../types/types';
+import { global } from '../../style/global.styles';
 
 interface Props {
    data: ChartValue[];
@@ -15,25 +16,9 @@ interface Props {
 
 export const WeightChart = ({ data }: Props) => {
    const { theme } = useTheme();
-   //    const data = [
-   //       {
-   //          date: new Date(),
-   //          weight: 1,
-   //       },
-   //       {
-   //          date: 2,
-   //          weight: 2,
-   //       },
-   //       {
-   //          date: 3,
-   //          weight: 45,
-   //       },
-   //    ];
 
    return (
-      <View style={{ flex: 1 }}>
-         <Text>Start</Text>
-         <Text>Expected</Text>
+      <View style={global.containerCenter}>
          <VictoryChart
             style={{
                background: { fill: 'white' },
@@ -43,7 +28,7 @@ export const WeightChart = ({ data }: Props) => {
             }}
             scale={{ x: 'time' }}
             theme={VictoryTheme.material}
-            domainPadding={35}
+            domainPadding={25}
          >
             <VictoryAxis
                dependentAxis={true}
@@ -58,7 +43,7 @@ export const WeightChart = ({ data }: Props) => {
             <VictoryAxis
                style={{
                   tickLabels: {
-                     fontSize: 15,
+                     fontSize: 12,
                      padding: 5,
                      fill: theme.colors.black,
                   },

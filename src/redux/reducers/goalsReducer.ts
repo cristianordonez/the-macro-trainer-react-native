@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Goals } from '../../types/types';
+import { Goals } from '../../../types/types';
 import { getGoals } from '../api/goalAPI';
-import { RootState } from '../store';
+import { RootState } from '../store/store';
 
 const initialState: Goals = {
    total_fat: 0,

@@ -6,7 +6,7 @@ import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
-import { updateGoal } from '../../../reducers/userReducer';
+import { updateGoal } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 
@@ -58,7 +58,7 @@ export const Goals = ({ navigation }: Props) => {
 
    return (
       <View style={global.screenEnd}>
-         <CustomLinearProgress index={1} progress={0.14} />
+         <CustomLinearProgress index={1} progress={0.16} />
          <Text h3 style={global.screenTitle}>
             What are your goals?
          </Text>

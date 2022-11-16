@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { AgeSlider } from '../../../components/form-inputs/age-slider/AgeSlider';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
-import { updateAge } from '../../../reducers/userReducer';
+import { updateAge } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Age'>;
@@ -22,7 +22,7 @@ export const Age = ({ navigation }: Props) => {
    };
    return (
       <View style={global.screenEnd}>
-         <CustomLinearProgress index={4} progress={0.56} />
+         <CustomLinearProgress index={4} progress={0.64} />
          <Text style={global.screenTitle} h4>
             How old are you?
          </Text>
