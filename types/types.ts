@@ -1,27 +1,23 @@
 import { ViewToken } from 'react-native';
 
-type UserState = {
+type SharedUserState = {
    goal: 'weight_loss' | 'maintain' | 'weight_gain' | '';
    activityLevel: 1 | 1.2 | 1.5 | 0;
    gender: 'male' | 'female' | 'non_binary' | '';
    age: number;
-   numFt: number;
-   numInch: number;
-   numCm: number;
    heightMetric: 'ft' | 'cm';
    weight: number;
    weightMetric: 'lb' | 'kg';
 };
 
-type GlobalUserState = {
-   goal: 'weight_loss' | 'maintain' | 'weight_gain' | '';
-   activityLevel: 1 | 1.2 | 1.5;
-   gender: 'male' | 'female' | 'non_binary' | '';
-   age: number;
+type UserState = SharedUserState & {
+   numFt: number;
+   numInch: number;
+   numCm: number;
+};
+
+type GlobalUserState = SharedUserState & {
    height: number;
-   heightMetric: 'ft' | 'cm';
-   weight: number;
-   weightMetric: 'lb' | 'kg';
    isLoggedIn: boolean;
 };
 
@@ -109,8 +105,11 @@ type Goals = {
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
+type ChartValue = { date: Date; weight: number };
+
 export {
    WelcomeStackParamList,
+   ChartValue,
    CardOptionType,
    AgeItemType,
    SignupForm,

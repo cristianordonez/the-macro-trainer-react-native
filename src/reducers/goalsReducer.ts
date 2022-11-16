@@ -38,7 +38,6 @@ const goalSlice = createSlice({
          state.status = 'loading';
       }),
          builder.addCase(getCalculatedGoals.fulfilled, (state, action) => {
-            console.log('action in fulfilled add case: ', action.payload);
             const {
                total_calories,
                total_carbohydrates,
