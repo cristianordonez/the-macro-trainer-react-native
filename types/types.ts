@@ -102,7 +102,7 @@ type Goals = {
    total_protein: number;
    total_calories: number;
    total_carbohydrates: number;
-   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+   status?: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
 type ChartValue = { date: Date; weight: number };

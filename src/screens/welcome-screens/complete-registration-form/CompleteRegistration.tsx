@@ -17,7 +17,7 @@ import { CustomLinearProgress } from '../../../components/linear-progress/Custom
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { createAccount } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
-import { makeRegistrationStyles } from './styles';
+import { makeRegistrationStyles } from './makeRegistrationStyles';
 
 type Props = NativeStackScreenProps<
    WelcomeStackParamList,

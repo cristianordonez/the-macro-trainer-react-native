@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { LoadingImage } from '../../../components/loading-image/LoadingImage';
+import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
 import { useAppSelector } from '../../../hooks/reduxHooks';
 import { selectGoals } from '../../../redux/reducers/goalsReducer';
@@ -44,6 +45,10 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                <Text>Expected</Text>
                <Text>3 month goal</Text>
                <WeightChart data={data} />
+               <NutritionPieChart goals={goalState} />
+               <Text>3 month goal</Text>
+               <Text>3 month goal</Text>
+
                <Button
                   onPress={handlePress}
                   title={`Continue to create account`}
