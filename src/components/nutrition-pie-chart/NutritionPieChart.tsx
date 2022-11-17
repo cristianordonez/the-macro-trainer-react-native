@@ -1,11 +1,7 @@
 import { useTheme } from '@rneui/themed';
 import { View } from 'react-native';
-import {
-   VictoryAxis,
-   VictoryChart,
-   VictoryLabel,
-   VictoryPie,
-} from 'victory-native';
+import Svg from 'react-native-svg';
+import { VictoryLabel, VictoryPie } from 'victory-native';
 import { Goals } from '../../../types/types';
 import { global } from '../../style/global.styles';
 interface Props {
@@ -17,23 +13,13 @@ export const NutritionPieChart = ({ goals }: Props) => {
    console.log('goals: ', goals);
    return (
       <View style={global.containerCenter}>
-         <VictoryChart width={400} height={400} padding={0}>
-            <VictoryAxis
-               style={{
-                  axis: { stroke: 'transparent' },
-                  ticks: { stroke: 'transparent' },
-                  tickLabels: { fill: 'transparent' },
-               }}
-            />
-            <VictoryAxis
-               style={{
-                  axis: { stroke: 'transparent' },
-                  ticks: { stroke: 'transparent' },
-                  tickLabels: { fill: 'transparent' },
-               }}
-            />
+         <Svg height={200} width={200}>
             <VictoryPie
                standalone={false}
+               padAngle={3}
+               width={200}
+               labels={() => null}
+               height={200}
                colorScale={['green', 'yellow', 'purple']}
                data={[
                   {
@@ -54,21 +40,19 @@ export const NutritionPieChart = ({ goals }: Props) => {
                         100,
                   },
                ]}
+               innerRadius={68}
+               labelRadius={100}
                radius={80}
-               innerRadius={65}
-               padAngle={3}
-               labels={() => null}
-               labelRadius={60}
-               style={{ labels: { fontSize: 12, fill: theme.colors.black } }}
+               style={{ labels: { fontSize: 20, fill: 'white' } }}
             />
             <VictoryLabel
                textAnchor='middle'
-               style={{ fontSize: 20, fill: theme.colors.black }}
-               x={200}
-               y={200}
+               style={{ fontSize: 16, fill: theme.colors.black }}
+               x={100}
+               y={100}
                text={`${goals.total_calories} calories`}
             />
-         </VictoryChart>
+         </Svg>
       </View>
    );
 };
