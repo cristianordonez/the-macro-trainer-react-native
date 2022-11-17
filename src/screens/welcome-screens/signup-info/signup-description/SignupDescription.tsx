@@ -15,7 +15,7 @@ export const SignupDescription = ({
       <View style={[global.cardRow, global.size]}>
          <Avatar
             rounded
-            icon={{ name: logo, type: type }}
+            icon={{ name: logo, type: type, color: theme.colors.white }}
             containerStyle={{ backgroundColor: theme.colors.secondary }}
          />
          <View style={global.cardTextContainer}>

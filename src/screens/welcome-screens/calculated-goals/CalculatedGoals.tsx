@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { LoadingImage } from '../../../components/loading-image/LoadingImage';
+import { MacroNutrientList } from '../../../components/macronutrient-list/MacroNutrientList';
 import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
 import { useAppSelector } from '../../../hooks/reduxHooks';
@@ -11,6 +12,7 @@ import { selectGoals } from '../../../redux/reducers/goalsReducer';
 import { selectUser } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createChartData } from '../../../utils/createChartData';
+import { calculatedGoalsStyles } from './styles';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'CalculatedGoals'>;
 
@@ -39,16 +41,33 @@ export const CalculatedGoals = ({ navigation }: Props) => {
       return (
          <View style={[global.screenEnd]}>
             <>
-               <Text>{data[0].weight}</Text>
-               <Text>Start</Text>
-               <Text>{data[data.length - 1].weight}</Text>
-               <Text>Expected</Text>
-               <Text>3 month goal</Text>
-               <WeightChart data={data} />
-               <NutritionPieChart goals={goalState} />
-               <Text>3 month goal</Text>
-               <Text>3 month goal</Text>
-
+               <View style={[calculatedGoalsStyles.goalWeights, { flex: 1 }]}>
+                  <View style={calculatedGoalsStyles.weightCol}>
+                     <Text
+                        style={[calculatedGoalsStyles.textWeight, global.gap]}
+                     >
+                        {data[0].weight}
+                     </Text>
+                     <Text style={calculatedGoalsStyles.textTitle}>Start</Text>
+                  </View>
+                  <View style={calculatedGoalsStyles.weightCol}>
+                     <Text
+                        style={[calculatedGoalsStyles.textWeight, global.gap]}
+                     >
+                        {data[data.length - 1].weight}
+                     </Text>
+                     <Text style={calculatedGoalsStyles.textTitle}>
+                        Expected
+                     </Text>
+                  </View>
+               </View>
+               <View style={{ flex: 6 }}>
+                  <WeightChart data={data} title='3 month goal' />
+               </View>
+               <View style={[global.rowCenter, { flex: 4, paddingLeft: 20 }]}>
+                  <NutritionPieChart goals={goalState} />
+                  <MacroNutrientList goals={goalState} />
+               </View>
                <Button
                   onPress={handlePress}
                   title={`Continue to create account`}

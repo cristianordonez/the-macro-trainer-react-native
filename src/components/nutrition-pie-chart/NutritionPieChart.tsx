@@ -10,7 +10,6 @@ interface Props {
 
 export const NutritionPieChart = ({ goals }: Props) => {
    const { theme } = useTheme();
-   console.log('goals: ', goals);
    return (
       <View style={global.containerCenter}>
          <Svg height={200} width={200}>
@@ -20,7 +19,11 @@ export const NutritionPieChart = ({ goals }: Props) => {
                width={200}
                labels={() => null}
                height={200}
-               colorScale={['green', 'yellow', 'purple']}
+               colorScale={[
+                  theme.colors.primary,
+                  theme.colors.secondary,
+                  theme.colors.tertiary,
+               ]}
                data={[
                   {
                      x: goals.total_carbohydrates,
