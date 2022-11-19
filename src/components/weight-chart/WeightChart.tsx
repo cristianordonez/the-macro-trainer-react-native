@@ -20,7 +20,6 @@ export const WeightChart = ({ data, title }: Props) => {
    return (
       <VictoryChart
          style={{
-            // background: { fill: 'white' },
             parent: {
                border: '1 solid #ccc',
             },

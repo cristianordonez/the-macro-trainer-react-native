@@ -1,7 +1,7 @@
 import { useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import Svg from 'react-native-svg';
-import { VictoryLabel, VictoryPie } from 'victory-native';
+import { VictoryLabel, VictoryLegend, VictoryPie } from 'victory-native';
 import { Goals } from '../../../types/types';
 import { global } from '../../style/global.styles';
 interface Props {
@@ -10,6 +10,27 @@ interface Props {
 
 export const NutritionPieChart = ({ goals }: Props) => {
    const { theme } = useTheme();
+
+   const data = [
+      {
+         x: `${goals.total_carbohydrates}g`,
+         y: ((goals.total_carbohydrates * 4) / goals.total_calories) * 100,
+      },
+      {
+         x: `${goals.total_fat}g`,
+         y: ((goals.total_fat * 9) / goals.total_calories) * 100,
+      },
+      {
+         x: `${goals.total_protein}g`,
+         y: ((goals.total_protein * 4) / goals.total_calories) * 100,
+      },
+   ];
+
+   const colorScale = [
+      theme.colors.primary,
+      theme.colors.secondary,
+      theme.colors.tertiary,
+   ];
    return (
       <View style={global.containerCenter}>
          <Svg height={200} width={200}>
@@ -17,43 +38,38 @@ export const NutritionPieChart = ({ goals }: Props) => {
                standalone={false}
                padAngle={3}
                width={200}
-               labels={() => null}
                height={200}
-               colorScale={[
-                  theme.colors.primary,
-                  theme.colors.secondary,
-                  theme.colors.tertiary,
-               ]}
-               data={[
-                  {
-                     x: goals.total_carbohydrates,
-                     y:
-                        ((goals.total_carbohydrates * 4) /
-                           goals.total_calories) *
-                        100,
-                  },
-                  {
-                     x: goals.total_fat,
-                     y: ((goals.total_fat * 9) / goals.total_calories) * 100,
-                  },
-                  {
-                     x: goals.total_protein,
-                     y:
-                        ((goals.total_protein * 4) / goals.total_calories) *
-                        100,
-                  },
-               ]}
-               innerRadius={68}
-               labelRadius={100}
-               radius={80}
-               style={{ labels: { fontSize: 20, fill: 'white' } }}
+               colorScale={colorScale}
+               data={data}
+               innerRadius={50}
+               radius={55}
+               labelRadius={65}
+               labels={({ datum }) => datum.x}
+               style={{ labels: { fontSize: 18, fill: theme.colors.black } }}
             />
             <VictoryLabel
                textAnchor='middle'
-               style={{ fontSize: 16, fill: theme.colors.black }}
+               style={{
+                  fontSize: 16,
+                  fill: theme.colors.black,
+                  fontWeight: 'bold',
+               }}
                x={100}
                y={100}
-               text={`${goals.total_calories} calories`}
+               text={`${goals.total_calories} kcal`}
+            />
+            <VictoryLegend
+               x={0}
+               y={200}
+               centerTitle
+               orientation='horizontal'
+               gutter={20}
+               colorScale={colorScale}
+               style={{
+                  border: { stroke: 'none' },
+                  labels: { fill: theme.colors.black },
+               }}
+               data={[{ name: `Carbs` }, { name: 'Protein ' }, { name: 'Fat' }]}
             />
          </Svg>
       </View>
