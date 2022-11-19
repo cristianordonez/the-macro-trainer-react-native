@@ -1,4 +1,5 @@
 import { Text } from '@rneui/themed';
+import * as Haptics from 'expo-haptics';
 import React, {
    Dispatch,
    SetStateAction,
@@ -24,13 +25,13 @@ interface Props {
    setSelectedVal: Dispatch<SetStateAction<string>>;
 }
 export const AgeSlider = ({ selectedVal, setSelectedVal }: Props) => {
+   const ref = useRef<FlatList>(null);
    const [data, setData] = useState([
       {
          index: '0',
          value: '18',
       },
    ]);
-
    const { width } = Dimensions.get('window');
    const ITEM_SIZE = width / 6.7;
    const SPACING = 10;
@@ -45,12 +46,6 @@ export const AgeSlider = ({ selectedVal, setSelectedVal }: Props) => {
       []
    );
 
-   const viewabilityConfig = {
-      viewAreaCoveragePercentThreshold: 100,
-      waitForInteraction: true,
-   };
-   const ref = useRef<FlatList>(null);
-
    const updateData = () => {
       let result = [];
       for (let i = 18; i < 100; i++) {
@@ -63,6 +58,10 @@ export const AgeSlider = ({ selectedVal, setSelectedVal }: Props) => {
    useEffect(() => {
       updateData();
    }, []);
+
+   useEffect(() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+   }, [selectedVal]);
 
    const renderItem = ({ item }: RenderItemType) => {
       const opacity = item.value === selectedVal ? 1 : 0.5;
@@ -78,6 +77,11 @@ export const AgeSlider = ({ selectedVal, setSelectedVal }: Props) => {
             marginHorizontal={{ marginHorizontal: SPACING }}
          />
       );
+   };
+
+   const viewabilityConfig = {
+      viewAreaCoveragePercentThreshold: 100,
+      waitForInteraction: true,
    };
 
    return (

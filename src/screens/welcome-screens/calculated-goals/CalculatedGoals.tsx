@@ -35,8 +35,7 @@ export const CalculatedGoals = ({ navigation }: Props) => {
       userState.weightMetric,
       userState.goal
    );
-   console.log('data: ', data);
-   console.log('goalState: ', goalState);
+
    if (goalState.status === 'succeeded') {
       return (
          <View style={[global.screenEnd]}>
@@ -70,7 +69,7 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                </View>
                <Button
                   onPress={handlePress}
-                  title={`Continue to create account`}
+                  title={`Continue to complete creating account`}
                   size='lg'
                />
             </>

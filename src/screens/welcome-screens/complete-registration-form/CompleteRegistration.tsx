@@ -13,7 +13,6 @@ import {
 import * as yup from 'yup';
 import { SignupForm, WelcomeStackParamList } from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
-import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../hooks/reduxHooks';
 import { createAccount } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
@@ -70,9 +69,12 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
       >
          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
             <View style={[global.screenEnd, global.fullSize]}>
-               <CustomLinearProgress index={7} progress={1} />
-               <Text h4 style={global.screenTitle}>
-                  Great! Complete your registration
+               <Text h4 style={[global.screenTitle, global.gap]}>
+                  Last step!
+               </Text>
+               <Text style={global.textCenter}>
+                  Fill out the fields below to save your nutrition goals and
+                  create your account.
                </Text>
 
                <View style={[registrationStyles.formContainer]}>
