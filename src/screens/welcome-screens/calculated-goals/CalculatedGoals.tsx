@@ -7,7 +7,7 @@ import { LoadingImage } from '../../../components/loading-image/LoadingImage';
 // import { MacroNutrientList } from '../../../components/macronutrient-list/MacroNutrientList';
 import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
-import { useAppSelector } from '../../../hooks/reduxHooks';
+import { useAppSelector } from '../../../redux/hooks/reduxHooks';
 import { selectGoals } from '../../../redux/reducers/goalsReducer';
 import { selectUser } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';

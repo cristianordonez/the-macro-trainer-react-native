@@ -6,7 +6,7 @@ import { WelcomeStackParamList } from '../../../../types/types';
 import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
-import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import {
    getCalculatedGoals,
    resetStatus,

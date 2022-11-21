@@ -25,6 +25,8 @@ export const getCalculatedGoals = createAsyncThunk(
    }
 );
 
+//todo thunk that gets users calculated goals from API if they are authenticated
+
 const goalSlice = createSlice({
    name: 'goals',
    initialState,

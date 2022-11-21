@@ -30,7 +30,7 @@ export const createChartData = (
          case 'maintain':
             updatedWeight = weight;
             break;
-         case 'weight_gain':
+         case 'gain_muscle':
             updatedWeight = weight + weightChange;
             break;
          default:

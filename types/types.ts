@@ -1,7 +1,7 @@
 import { ViewToken } from 'react-native';
 
 type SharedUserState = {
-   goal: 'weight_loss' | 'maintain' | 'weight_gain' | '';
+   goal: 'weight_loss' | 'maintain' | 'gain_muscle' | '';
    activityLevel: 1 | 1.2 | 1.5 | 0;
    gender: 'male' | 'female' | 'non_binary' | '';
    age: number;
@@ -33,6 +33,10 @@ type WelcomeStackParamList = {
    Weight: undefined;
    CalculatedGoals: undefined;
    CompleteRegistration: undefined;
+};
+
+type AuthenticatedStackParamList = {
+   HomeScreen: undefined;
 };
 
 type MainScreenCard = {
@@ -107,6 +111,11 @@ type Goals = {
 
 type ChartValue = { date: Date; weight: number };
 
+type AuthReducerState = {
+   isAuthenticated: boolean;
+   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+};
+
 export {
    WelcomeStackParamList,
    ChartValue,
@@ -119,4 +128,6 @@ export {
    GlobalUserState,
    MainScreenCard,
    Goals,
+   AuthReducerState,
+   AuthenticatedStackParamList,
 };

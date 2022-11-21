@@ -6,12 +6,15 @@ import { View } from 'react-native';
 import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { useFonts } from '../hooks/useFonts';
+import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
+import { selectAuth } from '../redux/reducers/authReducer';
 import { global } from '../style/global.styles';
+import { AuthenticatedStackScreen } from './authenticated-screens/index';
 import { WelcomeStackScreen } from './welcome-screens/index';
-
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+   const dispatch = useAppDispatch();
    const [isReady, setIsReady] = useState<boolean>(false);
    const { theme } = useTheme();
 
@@ -31,6 +34,7 @@ export default function App() {
       async function prepare() {
          try {
             await useFonts();
+            //todo dispatch thunk to check if user is authenticated, and grab all necessary data if they are
          } catch (err) {
             console.log('err: ', err);
          } finally {
@@ -46,6 +50,8 @@ export default function App() {
       }
    }, [isReady]);
 
+   const authState = useAppSelector(selectAuth);
+
    if (!isReady) {
       return null;
    } else {
@@ -53,7 +59,11 @@ export default function App() {
          <View style={global.flex} onLayout={onLayoutRootView}>
             <SafeAreaProvider>
                <NavigationContainer theme={navTheme}>
-                  <WelcomeStackScreen />
+                  {authState.isAuthenticated ? (
+                     <AuthenticatedStackScreen />
+                  ) : (
+                     <WelcomeStackScreen />
+                  )}
                </NavigationContainer>
             </SafeAreaProvider>
          </View>

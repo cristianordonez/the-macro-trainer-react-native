@@ -75,4 +75,7 @@ export const global = StyleSheet.create({
       width: '100%',
       height: '75%',
    },
+   textOpacity: {
+      opacity: 0.75,
+   },
 });

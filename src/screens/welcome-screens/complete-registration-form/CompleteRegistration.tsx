@@ -13,7 +13,7 @@ import {
 import * as yup from 'yup';
 import { SignupForm, WelcomeStackParamList } from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
-import { useAppDispatch } from '../../../hooks/reduxHooks';
+import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { createAccount } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { makeRegistrationStyles } from './makeRegistrationStyles';

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.10",
+    "@react-navigation/bottom-tabs": "^6.4.1",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.9.0",
     "@react-navigation/stack": "^6.3.2",
@@ -20,6 +21,7 @@
     "@types/react-native": "~0.69.1",
     "expo": "~46.0.9",
     "expo-app-loading": "~2.1.0",
+    "expo-haptics": "~11.3.0",
     "expo-splash-screen": "~0.16.2",
     "expo-status-bar": "~1.4.0",
     "react": "18.0.0",
@@ -33,8 +35,7 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.4",
     "victory-native": "^36.6.8",
-    "yup": "^0.32.11",
-    "expo-haptics": "~11.3.0"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

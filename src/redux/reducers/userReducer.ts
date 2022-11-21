@@ -38,6 +38,7 @@ export const createAccount = createAsyncThunk(
    }
 );
 
+//todo thunk that gets users metrics if they are authenticated
 const userSlice = createSlice({
    name: 'user',
    initialState,
