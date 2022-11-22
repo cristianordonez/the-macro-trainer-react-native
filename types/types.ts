@@ -35,8 +35,12 @@ type WelcomeStackParamList = {
    CompleteRegistration: undefined;
 };
 
-type AuthenticatedStackParamList = {
-   HomeScreen: undefined;
+type AuthenticatedTabsParamList = {
+   Home: undefined;
+   FoodLog: undefined;
+   Exercise: undefined;
+   Profile: undefined;
+   Add: undefined;
 };
 
 type MainScreenCard = {
@@ -129,5 +133,5 @@ export {
    MainScreenCard,
    Goals,
    AuthReducerState,
-   AuthenticatedStackParamList,
+   AuthenticatedTabsParamList,
 };

@@ -1,37 +1,98 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useTheme } from '@rneui/themed';
-import { AuthenticatedStackParamList } from '../../../types/types';
+import { Icon, useTheme } from '@rneui/themed';
+import { TouchableOpacity } from 'react-native';
+import { AuthenticatedTabsParamList } from '../../../types/types';
 import { DateTitle } from '../../components/date-title/DateTitle';
-import { HomeScreen } from './home-screen/HomeScreen';
+import { Exercise } from './exercise/Exercise';
+import { FoodLog } from './food-log/FoodLog';
+import { Home } from './home/Home';
+import { Profile } from './profile/Profile';
+import { TabBarBtn } from './tab-bar-btn/TabBarBtn';
 
-const AuthenticatedStack =
-   createBottomTabNavigator<AuthenticatedStackParamList>();
+const AuthenticatedTabs =
+   createBottomTabNavigator<AuthenticatedTabsParamList>();
 
-export const AuthenticatedStackScreen = () => {
+export const AuthenticatedBottomTabScreen = () => {
    const { theme } = useTheme();
 
-   //todo make settings navigator
-
    return (
-      <AuthenticatedStack.Navigator
+      <AuthenticatedTabs.Navigator
          screenOptions={{
             headerStyle: {
                backgroundColor: theme.colors.background,
             },
+            headerTitle: (props) => null,
             headerTitleAlign: 'left',
             headerTintColor: theme.colors.black,
             headerShadowVisible: false,
+            tabBarActiveTintColor: theme.colors.primary,
+            tabBarStyle: {
+               backgroundColor: theme.colors.searchBg,
+               borderTopWidth: 0,
+               elevation: 0,
+            },
          }}
-         initialRouteName='HomeScreen'
+         initialRouteName='Home'
       >
-         <AuthenticatedStack.Screen
+         <AuthenticatedTabs.Screen
             name='Home'
-            component={HomeScreen}
+            component={Home}
             options={{
                headerLeft: (props) => <DateTitle />,
-               headerTitle: (props) => null,
+               tabBarIcon: ({ color }: { color: string }) => (
+                  <Icon color={color} name='home' type='feather' />
+               ),
             }}
          />
-      </AuthenticatedStack.Navigator>
+         <AuthenticatedTabs.Screen
+            name='FoodLog'
+            component={FoodLog}
+            options={{
+               tabBarLabel: 'Food Log',
+               headerLeft: (props) => <DateTitle />,
+               tabBarIcon: ({ color }: { color: string }) => (
+                  <Icon color={color} name='book-open' type='feather' />
+               ),
+            }}
+         />
+         <AuthenticatedTabs.Screen
+            name='Add'
+            listeners={{
+               tabPress: (e) => {
+                  e.preventDefault();
+               },
+            }}
+            options={{
+               tabBarLabel: '',
+               tabBarButton: (props) => <TouchableOpacity {...props} />,
+               tabBarIcon: ({ color }) => <TabBarBtn />,
+            }}
+            component={Home}
+         />
+         <AuthenticatedTabs.Screen
+            name='Exercise'
+            component={Exercise}
+            options={{
+               headerLeft: (props) => <DateTitle />,
+               tabBarIcon: ({ color }: { color: string }) => (
+                  <Icon
+                     color={color}
+                     name='weight-pound'
+                     type='material-community'
+                  />
+               ),
+            }}
+         />
+         <AuthenticatedTabs.Screen
+            name='Profile'
+            component={Profile}
+            options={{
+               headerLeft: (props) => <DateTitle />,
+               tabBarIcon: ({ color }: { color: string }) => (
+                  <Icon color={color} name='user' type='feather' />
+               ),
+            }}
+         />
+      </AuthenticatedTabs.Navigator>
    );
 };

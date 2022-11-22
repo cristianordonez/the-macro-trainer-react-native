@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { LoadingImage } from '../../../components/loading-image/LoadingImage';
-// import { MacroNutrientList } from '../../../components/macronutrient-list/MacroNutrientList';
 import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
@@ -63,10 +62,8 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                <View style={{ flex: 6 }}>
                   <WeightChart data={data} title='3 Month Goal' />
                </View>
-               {/* <View style={[global.rowCenter, { flex: 4, paddingLeft: 20 }]}> */}
                <View style={[{ flex: 8 }]}>
                   <NutritionPieChart goals={goalState} />
-                  {/* <MacroNutrientList goals={goalState} /> */}
                </View>
                <Button
                   onPress={handlePress}

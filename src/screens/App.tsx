@@ -9,7 +9,7 @@ import { useFonts } from '../hooks/useFonts';
 import { useAppDispatch, useAppSelector } from '../redux/hooks/reduxHooks';
 import { selectAuth } from '../redux/reducers/authReducer';
 import { global } from '../style/global.styles';
-import { AuthenticatedStackScreen } from './authenticated-screens/index';
+import { AuthenticatedBottomTabScreen } from './authenticated-screens/index';
 import { WelcomeStackScreen } from './welcome-screens/index';
 SplashScreen.preventAutoHideAsync();
 
@@ -60,7 +60,7 @@ export default function App() {
             <SafeAreaProvider>
                <NavigationContainer theme={navTheme}>
                   {authState.isAuthenticated ? (
-                     <AuthenticatedStackScreen />
+                     <AuthenticatedBottomTabScreen />
                   ) : (
                      <WelcomeStackScreen />
                   )}

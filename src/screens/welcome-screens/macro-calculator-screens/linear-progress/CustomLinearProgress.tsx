@@ -1,6 +1,6 @@
 import { LinearProgress, Text } from '@rneui/themed';
 import { View } from 'react-native';
-import { global } from '../../style/global.styles';
+import { global } from '../../../../style/global.styles';
 import { customProgressStyles } from './styles';
 
 interface Props {

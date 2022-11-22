@@ -5,9 +5,9 @@ import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { AgeSlider } from '../../../components/form-inputs/age-slider/AgeSlider';
-import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { updateAge } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
+import { CustomLinearProgress } from './linear-progress/CustomLinearProgress';
 
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'Age'>;
 

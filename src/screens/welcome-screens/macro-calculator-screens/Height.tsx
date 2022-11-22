@@ -6,11 +6,11 @@ import { WelcomeStackParamList } from '../../../../types/types';
 import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
-import { CustomLinearProgress } from '../../../components/linear-progress/CustomLinearProgress';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { updateHeight } from '../../../redux/reducers/userReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
+import { CustomLinearProgress } from './linear-progress/CustomLinearProgress';
 
 type DropDownItem = {
    label: string;
