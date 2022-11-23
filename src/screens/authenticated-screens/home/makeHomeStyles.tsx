@@ -2,7 +2,6 @@ import { Colors } from '@rneui/themed';
 import { StyleSheet } from 'react-native';
 
 const gap = 10;
-const itemsPerRow = 2;
 
 export const makeHomeStyles = (colors: Colors) =>
    StyleSheet.create({
@@ -11,6 +10,8 @@ export const makeHomeStyles = (colors: Colors) =>
          backgroundColor: colors.searchBg,
          height: '100%',
          width: '100%',
+         alignItems: 'center',
+         justifyContent: 'flex-start',
       },
       generalProgressContainer: {
          flex: 3,
