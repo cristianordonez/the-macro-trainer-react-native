@@ -1,4 +1,5 @@
 import { LinearProgress, Text, useTheme } from '@rneui/themed';
+import React from 'react';
 import { View } from 'react-native';
 import { Goals, MacroMap } from '../../../../../types/types';
 import { CircularProgress } from '../../../../components/circular-progress/CircularProgress';
@@ -34,7 +35,7 @@ export const TotalNutritionCalorieSection = ({
             <View style={styles.linearProgressContainer}>
                {Object.keys(goals).map((key, index) =>
                   key !== 'total_calories' ? (
-                     <>
+                     <React.Fragment key={key}>
                         <Text
                            style={[global.textBold, styles.linearProgressText]}
                         >
@@ -63,7 +64,7 @@ export const TotalNutritionCalorieSection = ({
                            {dailyNutritionSummary[key as keyof Goals]} /{' '}
                            {goals[key as keyof Goals]}g
                         </Text>
-                     </>
+                     </React.Fragment>
                   ) : null
                )}
             </View>

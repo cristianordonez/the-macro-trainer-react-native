@@ -3,11 +3,11 @@ import { Icon, useTheme } from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import { AuthenticatedTabsParamList } from '../../../types/types';
 import { DateTitle } from '../../components/date-title/DateTitle';
+import { AddBtnModal } from './add-btn-modal/AddBtnModal';
 import { Exercise } from './exercise/Exercise';
 import { FoodLog } from './food-log/FoodLog';
 import { Home } from './home/Home';
 import { Profile } from './profile/Profile';
-import { TabBarBtn } from './tab-bar-btn/TabBarBtn';
 
 const AuthenticatedTabs =
    createBottomTabNavigator<AuthenticatedTabsParamList>();
@@ -55,6 +55,7 @@ export const AuthenticatedBottomTabScreen = () => {
          />
          <AuthenticatedTabs.Screen
             name='Add'
+            component={AddBtnModal}
             listeners={{
                tabPress: (e) => {
                   e.preventDefault();
@@ -63,9 +64,8 @@ export const AuthenticatedBottomTabScreen = () => {
             options={{
                tabBarLabel: '',
                tabBarButton: (props) => <TouchableOpacity {...props} />,
-               tabBarIcon: ({ color }) => <TabBarBtn />,
+               tabBarIcon: ({ color }) => <AddBtnModal />,
             }}
-            component={Home}
          />
          <AuthenticatedTabs.Screen
             name='Exercise'
