@@ -105,6 +105,11 @@ type SignupForm = {
    confirmPassword: string;
 };
 
+type LoginForm = {
+   email: string;
+   password: string;
+};
+
 type Goals = {
    total_fat: number;
    total_protein: number;
@@ -148,4 +153,5 @@ export {
    AuthenticatedTabsParamList,
    DailyNutritionSummary,
    MacroMap,
+   LoginForm,
 };

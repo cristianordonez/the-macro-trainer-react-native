@@ -1,7 +1,11 @@
 import { Icon, Input, useTheme } from '@rneui/themed';
 import { Control, Controller } from 'react-hook-form';
 import { KeyboardTypeOptions } from 'react-native';
-import { SignupForm, TextContentType } from '../../../../types/types';
+import {
+   LoginForm,
+   SignupForm,
+   TextContentType,
+} from '../../../../types/types';
 import { inputStyles } from './styles';
 
 interface Props {
@@ -11,7 +15,7 @@ interface Props {
    iconType: string;
    textContentType: TextContentType;
    label: 'Email' | 'Password' | 'Username' | 'Confirm Password';
-   control: Control<SignupForm, unknown>;
+   control: Control<SignupForm, unknown> | Control<LoginForm, unknown>;
    name: 'email' | 'password' | 'username' | 'confirmPassword';
 }
 

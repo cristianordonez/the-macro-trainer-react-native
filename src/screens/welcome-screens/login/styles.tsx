@@ -43,4 +43,7 @@ export const makeLoginStyles = (colors: Colors) =>
          height: 1,
          backgroundColor: colors.divider,
       },
+      errorMessage: {
+         color: 'red',
+      },
    });

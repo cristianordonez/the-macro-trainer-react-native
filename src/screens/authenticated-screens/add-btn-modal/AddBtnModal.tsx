@@ -50,6 +50,7 @@ export function AddBtnModal() {
                      </View>
                      {addModalOptions.map((option) => (
                         <Pressable
+                           key={option.title}
                            style={({ pressed }) => [
                               pressed
                                  ? addBtnModalStyles.modalRowPressed
