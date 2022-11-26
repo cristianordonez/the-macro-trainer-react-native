@@ -6,6 +6,8 @@ export const makeCustomGroupStyles = (colors: Colors) =>
       container: {
          backgroundColor: 'transparent',
          borderColor: colors.background,
+         borderRadius: 25,
+         height: 25,
       },
       buttonContainer: {
          backgroundColor: colors.grey0,

@@ -2,7 +2,6 @@ import { Text } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { global } from '../../style/global.styles';
-import { dateTitleStyles } from './styles';
 
 export const DateTitle = () => {
    const [currentDate, setCurrentDate] = useState<string>('');
@@ -15,9 +14,11 @@ export const DateTitle = () => {
       setCurrentDate(date);
    }, []);
    return (
-      <View style={dateTitleStyles.container}>
-         <Text style={[global.gap, global.textOpacity]}>Today</Text>
-         <Text style={global.textBold}>{currentDate}</Text>
+      <View>
+         <Text style={[global.gap, global.textOpacity, global.textCenter]}>
+            Today
+         </Text>
+         <Text style={[global.textBold, global.textCenter]}>{currentDate}</Text>
       </View>
    );
 };

@@ -11,7 +11,8 @@ export const makeHomeStyles = (colors: Colors) =>
          height: '100%',
          width: '100%',
          alignItems: 'center',
-         justifyContent: 'flex-start',
+         justifyContent: 'center',
+         overflow: 'hidden',
       },
       generalProgressContainer: {
          flex: 3,
@@ -20,5 +21,26 @@ export const makeHomeStyles = (colors: Colors) =>
          marginHorizontal: -(gap / 2),
          marginVertical: -(gap / 2),
          paddingTop: 10,
+      },
+      tabsContainer: {
+         flex: 1,
+         width: '60%',
+         alignItems: 'center',
+         justifyContent: 'center',
+         paddingTop: 10,
+      },
+      tabContentsContainer: {
+         height: '85%',
+         width: '100%',
+      },
+      tabViewItem: {
+         width: '100%',
+         alignItems: 'center',
+         justifyContent: 'center',
+      },
+      tabItemTitle: {
+         fontSize: 12,
+         paddingVertical: 0,
+         color: colors.black,
       },
    });

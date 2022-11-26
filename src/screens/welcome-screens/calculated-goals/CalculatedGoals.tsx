@@ -63,7 +63,7 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                   <WeightChart data={data} title='3 Month Goal' />
                </View>
                <View style={[{ flex: 8 }]}>
-                  <NutritionPieChart goals={goalState} />
+                  <NutritionPieChart goals={goalState} showPercentage={false} />
                </View>
                <Button
                   onPress={handlePress}

@@ -5,9 +5,10 @@ import { Goals } from '../../../types/types';
 
 interface Props {
    goals: Goals;
+   showPercentage: boolean;
 }
 
-export const NutritionPieChart = ({ goals }: Props) => {
+export const NutritionPieChart = ({ goals, showPercentage }: Props) => {
    const { theme } = useTheme();
 
    const data = [
@@ -16,12 +17,12 @@ export const NutritionPieChart = ({ goals }: Props) => {
          y: ((goals.total_carbohydrates * 4) / goals.total_calories) * 100,
       },
       {
-         x: `${goals.total_fat}g`,
-         y: ((goals.total_fat * 9) / goals.total_calories) * 100,
-      },
-      {
          x: `${goals.total_protein}g`,
          y: ((goals.total_protein * 4) / goals.total_calories) * 100,
+      },
+      {
+         x: `${goals.total_fat}g`,
+         y: ((goals.total_fat * 9) / goals.total_calories) * 100,
       },
    ];
 
@@ -31,7 +32,6 @@ export const NutritionPieChart = ({ goals }: Props) => {
       theme.colors.tertiary,
    ];
    return (
-      // <View style={global.containerCenter}>
       <Svg height={200} width={200}>
          <VictoryPie
             standalone={false}
@@ -43,7 +43,7 @@ export const NutritionPieChart = ({ goals }: Props) => {
             innerRadius={50}
             radius={55}
             labelRadius={70}
-            labels={({ datum }) => datum.x}
+            labels={({ datum }) => (showPercentage ? `${datum.y}%` : datum.x)}
             style={{ labels: { fontSize: 18, fill: theme.colors.black } }}
          />
          <VictoryLabel
@@ -58,10 +58,10 @@ export const NutritionPieChart = ({ goals }: Props) => {
             text={`${goals.total_calories} kcal`}
          />
          <VictoryLegend
-            x={0}
-            y={200}
+            x={200}
+            y={50}
             centerTitle
-            orientation='horizontal'
+            orientation='vertical'
             gutter={20}
             colorScale={colorScale}
             style={{
@@ -71,6 +71,5 @@ export const NutritionPieChart = ({ goals }: Props) => {
             data={[{ name: `Carbs` }, { name: 'Protein ' }, { name: 'Fat' }]}
          />
       </Svg>
-      // </View>
    );
 };

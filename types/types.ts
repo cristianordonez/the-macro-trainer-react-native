@@ -112,12 +112,24 @@ type Goals = {
    total_carbohydrates: number;
    status?: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
+type DailyNutritionSummary = {
+   total_fat: number;
+   total_calories: number;
+   total_protein: number;
+   total_carbohydrates: number;
+};
 
 type ChartValue = { date: Date; weight: number };
 
 type AuthReducerState = {
    isAuthenticated: boolean;
    status: 'idle' | 'loading' | 'succeeded' | 'failed';
+};
+
+type MacroMap = {
+   total_fat: string;
+   total_protein: string;
+   total_carbohydrates: string;
 };
 
 export {
@@ -134,4 +146,6 @@ export {
    Goals,
    AuthReducerState,
    AuthenticatedTabsParamList,
+   DailyNutritionSummary,
+   MacroMap,
 };

@@ -9,6 +9,7 @@ interface Props {
    progress: number;
    amount: number;
    metric: string;
+   isCaloriesRemaining: boolean;
 }
 
 export const CircularProgress = ({
@@ -17,6 +18,7 @@ export const CircularProgress = ({
    color,
    progress,
    metric,
+   isCaloriesRemaining,
 }: Props) => {
    const { theme } = useTheme();
    const radius = (size - strokeWidth) / 2;
@@ -32,6 +34,20 @@ export const CircularProgress = ({
          height={size}
          style={{ alignItems: 'center', justifyContent: 'center' }}
       >
+         {isCaloriesRemaining ? (
+            <SvgText
+               stroke={theme.colors.black}
+               fill={theme.colors.black}
+               strokeWidth={0}
+               opacity={0.7}
+               fontSize='10'
+               x={size / 2}
+               y={size / 2 - 25}
+               textAnchor='middle'
+            >
+               Calories Remaining
+            </SvgText>
+         ) : null}
          <SvgText
             stroke={theme.colors.black}
             fill={theme.colors.black}
@@ -50,7 +66,7 @@ export const CircularProgress = ({
             x={size / 2}
             y={size / 2 + 25}
             textAnchor='middle'
-            opacity={0.7}
+            opacity={0.8}
          >
             {metric}
          </SvgText>

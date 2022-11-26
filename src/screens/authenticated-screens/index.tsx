@@ -21,8 +21,6 @@ export const AuthenticatedBottomTabScreen = () => {
             headerStyle: {
                backgroundColor: theme.colors.background,
             },
-            headerTitle: (props) => null,
-            headerTitleAlign: 'left',
             headerTintColor: theme.colors.black,
             headerShadowVisible: false,
             tabBarActiveTintColor: theme.colors.primary,
@@ -38,7 +36,7 @@ export const AuthenticatedBottomTabScreen = () => {
             name='Home'
             component={Home}
             options={{
-               headerLeft: (props) => <DateTitle />,
+               headerTitle: (props) => <DateTitle />,
                tabBarIcon: ({ color }: { color: string }) => (
                   <Icon color={color} name='home' type='feather' />
                ),
@@ -49,7 +47,7 @@ export const AuthenticatedBottomTabScreen = () => {
             component={FoodLog}
             options={{
                tabBarLabel: 'Food Log',
-               headerLeft: (props) => <DateTitle />,
+               headerTitle: (props) => <DateTitle />,
                tabBarIcon: ({ color }: { color: string }) => (
                   <Icon color={color} name='book-open' type='feather' />
                ),
@@ -73,7 +71,7 @@ export const AuthenticatedBottomTabScreen = () => {
             name='Exercise'
             component={Exercise}
             options={{
-               headerLeft: (props) => <DateTitle />,
+               headerTitle: (props) => <DateTitle />,
                tabBarIcon: ({ color }: { color: string }) => (
                   <Icon
                      color={color}
@@ -87,7 +85,7 @@ export const AuthenticatedBottomTabScreen = () => {
             name='Profile'
             component={Profile}
             options={{
-               headerLeft: (props) => <DateTitle />,
+               headerTitle: (props) => <DateTitle />,
                tabBarIcon: ({ color }: { color: string }) => (
                   <Icon color={color} name='user' type='feather' />
                ),

@@ -55,6 +55,7 @@ export const GeneralProgressSquare = ({
             progress={1 - amount / goal}
             amount={amount}
             metric={metric}
+            isCaloriesRemaining={false}
          />
       </View>
    );
