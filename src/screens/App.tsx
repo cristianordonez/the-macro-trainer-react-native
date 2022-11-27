@@ -30,6 +30,13 @@ export default function App() {
       },
    };
 
+   //todo use this syntax to call requests for goals, food summary, and user metrics
+   //   useEffect(() => {
+   //      if (postStatus === 'idle') {
+   //         dispatch(fetchPosts());
+   //      }
+   //   }, [postStatus, dispatch]);
+
    useEffect(() => {
       async function prepare() {
          try {

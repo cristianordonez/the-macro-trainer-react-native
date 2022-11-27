@@ -2,10 +2,14 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Tab, TabView, useTheme } from '@rneui/themed';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { AuthenticatedTabsParamList, Goals } from '../../../../types/types';
+import {
+   AuthenticatedTabsParamList,
+   DailyNutritionSummary,
+   Goals,
+} from '../../../../types/types';
 import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
-import { selectGoals } from '../../../redux/reducers/goalsReducer';
+import { selectGoals } from '../../../redux/reducers/userGoalsReducer';
 import { global } from '../../../style/global.styles';
 import { GeneralProgressSquare } from './general-progress-square/GeneralProgressSquare';
 import { makeHomeStyles } from './makeHomeStyles';
@@ -17,10 +21,13 @@ const goal: Goals = {
    total_protein: 200,
    total_fat: 44,
    total_calories: 2000,
+   water: 8,
+   steps: 10000,
+   calories_burned: 250,
 };
 
 //todo replace this with nutrition for currently selected day
-const dailyNutritionSummary: Goals = {
+const dailyNutritionSummary: DailyNutritionSummary = {
    total_carbohydrates: 10,
    total_fat: 10,
    total_protein: 10,

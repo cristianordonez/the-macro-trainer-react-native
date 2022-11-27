@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { WelcomeStackParamList } from '../../../../types/types';
 import { AgeSlider } from '../../../components/form-inputs/age-slider/AgeSlider';
-import { updateAge } from '../../../redux/reducers/userReducer';
+import { updateAge } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { CustomLinearProgress } from './linear-progress/CustomLinearProgress';
 

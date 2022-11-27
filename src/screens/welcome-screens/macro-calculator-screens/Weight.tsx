@@ -7,10 +7,10 @@ import { CustomButtonGroup } from '../../../components/form-inputs/custom-button
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import {
-   getCalculatedGoals,
+   calculateGoals,
    resetStatus,
-} from '../../../redux/reducers/goalsReducer';
-import { updateWeight } from '../../../redux/reducers/userReducer';
+} from '../../../redux/reducers/userGoalsReducer';
+import { updateWeight } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 import { CustomLinearProgress } from './linear-progress/CustomLinearProgress';
@@ -49,7 +49,7 @@ export const Weight = ({ navigation }: Props) => {
       });
       dispatch(action);
       dispatch(resetStatus);
-      dispatch(getCalculatedGoals());
+      dispatch(calculateGoals());
       navigation.navigate('CalculatedGoals');
    };
    return (

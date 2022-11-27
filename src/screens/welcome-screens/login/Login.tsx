@@ -14,6 +14,8 @@ import {
 import * as yup from 'yup';
 import { LoginForm, WelcomeStackParamList } from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
+import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
+import { loginUser } from '../../../redux/reducers/authReducer';
 import { global } from '../../../style/global.styles';
 import { makeLoginStyles } from './styles';
 
@@ -28,6 +30,7 @@ const formSchema = yup.object().shape({
 });
 
 export const Login = ({ navigation }: Props) => {
+   const dispatch = useAppDispatch();
    const { theme } = useTheme();
    const loginStyles = makeLoginStyles(theme.colors);
 
@@ -37,17 +40,11 @@ export const Login = ({ navigation }: Props) => {
       useForm<LoginForm>(formOptions);
    const { errors } = formState;
 
-   console.log('errors: ', errors);
    const onSubmit = async (data: LoginForm) => {
       try {
-         console.log('data in login form on submit: ', data);
-         //TODO: dispatch data to update state
-         //TODO: dispatch thunk to send request to backend
-         //  await dispatch(createAccount(data));
+         await dispatch(loginUser(data));
       } catch (err) {
          console.log('err in onsubmit: ', err);
-      } finally {
-         // navigation.navigate('Main');
       }
    };
 

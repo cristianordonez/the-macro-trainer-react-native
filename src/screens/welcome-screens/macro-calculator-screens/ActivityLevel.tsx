@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
-import { updateActivityLevel } from '../../../redux/reducers/userReducer';
+import { updateActivityLevel } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 import { CustomLinearProgress } from './linear-progress/CustomLinearProgress';

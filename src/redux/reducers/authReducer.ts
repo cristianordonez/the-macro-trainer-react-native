@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AuthReducerState } from '../../../types/types';
+import { AuthReducerState, LoginForm } from '../../../types/types';
+import { login } from '../api/auth-api';
 import { RootState } from '../store/store';
 
 const initialState: AuthReducerState = {
@@ -9,14 +10,15 @@ const initialState: AuthReducerState = {
 
 export const loginUser = createAsyncThunk(
    'auth/loginUser',
-   async (data, { getState }) => {
+   async (formData: LoginForm, { getState }) => {
       try {
-         const state = getState() as RootState;
-         //TODO: add additional keys to initial state
-         //TODO: create api function to handle request to backend
-         console.log('state in loginuser thunk: ', state);
-         // const goals = await getGoals(state.user);
-         // return goals;
+         const statusCode = await login(formData);
+         console.log('statusCode: ', statusCode);
+         if (statusCode !== 200) {
+            throw new Error('Unauthorized');
+         } else {
+            return statusCode;
+         }
       } catch (err) {
          console.log('err: ', err);
          return err;

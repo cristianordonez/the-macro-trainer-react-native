@@ -1,4 +1,4 @@
-import { GlobalUserState } from '../../../types/types';
+import { GlobalMetricsState } from '../../../types/types';
 
 export const getGoals = async ({
    goal,
@@ -9,9 +9,8 @@ export const getGoals = async ({
    heightMetric,
    weight,
    weightMetric,
-}: GlobalUserState) => {
+}: GlobalMetricsState) => {
    let url = 'http://192.168.1.8:8080/api/goals/calculate';
-
    url +=
       '?' +
       new URLSearchParams({

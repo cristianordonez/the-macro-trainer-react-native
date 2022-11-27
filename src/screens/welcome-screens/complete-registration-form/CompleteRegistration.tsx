@@ -14,7 +14,7 @@ import * as yup from 'yup';
 import { SignupForm, WelcomeStackParamList } from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
-import { createAccount } from '../../../redux/reducers/userReducer';
+import { createAccount } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { makeRegistrationStyles } from './makeRegistrationStyles';
 
@@ -24,10 +24,6 @@ type Props = NativeStackScreenProps<
 >;
 
 const formSchema = yup.object().shape({
-   username: yup
-      .string()
-      .required('Username is required')
-      .min(3, 'Username must be at least 3 characters long'),
    email: yup
       .string()
       .email('Pleae enter a valid email address.')
@@ -78,23 +74,6 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                </Text>
 
                <View style={[registrationStyles.formContainer]}>
-                  <View>
-                     <CustomInput
-                        secureTextEntry={false}
-                        keyboardType='default'
-                        iconName='user'
-                        control={control}
-                        iconType='ant-design'
-                        label='Username'
-                        name='username'
-                        textContentType='username'
-                     />
-                     {errors.username && (
-                        <Text style={registrationStyles.errorMessage}>
-                           {errors.username.message}
-                        </Text>
-                     )}
-                  </View>
                   <View>
                      <CustomInput
                         secureTextEntry={false}

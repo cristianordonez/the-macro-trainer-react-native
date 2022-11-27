@@ -1,7 +1,11 @@
 import { LinearProgress, Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { View } from 'react-native';
-import { Goals, MacroMap } from '../../../../../types/types';
+import {
+   DailyNutritionSummary,
+   Goals,
+   MacroMap,
+} from '../../../../../types/types';
 import { CircularProgress } from '../../../../components/circular-progress/CircularProgress';
 import { global } from '../../../../style/global.styles';
 import { convertMacroKey } from '../../../../utils/convertMacroKey';
@@ -10,7 +14,7 @@ import { styles } from './styles';
 interface Props {
    colors: string[];
    goals: Goals;
-   dailyNutritionSummary: Goals;
+   dailyNutritionSummary: DailyNutritionSummary;
 }
 export const TotalNutritionCalorieSection = ({
    colors,
@@ -61,8 +65,12 @@ export const TotalNutritionCalorieSection = ({
                               global.gap,
                            ]}
                         >
-                           {dailyNutritionSummary[key as keyof Goals]} /{' '}
-                           {goals[key as keyof Goals]}g
+                           {
+                              dailyNutritionSummary[
+                                 key as keyof DailyNutritionSummary
+                              ]
+                           }{' '}
+                           / {goals[key as keyof Goals]}g
                         </Text>
                      </React.Fragment>
                   ) : null

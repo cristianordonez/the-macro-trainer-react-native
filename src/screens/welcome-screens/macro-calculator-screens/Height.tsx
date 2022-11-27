@@ -7,7 +7,7 @@ import { CustomButtonGroup } from '../../../components/form-inputs/custom-button
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
-import { updateHeight } from '../../../redux/reducers/userReducer';
+import { updateHeight } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { createAlert } from '../../../utils/createAlert';
 import { CustomLinearProgress } from './linear-progress/CustomLinearProgress';

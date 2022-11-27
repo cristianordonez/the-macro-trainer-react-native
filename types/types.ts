@@ -16,7 +16,7 @@ type UserState = SharedUserState & {
    numCm: number;
 };
 
-type GlobalUserState = SharedUserState & {
+type GlobalMetricsState = SharedUserState & {
    height: number;
    isLoggedIn: boolean;
 };
@@ -99,7 +99,6 @@ type TextContentType =
    | 'oneTimeCode';
 
 type SignupForm = {
-   username: string;
    email: string;
    password: string;
    confirmPassword: string;
@@ -115,8 +114,12 @@ type Goals = {
    total_protein: number;
    total_calories: number;
    total_carbohydrates: number;
-   status?: 'idle' | 'loading' | 'succeeded' | 'failed';
+   water: number;
+   steps: number;
+   calories_burned: number;
+   status?: 'idle' | 'pending' | 'succeeded' | 'failed';
 };
+
 type DailyNutritionSummary = {
    total_fat: number;
    total_calories: number;
@@ -128,7 +131,7 @@ type ChartValue = { date: Date; weight: number };
 
 type AuthReducerState = {
    isAuthenticated: boolean;
-   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+   status: 'idle' | 'pending' | 'succeeded' | 'failed';
 };
 
 type MacroMap = {
@@ -146,7 +149,7 @@ export {
    ViewableItems,
    RenderItemType,
    TextContentType,
-   GlobalUserState,
+   GlobalMetricsState,
    MainScreenCard,
    Goals,
    AuthReducerState,
