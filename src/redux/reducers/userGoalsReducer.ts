@@ -15,11 +15,11 @@ const initialState: Goals = {
 };
 
 export const calculateGoals = createAsyncThunk(
-   'goals/calculateGoals',
+   'userGoals/calculateGoals',
    async (data, { getState }) => {
       try {
          const state = getState() as RootState;
-         const goals = await getGoals(state.user);
+         const goals = await getGoals(state.userMetrics);
          return goals;
       } catch (err) {
          console.log('err: ', err);
@@ -39,10 +39,11 @@ const userGoalsSlice = createSlice({
       },
    },
    extraReducers: (builder) => {
-      builder.addCase(calculateGoals.pending, (state, action) => {
-         state.status = 'pending';
-      }),
-         builder.addCase(calculateGoals.fulfilled, (state, action) => {
+      builder
+         .addCase(calculateGoals.pending, (state, action) => {
+            state.status = 'loading';
+         })
+         .addCase(calculateGoals.fulfilled, (state, action) => {
             const {
                total_calories,
                total_carbohydrates,
@@ -54,8 +55,8 @@ const userGoalsSlice = createSlice({
             state.total_fat = total_fat;
             state.total_protein = total_protein;
             state.status = 'succeeded';
-         }),
-         builder.addCase(calculateGoals.rejected, (state, action) => {
+         })
+         .addCase(calculateGoals.rejected, (state, action) => {
             state.status = 'failed';
          });
    },
@@ -65,7 +66,7 @@ const userGoalsSlice = createSlice({
 export const { resetStatus } = userGoalsSlice.actions;
 
 //this will allow us to get the state when calling useAppSelector
-export const selectGoals = (state: RootState) => state.goal;
+export const selectGoals = (state: RootState) => state.userGoals;
 
 //this gets added to store in store.ts
 export default userGoalsSlice.reducer;

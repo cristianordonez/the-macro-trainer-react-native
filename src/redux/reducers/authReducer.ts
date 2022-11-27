@@ -34,7 +34,21 @@ const authSlice = createSlice({
          state.isAuthenticated = action.payload;
       },
    },
-   extraReducers: (builder) => {},
+   extraReducers: (builder) => {
+      builder
+         .addCase(loginUser.pending, (state, action) => {
+            state.status = 'loading';
+         })
+         .addCase(loginUser.fulfilled, (state, action) => {
+            console.log('state in loginUser: ', state);
+            state.status = 'succeeded';
+            state.isAuthenticated = true;
+         })
+         .addCase(loginUser.rejected, (state, action) => {
+            state.status = 'failed';
+            state.isAuthenticated = false;
+         });
+   },
 });
 
 //these will create the action object for us so we can dispatch it

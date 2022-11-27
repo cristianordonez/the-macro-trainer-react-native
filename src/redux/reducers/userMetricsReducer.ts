@@ -67,13 +67,14 @@ const userMetricsSlice = createSlice({
       },
    },
    extraReducers: (builder) => {
-      builder.addCase(createAccount.pending, (state, action) => {
-         //todo activate loading screen while request is finishing
-      }),
-         builder.addCase(createAccount.fulfilled, (state, action) => {
+      builder
+         .addCase(createAccount.pending, (state, action) => {
+            //todo activate loading screen while request is finishing
+         })
+         .addCase(createAccount.fulfilled, (state, action) => {
             console.log('action in fulfilled add case: ', action.payload);
-         }),
-         builder.addCase(createAccount.rejected, (state, action) => {
+         })
+         .addCase(createAccount.rejected, (state, action) => {
             console.log('action.payload rejected reducer:', action.payload);
          });
    },

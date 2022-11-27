@@ -117,7 +117,7 @@ type Goals = {
    water: number;
    steps: number;
    calories_burned: number;
-   status?: 'idle' | 'pending' | 'succeeded' | 'failed';
+   status?: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
 type DailyNutritionSummary = {
@@ -131,7 +131,7 @@ type ChartValue = { date: Date; weight: number };
 
 type AuthReducerState = {
    isAuthenticated: boolean;
-   status: 'idle' | 'pending' | 'succeeded' | 'failed';
+   status: 'idle' | 'loading' | 'succeeded' | 'failed';
 };
 
 type MacroMap = {

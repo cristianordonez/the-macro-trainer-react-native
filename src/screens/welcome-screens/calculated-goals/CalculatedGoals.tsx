@@ -8,7 +8,7 @@ import { NutritionPieChart } from '../../../components/nutrition-pie-chart/Nutri
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
 import { selectGoals } from '../../../redux/reducers/userGoalsReducer';
-import { selectUser } from '../../../redux/reducers/userMetricsReducer';
+import { selectUserMetrics } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { createChartData } from '../../../utils/createChartData';
 import { calculatedGoalsStyles } from './styles';
@@ -16,7 +16,7 @@ import { calculatedGoalsStyles } from './styles';
 type Props = NativeStackScreenProps<WelcomeStackParamList, 'CalculatedGoals'>;
 
 export const CalculatedGoals = ({ navigation }: Props) => {
-   const userState = useAppSelector(selectUser);
+   const userState = useAppSelector(selectUserMetrics);
    const goalState = useAppSelector(selectGoals);
 
    const handlePress = () => {

@@ -49,7 +49,7 @@ export const Home = ({ navigation }: Props) => {
       theme.colors.link,
    ];
 
-   //TODO replace with data from personal api
+   //TODO replace with data from api
    const progressData = [
       {
          title: 'Calories Eaten',

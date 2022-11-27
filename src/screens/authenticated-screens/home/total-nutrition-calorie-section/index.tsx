@@ -23,6 +23,9 @@ export const TotalNutritionCalorieSection = ({
 }: Props) => {
    const { theme } = useTheme();
 
+   const { total_carbohydrates, total_fat, total_protein } = goals;
+   const mainNutritionGoals = { total_carbohydrates, total_fat, total_protein };
+
    return (
       <>
          <View style={styles.outercontainer}>
@@ -37,8 +40,8 @@ export const TotalNutritionCalorieSection = ({
                />
             </View>
             <View style={styles.linearProgressContainer}>
-               {Object.keys(goals).map((key, index) =>
-                  key !== 'total_calories' ? (
+               {Object.keys(mainNutritionGoals).map((key, index) =>
+                  key !== 'total_calories' && key !== 'steps' ? (
                      <React.Fragment key={key}>
                         <Text
                            style={[global.textBold, styles.linearProgressText]}
