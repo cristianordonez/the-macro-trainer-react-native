@@ -22,4 +22,13 @@ export const auth = {
       const response = await fetch(currentUrl, fetchOptions);
       return response.status;
    },
+   logout: async () => {
+      const currentUrl = `${url}/api/logout`;
+      const fetchOptions = {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+      };
+      const response = await fetch(currentUrl, fetchOptions);
+      return response.status;
+   },
 };

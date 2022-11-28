@@ -27,7 +27,7 @@ export const loginUser = createAsyncThunk(
 
 export const getAuthStatus = createAsyncThunk(
    'auth/getAuthStatus',
-   async (data, { getState }) => {
+   async () => {
       try {
          const statusCode = await auth.checkAuth();
          if (statusCode !== 200) {
@@ -41,6 +41,21 @@ export const getAuthStatus = createAsyncThunk(
       }
    }
 );
+
+export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
+   try {
+      const statusCode = await auth.logout();
+      console.log('statusCode: ', statusCode);
+      if (statusCode !== 200) {
+         throw new Error('Unable to logout user.');
+      } else {
+         return statusCode;
+      }
+   } catch (err) {
+      console.error(err);
+      return err;
+   }
+});
 
 const authSlice = createSlice({
    name: 'auth',
@@ -72,6 +87,18 @@ const authSlice = createSlice({
             state.isAuthenticated = true;
          })
          .addCase(getAuthStatus.rejected, (state, action) => {
+            state.status = 'failed';
+            state.isAuthenticated = false;
+         });
+      builder
+         .addCase(logoutUser.pending, (state, action) => {
+            state.status = 'loading';
+         })
+         .addCase(logoutUser.fulfilled, (state, action) => {
+            state.status = 'succeeded';
+            state.isAuthenticated = false;
+         })
+         .addCase(logoutUser.rejected, (state, action) => {
             state.status = 'failed';
             state.isAuthenticated = false;
          });
