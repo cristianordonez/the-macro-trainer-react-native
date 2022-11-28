@@ -11,14 +11,31 @@ type Props = NativeStackScreenProps<AuthenticatedTabsParamList, 'Profile'>;
 export const Profile = ({ navigation }: Props) => {
    const dispatch = useAppDispatch();
 
-   const handleLogout = async () => {
-      await dispatch(logoutUser());
-      createAlert({ heading: '', body: 'you have been logged out' });
+   const handleLogout = () => {
+      dispatch(logoutUser());
    };
+
    return (
       <View>
          <Text>profile screen</Text>
-         <Button onPress={handleLogout}>Log out</Button>
+         <Button
+            onPress={() =>
+               createAlert({
+                  heading: 'Are you sure you want to logout?',
+                  message: '',
+                  btnOptions: [
+                     { text: 'Cancel', style: 'destructive' },
+                     {
+                        text: 'Logout',
+                        onPress: () => dispatch(logoutUser()),
+                        style: 'default',
+                     },
+                  ],
+               })
+            }
+         >
+            Log out
+         </Button>
       </View>
    );
 };
