@@ -5,7 +5,6 @@ import { View } from 'react-native';
 import {
    AuthenticatedTabsParamList,
    DailyNutritionSummary,
-   Goals,
 } from '../../../../types/types';
 import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
@@ -14,17 +13,6 @@ import { global } from '../../../style/global.styles';
 import { GeneralProgressSquare } from './general-progress-square/GeneralProgressSquare';
 import { makeHomeStyles } from './makeHomeStyles';
 import { TotalNutritionCalorieSection } from './total-nutrition-calorie-section';
-
-//todo replace with goals from redux state
-const goal: Goals = {
-   total_carbohydrates: 200,
-   total_protein: 200,
-   total_fat: 44,
-   total_calories: 2000,
-   water: 8,
-   steps: 10000,
-   calories_burned: 250,
-};
 
 //todo replace this with nutrition for currently selected day
 const dailyNutritionSummary: DailyNutritionSummary = {
@@ -49,6 +37,9 @@ export const Home = ({ navigation }: Props) => {
       theme.colors.link,
    ];
 
+   const [index, setIndex] = useState<number>(0);
+
+   console.log('goals in home screen: ', goals);
    //TODO replace with data from api
    const progressData = [
       {
@@ -56,7 +47,7 @@ export const Home = ({ navigation }: Props) => {
          iconName: 'pizza',
          iconType: 'material-community',
          amount: 538,
-         goal: 2000,
+         goal: goals.total_calories,
          metric: 'kcal',
          color: colors[0],
       },
@@ -65,7 +56,7 @@ export const Home = ({ navigation }: Props) => {
          iconName: 'fire',
          iconType: 'material-community',
          amount: 200,
-         goal: 250,
+         goal: goals.calories_burned,
          metric: 'kcal',
          color: colors[1],
       },
@@ -74,7 +65,7 @@ export const Home = ({ navigation }: Props) => {
          iconName: 'cup-water',
          iconType: 'material-community',
          amount: 6,
-         goal: 8,
+         goal: goals.water,
          metric: 'cups',
          color: colors[2],
       },
@@ -83,13 +74,11 @@ export const Home = ({ navigation }: Props) => {
          iconName: 'shoe-sneaker',
          iconType: 'material-community',
          amount: 644,
-         goal: 10000,
+         goal: goals.steps,
          metric: 'steps',
          color: colors[3],
       },
    ];
-
-   const [index, setIndex] = useState<number>(0);
 
    return (
       <View style={global.screenEven}>
@@ -143,12 +132,12 @@ export const Home = ({ navigation }: Props) => {
                   <TabView.Item style={homeStyles.tabViewItem}>
                      <TotalNutritionCalorieSection
                         colors={colors}
-                        goals={goal}
+                        goals={goals}
                         dailyNutritionSummary={dailyNutritionSummary}
                      />
                   </TabView.Item>
                   <TabView.Item style={homeStyles.tabViewItem}>
-                     <NutritionPieChart goals={goal} showPercentage={true} />
+                     <NutritionPieChart goals={goals} showPercentage={true} />
                   </TabView.Item>
                </TabView>
             </View>

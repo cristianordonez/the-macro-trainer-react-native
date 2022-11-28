@@ -140,6 +140,11 @@ type MacroMap = {
    total_carbohydrates: string;
 };
 
+type ServerResponseError = {
+   message: string;
+   status: number;
+};
+
 export {
    WelcomeStackParamList,
    ChartValue,
@@ -157,4 +162,5 @@ export {
    DailyNutritionSummary,
    MacroMap,
    LoginForm,
+   ServerResponseError,
 };

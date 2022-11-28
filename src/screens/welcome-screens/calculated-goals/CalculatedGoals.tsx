@@ -59,10 +59,22 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                      </Text>
                   </View>
                </View>
-               <View style={{ flex: 6 }}>
-                  <WeightChart data={data} title='3 Month Goal' />
+               <View style={{ flex: 4 }}>
+                  <WeightChart data={data} title='3 Month Weight Goal' />
                </View>
-               <View style={[{ flex: 8 }]}>
+               <View
+                  style={[
+                     {
+                        flex: 6,
+                        alignItems: 'center',
+                        justifyContent: 'flex-end',
+                        width: '100%',
+                     },
+                  ]}
+               >
+                  <Text style={calculatedGoalsStyles.pieChartTitle}>
+                     Nutrition Goals
+                  </Text>
                   <NutritionPieChart goals={goalState} showPercentage={false} />
                </View>
                <Button

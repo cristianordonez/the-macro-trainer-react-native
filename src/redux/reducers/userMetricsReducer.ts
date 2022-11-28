@@ -1,5 +1,5 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { GlobalMetricsState, SignupForm } from '../../../types/types';
+import { createSlice } from '@reduxjs/toolkit';
+import { GlobalMetricsState } from '../../../types/types';
 import { RootState } from '../store/store';
 
 const initialState: GlobalMetricsState = {
@@ -13,30 +13,6 @@ const initialState: GlobalMetricsState = {
    weightMetric: 'lb',
    isLoggedIn: false,
 };
-
-//todo consider moving this to auth reducer slice
-export const createAccount = createAsyncThunk(
-   'userMetrics/createAccount',
-   async (formData: SignupForm, { rejectWithValue }) => {
-      try {
-         const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData),
-         };
-         //first send req to /api/auth/signup with body of username, password, email
-         const response = await fetch(
-            'http://192.168.1.8:8080/api/signup',
-            requestOptions
-         );
-         return JSON.stringify(response);
-         //then send request to create goals for userMetrics (need to create this route)
-      } catch (err) {
-         console.log('err: ', err);
-         return rejectWithValue(err);
-      }
-   }
-);
 
 //todo thunk that gets users metrics if they are authenticated
 const userMetricsSlice = createSlice({
@@ -66,18 +42,7 @@ const userMetricsSlice = createSlice({
          state.weightMetric = weightMetric;
       },
    },
-   extraReducers: (builder) => {
-      builder
-         .addCase(createAccount.pending, (state, action) => {
-            //todo activate loading screen while request is finishing
-         })
-         .addCase(createAccount.fulfilled, (state, action) => {
-            console.log('action in fulfilled add case: ', action.payload);
-         })
-         .addCase(createAccount.rejected, (state, action) => {
-            console.log('action.payload rejected reducer:', action.payload);
-         });
-   },
+   extraReducers: (builder) => {},
 });
 
 //these will create the action object for us so we can dispatch it

@@ -45,7 +45,8 @@ export const Height = ({ navigation }: Props) => {
          if (currentFtVal === null || currentInchVal === null) {
             createAlert({
                heading: 'Hold on!',
-               body: 'Please finish selecting your height.',
+               message: 'Please finish selecting your height.',
+               btnOptions: [{ text: 'Okay' }],
             });
             return;
          } else {
@@ -56,7 +57,8 @@ export const Height = ({ navigation }: Props) => {
          if (Number(currentCmVal) < 90 || Number(currentCmVal) > 240) {
             createAlert({
                heading: 'Hold on!',
-               body: 'Please enter a height between 90 and 240 cm.',
+               message: 'Please enter a height between 90 and 240 cm.',
+               btnOptions: [{ text: 'Okay' }],
             });
 
             return;

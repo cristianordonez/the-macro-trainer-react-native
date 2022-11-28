@@ -24,7 +24,7 @@ export const WeightChart = ({ data, title }: Props) => {
                border: '1 solid #ccc',
             },
          }}
-         scale={{ x: 'time' }}
+         scale={{ x: 'time', y: 'linear' }}
          theme={VictoryTheme.material}
          domainPadding={25}
       >

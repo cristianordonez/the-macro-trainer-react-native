@@ -12,7 +12,11 @@ import {
    View,
 } from 'react-native';
 import * as yup from 'yup';
-import { LoginForm, WelcomeStackParamList } from '../../../../types/types';
+import {
+   LoginForm,
+   ServerResponseError,
+   WelcomeStackParamList,
+} from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { loginUser } from '../../../redux/reducers/authReducer';
@@ -36,26 +40,24 @@ export const Login = ({ navigation }: Props) => {
 
    const formOptions = { resolver: yupResolver(formSchema) };
 
-   const { control, handleSubmit, setError, formState, reset } =
+   const { control, handleSubmit, setError, formState } =
       useForm<LoginForm>(formOptions);
    const { errors } = formState;
 
    const onSubmit = async (data: LoginForm) => {
       try {
-         await dispatch(loginUser(data))
-            .unwrap()
-            .catch((err) => {
-               setError('email', {
-                  type: 'server',
-                  message: 'No matching email and password found.',
-               });
-               setError('password', {
-                  type: 'server',
-                  message: 'No matching email and password found.',
-               });
-            });
+         const response = await dispatch(loginUser(data)).unwrap();
       } catch (err) {
-         console.error(err);
+         const error = err as unknown as ServerResponseError;
+         console.error(error);
+         setError('email', {
+            type: 'server',
+            message: error.message,
+         });
+         setError('password', {
+            type: 'server',
+            message: error.message,
+         });
       }
    };
 

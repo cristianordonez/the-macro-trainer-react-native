@@ -1,7 +1,9 @@
 import { GlobalMetricsState } from '../../../types/types';
 
+const url = 'http://192.168.1.8:8080/api';
+
 export const userGoals = {
-   getGoals: async ({
+   calculate: async ({
       goal,
       activityLevel,
       gender,
@@ -11,8 +13,8 @@ export const userGoals = {
       weight,
       weightMetric,
    }: GlobalMetricsState) => {
-      let url = 'http://192.168.1.8:8080/api/goals/calculate';
-      url +=
+      let currentUrl = `${url}/goals/calculate`;
+      currentUrl +=
          '?' +
          new URLSearchParams({
             goal,
@@ -28,7 +30,16 @@ export const userGoals = {
          method: 'GET',
          headers: { 'Content-Type': 'application/json' },
       };
-      const response = await fetch(url, fetchOptions);
-      return response.json();
+      const response = await fetch(currentUrl, fetchOptions);
+      return response;
+   },
+   get: async () => {
+      let currentUrl = `${url}/goals/`;
+      const fetchOptions = {
+         method: 'GET',
+         headers: { 'Content-Type': 'application/json' },
+      };
+      const response = await fetch(currentUrl, fetchOptions);
+      return response;
    },
 };

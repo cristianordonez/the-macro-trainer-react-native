@@ -47,7 +47,8 @@ export const Gender = ({ navigation }: Props) => {
       if (activeVal === '') {
          createAlert({
             heading: 'Hold on!',
-            body: 'Please select a gender.',
+            message: 'Please select a gender.',
+            btnOptions: [{ text: 'Okay' }],
          });
       } else {
          const action = updateGender(activeVal);

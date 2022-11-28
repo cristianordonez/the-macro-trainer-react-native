@@ -16,4 +16,5 @@ export const calculatedGoalsStyles = StyleSheet.create({
       opacity: 0.8,
    },
    textTitle: { alignSelf: 'flex-start' },
+   pieChartTitle: { fontSize: 18 },
 });

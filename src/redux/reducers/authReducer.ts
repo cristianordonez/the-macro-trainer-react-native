@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { AuthReducerState, LoginForm } from '../../../types/types';
+
+import {
+   AuthReducerState,
+   LoginForm,
+   ServerResponseError,
+   SignupForm,
+} from '../../../types/types';
 import { auth } from '../api/auth';
 import { RootState } from '../store/store';
 
@@ -8,35 +14,23 @@ const initialState: AuthReducerState = {
    status: 'idle',
 };
 
-export const loginUser = createAsyncThunk(
-   'auth/loginUser',
-   async (formData: LoginForm) => {
-      try {
-         const statusCode = await auth.login(formData);
-         if (statusCode !== 200) {
-            throw new Error('Unauthorized');
-         } else {
-            return statusCode;
-         }
-      } catch (err) {
-         console.error(err);
-         throw Error;
-      }
-   }
-);
-
 export const getAuthStatus = createAsyncThunk(
    'auth/getAuthStatus',
    async (data, { rejectWithValue }) => {
       try {
-         const statusCode = await auth.checkAuth();
-         if (statusCode !== 200) {
-            throw new Error('Unauthorized');
+         const response = await auth.checkAuth();
+         console.log('statusCode: ', response);
+         if (response.status !== 200) {
+            const error = await response.json();
+            throw { message: error.message, status: response.status };
          } else {
-            return statusCode;
+            const data = await response.json();
+            data.status = response.status;
+            return data;
          }
       } catch (err) {
-         throw Error;
+         console.error(err);
+         return rejectWithValue(err);
       }
    }
 );
@@ -54,6 +48,48 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
       return err;
    }
 });
+
+//keep this function alone as passport returns 'unauthorized' in body which is not JSON
+export const loginUser = createAsyncThunk(
+   'auth/loginUser',
+   async (formData: LoginForm, { rejectWithValue }) => {
+      try {
+         const response = await auth.login(formData);
+         if (response.status !== 200) {
+            throw {
+               message: 'No matching email and password found.',
+               status: response.status,
+            };
+         } else {
+            const data = await response.json();
+            data.status = response.status;
+            return data;
+         }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err) as unknown as ServerResponseError;
+      }
+   }
+);
+
+export const createAccount = createAsyncThunk(
+   'auth/createAccount',
+   async (formData: SignupForm, { rejectWithValue }) => {
+      try {
+         const response = await auth.createAccount(formData);
+         if (response.status !== 201) {
+            const error = await response.json();
+            throw { message: error.message, status: response.status };
+         } else {
+            const data = await response.json();
+            return data;
+         }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err) as unknown as ServerResponseError;
+      }
+   }
+);
 
 const authSlice = createSlice({
    name: 'auth',
@@ -99,6 +135,16 @@ const authSlice = createSlice({
          .addCase(logoutUser.rejected, (state, action) => {
             state.status = 'failed';
             state.isAuthenticated = false;
+         });
+      builder
+         .addCase(createAccount.pending, (state, action) => {
+            state.status = 'loading';
+         })
+         .addCase(createAccount.fulfilled, (state, action) => {
+            console.log('action in fulfilled add case: ', action.payload);
+         })
+         .addCase(createAccount.rejected, (state, action) => {
+            console.log('action.payload rejected reducer:', action.payload);
          });
    },
 });

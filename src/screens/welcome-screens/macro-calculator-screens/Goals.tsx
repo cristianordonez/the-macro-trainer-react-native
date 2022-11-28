@@ -47,7 +47,8 @@ export const Goals = ({ navigation }: Props) => {
       if (activeVal === '') {
          createAlert({
             heading: 'Hold on!',
-            body: 'Please select a goal.',
+            message: 'Please select a goal.',
+            btnOptions: [{ text: 'Okay' }],
          });
       } else {
          const action = updateGoal(activeVal);

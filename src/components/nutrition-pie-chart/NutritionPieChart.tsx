@@ -42,9 +42,9 @@ export const NutritionPieChart = ({ goals, showPercentage }: Props) => {
             data={data}
             innerRadius={50}
             radius={55}
-            labelRadius={70}
+            labelRadius={65}
             labels={({ datum }) => (showPercentage ? `${datum.y}%` : datum.x)}
-            style={{ labels: { fontSize: 18, fill: theme.colors.black } }}
+            style={{ labels: { fontSize: 16, fill: theme.colors.black } }}
          />
          <VictoryLabel
             textAnchor='middle'

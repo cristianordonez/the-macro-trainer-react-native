@@ -29,15 +29,18 @@ export const Weight = ({ navigation }: Props) => {
          if (Number(currentWeight) < 75 || Number(currentWeight) > 450) {
             createAlert({
                heading: 'Hold on!',
-               body: 'Please enter a weight between 50 and 450 lbs.',
+               message: 'Please enter a weight between 50 and 450 lbs.',
+               btnOptions: [{ text: 'Okay' }],
             });
+
             return;
          }
       } else {
          if (Number(currentWeight) < 35 || Number(currentWeight) > 205) {
             createAlert({
                heading: 'Hold on!',
-               body: 'Please enter a weight between 35 and 205 kg.',
+               message: 'Please enter a weight between 35 and 205 kg.',
+               btnOptions: [{ text: 'Okay' }],
             });
          }
          weightMetric = 'kg';

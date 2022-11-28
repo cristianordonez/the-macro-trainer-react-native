@@ -19,16 +19,36 @@ export const calculateGoals = createAsyncThunk(
    async (data, { getState }) => {
       try {
          const state = getState() as RootState;
-         const goals = await userGoals.getGoals(state.userMetrics);
-         return goals;
+         const response = await userGoals.calculate(state.userMetrics);
+         if (!response.ok) {
+            const err = await response.json();
+            throw { message: err.message, status: response.status };
+         } else {
+            const goals = response.json();
+            return goals;
+         }
       } catch (err) {
-         console.log('err: ', err);
+         console.error(err);
          return err;
       }
    }
 );
 
-//todo thunk that gets users calculated goals from API if they are authenticated
+export const getGoals = createAsyncThunk('userGoals/getGoals', async () => {
+   try {
+      const response = await userGoals.get();
+      if (!response.ok) {
+         const err = await response.json();
+         throw { message: err.message, status: response.status };
+      } else {
+         const goals = response.json();
+         return goals;
+      }
+   } catch (err) {
+      console.error(err);
+      return err;
+   }
+});
 
 const userGoalsSlice = createSlice({
    name: 'userGoals',
@@ -58,7 +78,33 @@ const userGoalsSlice = createSlice({
          })
          .addCase(calculateGoals.rejected, (state, action) => {
             state.status = 'failed';
-         });
+         }),
+         builder
+            .addCase(getGoals.pending, (state, action) => {
+               state.status = 'loading';
+            })
+            .addCase(getGoals.fulfilled, (state, action) => {
+               const {
+                  steps,
+                  calories_burned,
+                  water,
+                  total_calories,
+                  total_carbohydrates,
+                  total_fat,
+                  total_protein,
+               } = action.payload;
+               state.steps = steps;
+               state.calories_burned = calories_burned;
+               state.water = water;
+               state.total_calories = total_calories;
+               state.total_carbohydrates = total_carbohydrates;
+               state.total_fat = total_fat;
+               state.total_protein = total_protein;
+               state.status = 'succeeded';
+            })
+            .addCase(getGoals.rejected, (state, action) => {
+               state.status = 'failed';
+            });
    },
 });
 

@@ -12,6 +12,7 @@ import {
    selectAuth,
    selectAuthStatus,
 } from '../redux/reducers/authReducer';
+import { getGoals } from '../redux/reducers/userGoalsReducer';
 import { global } from '../style/global.styles';
 import { AuthenticatedBottomTabScreen } from './authenticated-screens/index';
 import { WelcomeStackScreen } from './welcome-screens/index';
@@ -39,7 +40,12 @@ export default function App() {
    useEffect(() => {
       async function prepare() {
          try {
-            await dispatch(getAuthStatus());
+            const response = await dispatch(getAuthStatus()).unwrap();
+            console.log('response in prepare function: ', response);
+            if (response.status === 200) {
+               await dispatch(getGoals());
+            }
+            //todo if user is logged in already at initial render, retrieve goals first then metrics then daily nutrition summary
             await useFonts();
          } catch (err) {
             console.error('err: ', err);
