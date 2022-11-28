@@ -25,12 +25,11 @@ export const loginUser = createAsyncThunk(
    }
 );
 
-export const checkAuthStatus = createAsyncThunk(
-   'auth/checkAuthStatus',
+export const getAuthStatus = createAsyncThunk(
+   'auth/getAuthStatus',
    async (data, { getState }) => {
       try {
          const statusCode = await auth.checkAuth();
-         console.log('response in checkauthstatus thunk: ', statusCode);
          if (statusCode !== 200) {
             throw new Error('Unauthorized');
          } else {
@@ -57,7 +56,6 @@ const authSlice = createSlice({
             state.status = 'loading';
          })
          .addCase(loginUser.fulfilled, (state, action) => {
-            console.log('state in loginUser: ', state);
             state.status = 'succeeded';
             state.isAuthenticated = true;
          })
@@ -66,14 +64,14 @@ const authSlice = createSlice({
             state.isAuthenticated = false;
          });
       builder
-         .addCase(checkAuthStatus.pending, (state, action) => {
+         .addCase(getAuthStatus.pending, (state, action) => {
             state.status = 'loading';
          })
-         .addCase(checkAuthStatus.fulfilled, (state, action) => {
+         .addCase(getAuthStatus.fulfilled, (state, action) => {
             state.status = 'succeeded';
             state.isAuthenticated = true;
          })
-         .addCase(checkAuthStatus.rejected, (state, action) => {
+         .addCase(getAuthStatus.rejected, (state, action) => {
             state.status = 'failed';
             state.isAuthenticated = false;
          });
@@ -84,7 +82,8 @@ const authSlice = createSlice({
 export const { toggleAuthStatus } = authSlice.actions;
 
 //this will allow us to get the state when calling useAppSelector
-export const selectAuth = (state: RootState) => state.auth;
+export const selectAuth = (state: RootState) => state.auth.isAuthenticated;
+export const selectAuthStatus = (state: RootState) => state.auth.status;
 
 //this gets added to store in store.ts
 export default authSlice.reducer;
