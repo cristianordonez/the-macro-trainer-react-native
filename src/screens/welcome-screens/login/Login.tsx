@@ -36,16 +36,26 @@ export const Login = ({ navigation }: Props) => {
 
    const formOptions = { resolver: yupResolver(formSchema) };
 
-   const { control, handleSubmit, formState, reset } =
+   const { control, handleSubmit, setError, formState, reset } =
       useForm<LoginForm>(formOptions);
    const { errors } = formState;
 
    const onSubmit = async (data: LoginForm) => {
       try {
-         await dispatch(loginUser(data));
+         await dispatch(loginUser(data))
+            .unwrap()
+            .catch((err) => {
+               setError('email', {
+                  type: 'server',
+                  message: 'No matching email and password found.',
+               });
+               setError('password', {
+                  type: 'server',
+                  message: 'No matching email and password found.',
+               });
+            });
       } catch (err) {
-         console.log('err in onsubmit: ', err);
-         //todo show alert if error logging in
+         console.error(err);
       }
    };
 

@@ -11,10 +11,6 @@ type Props = NativeStackScreenProps<AuthenticatedTabsParamList, 'Profile'>;
 export const Profile = ({ navigation }: Props) => {
    const dispatch = useAppDispatch();
 
-   const handleLogout = () => {
-      dispatch(logoutUser());
-   };
-
    return (
       <View>
          <Text>profile screen</Text>

@@ -19,15 +19,15 @@ export const loginUser = createAsyncThunk(
             return statusCode;
          }
       } catch (err) {
-         console.log('err: ', err);
-         return err;
+         console.error(err);
+         throw Error;
       }
    }
 );
 
 export const getAuthStatus = createAsyncThunk(
    'auth/getAuthStatus',
-   async () => {
+   async (data, { rejectWithValue }) => {
       try {
          const statusCode = await auth.checkAuth();
          if (statusCode !== 200) {
@@ -36,8 +36,7 @@ export const getAuthStatus = createAsyncThunk(
             return statusCode;
          }
       } catch (err) {
-         console.log('err: ', err);
-         return err;
+         throw Error;
       }
    }
 );
@@ -45,7 +44,6 @@ export const getAuthStatus = createAsyncThunk(
 export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
    try {
       const statusCode = await auth.logout();
-      console.log('statusCode: ', statusCode);
       if (statusCode !== 200) {
          throw new Error('Unable to logout user.');
       } else {

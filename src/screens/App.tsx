@@ -51,7 +51,6 @@ export default function App() {
    }, []);
 
    const onLayoutRootView = useCallback(async () => {
-      console.log('authState: ', authStatus);
       if (isReady && (authStatus === 'succeeded' || authStatus === 'failed')) {
          await SplashScreen.hideAsync();
       }
