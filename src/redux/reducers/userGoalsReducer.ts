@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Goals } from '../../../types/types';
-import { getGoals } from '../api/goal-api';
+import { userGoals } from '../api/userGoals';
 import { RootState } from '../store/store';
 
 const initialState: Goals = {
@@ -19,7 +19,7 @@ export const calculateGoals = createAsyncThunk(
    async (data, { getState }) => {
       try {
          const state = getState() as RootState;
-         const goals = await getGoals(state.userMetrics);
+         const goals = await userGoals.getGoals(state.userMetrics);
          return goals;
       } catch (err) {
          console.log('err: ', err);

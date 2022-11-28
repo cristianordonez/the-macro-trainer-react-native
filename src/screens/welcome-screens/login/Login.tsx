@@ -45,6 +45,7 @@ export const Login = ({ navigation }: Props) => {
          await dispatch(loginUser(data));
       } catch (err) {
          console.log('err in onsubmit: ', err);
+         //todo show alert if error logging in
       }
    };
 
