@@ -12,7 +12,9 @@ import {
    selectAuth,
    selectAuthStatus,
 } from '../redux/reducers/authReducer';
+import { getInitialFoodLogData } from '../redux/reducers/foodLogReducer';
 import { getGoals } from '../redux/reducers/userGoalsReducer';
+import { getMetrics } from '../redux/reducers/userMetricsReducer';
 import { global } from '../style/global.styles';
 import { AuthenticatedBottomTabScreen } from './authenticated-screens/index';
 import { WelcomeStackScreen } from './welcome-screens/index';
@@ -40,13 +42,15 @@ export default function App() {
    useEffect(() => {
       async function prepare() {
          try {
+            await useFonts();
             const response = await dispatch(getAuthStatus()).unwrap();
-            console.log('response in prepare function: ', response);
             if (response.status === 200) {
                await dispatch(getGoals());
+               await dispatch(getMetrics());
+               await dispatch(getInitialFoodLogData());
+               //now get users food log/nutr summary for current date
+               //now get users exercise routines
             }
-            //todo if user is logged in already at initial render, retrieve goals first then metrics then daily nutrition summary
-            await useFonts();
          } catch (err) {
             console.error('err: ', err);
          } finally {

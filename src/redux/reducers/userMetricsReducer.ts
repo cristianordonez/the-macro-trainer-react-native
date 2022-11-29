@@ -1,5 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { GlobalMetricsState } from '../../../types/types';
+import { userMetrics } from '../api/userMetrics';
 import { RootState } from '../store/store';
 
 const initialState: GlobalMetricsState = {
@@ -11,10 +12,28 @@ const initialState: GlobalMetricsState = {
    heightMetric: 'ft',
    weight: 0,
    weightMetric: 'lb',
-   isLoggedIn: false,
+   status: 'idle',
 };
 
-//todo thunk that gets users metrics if they are authenticated
+export const getMetrics = createAsyncThunk(
+   'userMetrics/getMetrics',
+   async (data, { rejectWithValue }) => {
+      try {
+         const response = await userMetrics.get();
+         if (!response.ok) {
+            const err = await response.json();
+            throw { message: err.message, status: response.status };
+         } else {
+            const metrics = await response.json();
+            return metrics;
+         }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err);
+      }
+   }
+);
+
 const userMetricsSlice = createSlice({
    name: 'userMetrics',
    initialState,
@@ -42,7 +61,26 @@ const userMetricsSlice = createSlice({
          state.weightMetric = weightMetric;
       },
    },
-   extraReducers: (builder) => {},
+   extraReducers: (builder) => {
+      builder
+         .addCase(getMetrics.pending, (state, action) => {
+            state.status = 'loading';
+         })
+         .addCase(getMetrics.fulfilled, (state, action) => {
+            const { height, weight, age, gender, goal, activity_level } =
+               action.payload;
+            state.height = height;
+            state.weight = weight;
+            state.age = age;
+            state.gender = gender;
+            state.goal = goal;
+            state.activityLevel = activity_level;
+            state.status = 'succeeded';
+         })
+         .addCase(getMetrics.rejected, (state, action) => {
+            state.status = 'failed';
+         });
+   },
 });
 
 //these will create the action object for us so we can dispatch it
@@ -57,6 +95,8 @@ export const {
 
 //this will allow us to get the state when calling useAppSelector
 export const selectUserMetrics = (state: RootState) => state.userMetrics;
+export const selectMetricsStatus = (state: RootState) =>
+   state.userMetrics.status;
 
 //this gets added to store in store.ts
 export default userMetricsSlice.reducer;

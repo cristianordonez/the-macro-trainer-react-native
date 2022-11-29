@@ -14,15 +14,19 @@ export const NutritionPieChart = ({ goals, showPercentage }: Props) => {
    const data = [
       {
          x: `${goals.total_carbohydrates}g`,
-         y: ((goals.total_carbohydrates * 4) / goals.total_calories) * 100,
+         y: Math.round(
+            ((goals.total_carbohydrates * 4) / goals.total_calories) * 100
+         ),
       },
       {
          x: `${goals.total_protein}g`,
-         y: ((goals.total_protein * 4) / goals.total_calories) * 100,
+         y: Math.round(
+            ((goals.total_protein * 4) / goals.total_calories) * 100
+         ),
       },
       {
          x: `${goals.total_fat}g`,
-         y: ((goals.total_fat * 9) / goals.total_calories) * 100,
+         y: Math.round(((goals.total_fat * 9) / goals.total_calories) * 100),
       },
    ];
 

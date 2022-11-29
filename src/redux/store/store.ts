@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-
 import authReducer from '../reducers/authReducer';
+import foodLogReducer from '../reducers/foodLogReducer';
 import modalReducer from '../reducers/modalReducer';
 import userGoalsReducer from '../reducers/userGoalsReducer';
 import userMetricsReducer from '../reducers/userMetricsReducer';
@@ -11,6 +11,7 @@ export const store = configureStore({
       userGoals: userGoalsReducer,
       auth: authReducer,
       modal: modalReducer,
+      foodLog: foodLogReducer,
    },
 });
 

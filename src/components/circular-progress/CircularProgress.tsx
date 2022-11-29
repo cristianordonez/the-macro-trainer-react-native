@@ -1,4 +1,7 @@
 import { useTheme } from '@rneui/themed';
+// import * as Svg from 'react-native-svg';
+// const { Circle, Text } = Svg;
+// const SvgText = Text;
 import Svg, { Circle, Text as SvgText } from 'react-native-svg';
 
 const strokeWidth = 3;
@@ -20,6 +23,8 @@ export const CircularProgress = ({
    metric,
    isCaloriesRemaining,
 }: Props) => {
+   console.log('metric in circ progress: ', metric);
+   console.log('amount: ', amount);
    const { theme } = useTheme();
    const radius = (size - strokeWidth) / 2;
    const circumference = radius * 2 * Math.PI;

@@ -22,10 +22,11 @@ export const TotalNutritionCalorieSection = ({
    dailyNutritionSummary,
 }: Props) => {
    const { theme } = useTheme();
-
    const { total_carbohydrates, total_fat, total_protein } = goals;
    const mainNutritionGoals = { total_carbohydrates, total_fat, total_protein };
 
+   console.log('goals: ', goals);
+   console.log('dailyNutritionSummary: ', dailyNutritionSummary);
    return (
       <>
          <View style={styles.outercontainer}>
@@ -40,44 +41,41 @@ export const TotalNutritionCalorieSection = ({
                />
             </View>
             <View style={styles.linearProgressContainer}>
-               {Object.keys(mainNutritionGoals).map((key, index) =>
-                  key !== 'total_calories' && key !== 'steps' ? (
-                     <React.Fragment key={key}>
-                        <Text
-                           style={[global.textBold, styles.linearProgressText]}
-                        >
-                           {convertMacroKey(key as keyof MacroMap)}
-                        </Text>
-                        <LinearProgress
-                           key={key}
-                           style={[
-                              styles.linearProgress,
-                              global.containerBorder,
-                           ]}
-                           value={0.5}
-                           animation={false}
-                           variant='determinate'
-                           color={colors[index]}
-                           trackColor={theme.colors.background}
-                        />
-                        <Text
-                           style={[
-                              global.textOpacity,
-                              styles.linearProgressText,
-                              styles.linearProgressSubtitle,
-                              global.gap,
-                           ]}
-                        >
-                           {
-                              dailyNutritionSummary[
-                                 key as keyof DailyNutritionSummary
-                              ]
-                           }{' '}
-                           / {goals[key as keyof Goals]}g
-                        </Text>
-                     </React.Fragment>
-                  ) : null
-               )}
+               {Object.keys(mainNutritionGoals).map((key, index) => (
+                  <React.Fragment key={key}>
+                     <Text style={[global.textBold, styles.linearProgressText]}>
+                        {convertMacroKey(key as keyof MacroMap)}
+                     </Text>
+                     <LinearProgress
+                        key={key}
+                        style={[styles.linearProgress, global.containerBorder]}
+                        value={Number(
+                           dailyNutritionSummary[
+                              key as keyof DailyNutritionSummary
+                           ] / Number(goals[key as keyof Goals])
+                        )}
+                        animation={false}
+                        variant='determinate'
+                        color={colors[index]}
+                        trackColor={theme.colors.background}
+                     />
+                     <Text
+                        style={[
+                           global.textOpacity,
+                           styles.linearProgressText,
+                           styles.linearProgressSubtitle,
+                           global.gap,
+                        ]}
+                     >
+                        {
+                           dailyNutritionSummary[
+                              key as keyof DailyNutritionSummary
+                           ]
+                        }{' '}
+                        / {goals[key as keyof Goals]}g
+                     </Text>
+                  </React.Fragment>
+               ))}
             </View>
          </View>
       </>

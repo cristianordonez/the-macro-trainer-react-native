@@ -19,7 +19,6 @@ export const getAuthStatus = createAsyncThunk(
    async (data, { rejectWithValue }) => {
       try {
          const response = await auth.checkAuth();
-         console.log('statusCode: ', response);
          if (response.status !== 200) {
             const error = await response.json();
             throw { message: error.message, status: response.status };

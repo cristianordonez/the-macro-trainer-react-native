@@ -1,5 +1,16 @@
 import { ViewToken } from 'react-native';
 
+type SliceStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
+
+type MetricsServerResponse = {
+   height: number;
+   weight: number;
+   age: number;
+   gender: 'male' | 'female' | 'non-binary';
+   goal: 'weight_loss' | 'maintain' | 'gain_muscle' | '';
+   activityLevel: 1 | 1.2 | 1.5 | 0;
+};
+
 type SharedUserState = {
    goal: 'weight_loss' | 'maintain' | 'gain_muscle' | '';
    activityLevel: 1 | 1.2 | 1.5 | 0;
@@ -18,7 +29,7 @@ type UserState = SharedUserState & {
 
 type GlobalMetricsState = SharedUserState & {
    height: number;
-   isLoggedIn: boolean;
+   status: SliceStatus;
 };
 
 type WelcomeStackParamList = {
@@ -117,7 +128,7 @@ type Goals = {
    water: number;
    steps: number;
    calories_burned: number;
-   status?: 'idle' | 'loading' | 'succeeded' | 'failed';
+   status?: SliceStatus;
 };
 
 type DailyNutritionSummary = {
@@ -131,7 +142,7 @@ type ChartValue = { date: Date; weight: number };
 
 type AuthReducerState = {
    isAuthenticated: boolean;
-   status: 'idle' | 'loading' | 'succeeded' | 'failed';
+   status: SliceStatus;
 };
 
 type MacroMap = {
@@ -143,6 +154,66 @@ type MacroMap = {
 type ServerResponseError = {
    message: string;
    status: number;
+};
+
+type FoodNutrition = {
+   id: number | null;
+   fdc_id: number | null;
+   calories: number | string | null;
+   calcium: number | string | null;
+   cholesterol: number | string | null;
+   dietary_fiber: number | string | null;
+   iron: number | string | null;
+   potassium: number | string | null;
+   protein: number | string | null;
+   saturated_fat: number | string | null;
+   sodium: number | string | null;
+   total_sugars: number | string | null;
+   total_carbohydrates: number | string | null;
+   total_fat: number | string | null;
+   trans_fat: number | string | null;
+   vitamin_d: number | string | null;
+};
+
+type FoodSearchResult = {
+   data_type: string;
+   serving_size: number | null;
+   serving_size_unit: string | null;
+   brand_owner: string | null;
+   custom_food_brand_owner: string | null;
+   description: string;
+   fdc_id: string;
+   meal_id: number;
+   nutrition: FoodNutrition;
+};
+
+type FoodLogItem = {
+   data_type: string;
+   serving_size: number | string;
+   serving_size_unit: string;
+   date: string | Date;
+   slot: 1 | 2 | 3 | 4;
+   servings: number | string;
+   brand_owner: string;
+   description: string;
+   fdc_id: number;
+   meal_id: number;
+   nutrition: FoodNutrition;
+};
+
+type GlobalFoodLogState = {
+   currentDate: string | Date;
+   itemsToday: FoodLogItem[] | [];
+   nutritionSummaryToday: DailyNutritionSummary;
+   itemsAlternateDate: FoodLogItem[] | [];
+   nutritionSummaryAlternateDate: DailyNutritionSummary | {};
+   searchResults: FoodSearchResult[] | [];
+   status: SliceStatus;
+};
+
+type ServerFoodLogResponse = {
+   foodLogItems: FoodLogItem[];
+   nutritionSummary: DailyNutritionSummary;
 };
 
 export {
@@ -163,4 +234,9 @@ export {
    MacroMap,
    LoginForm,
    ServerResponseError,
+   MetricsServerResponse,
+   FoodSearchResult,
+   FoodLogItem,
+   GlobalFoodLogState,
+   ServerFoodLogResponse,
 };
