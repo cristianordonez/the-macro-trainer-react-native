@@ -47,7 +47,7 @@ export const Home = ({ navigation }: Props) => {
          iconName: 'fire',
          iconType: 'material-community',
          amount: 200, //TODO: replace
-         goal: goals.calories_burned,
+         goal: goals.calories_to_burn,
          metric: 'kcal',
          color: colors[1],
       },

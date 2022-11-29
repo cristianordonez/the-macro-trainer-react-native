@@ -127,7 +127,7 @@ type Goals = {
    total_carbohydrates: number;
    water: number;
    steps: number;
-   calories_burned: number;
+   calories_to_burn: number;
    status?: SliceStatus;
 };
 

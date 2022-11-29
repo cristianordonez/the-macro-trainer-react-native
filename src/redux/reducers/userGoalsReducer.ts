@@ -10,7 +10,7 @@ const initialState: Goals = {
    total_calories: 0,
    water: 8,
    steps: 10000,
-   calories_burned: 250,
+   calories_to_burn: 250,
    status: 'idle',
 };
 
@@ -34,21 +34,24 @@ export const calculateGoals = createAsyncThunk(
    }
 );
 
-export const getGoals = createAsyncThunk('userGoals/getGoals', async () => {
-   try {
-      const response = await userGoals.get();
-      if (!response.ok) {
-         const err = await response.json();
-         throw { message: err.message, status: response.status };
-      } else {
-         const goals = response.json();
-         return goals;
+export const getGoals = createAsyncThunk(
+   'userGoals/getGoals',
+   async (data, { rejectWithValue }) => {
+      try {
+         const response = await userGoals.get();
+         if (!response.ok) {
+            const err = await response.json();
+            throw { message: err.message, status: response.status };
+         } else {
+            const goals = response.json();
+            return goals;
+         }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err);
       }
-   } catch (err) {
-      console.error(err);
-      return err;
    }
-});
+);
 
 const userGoalsSlice = createSlice({
    name: 'userGoals',
@@ -86,7 +89,7 @@ const userGoalsSlice = createSlice({
             .addCase(getGoals.fulfilled, (state, action) => {
                const {
                   steps,
-                  calories_burned,
+                  calories_to_burn,
                   water,
                   total_calories,
                   total_carbohydrates,
@@ -94,7 +97,7 @@ const userGoalsSlice = createSlice({
                   total_protein,
                } = action.payload;
                state.steps = steps;
-               state.calories_burned = calories_burned;
+               state.calories_to_burn = calories_to_burn;
                state.water = water;
                state.total_calories = total_calories;
                state.total_carbohydrates = total_carbohydrates;

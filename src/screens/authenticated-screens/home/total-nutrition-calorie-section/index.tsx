@@ -22,11 +22,14 @@ export const TotalNutritionCalorieSection = ({
    dailyNutritionSummary,
 }: Props) => {
    const { theme } = useTheme();
-   const { total_carbohydrates, total_fat, total_protein } = goals;
+   const { total_calories, total_carbohydrates, total_fat, total_protein } =
+      goals;
    const mainNutritionGoals = { total_carbohydrates, total_fat, total_protein };
 
-   console.log('goals: ', goals);
-   console.log('dailyNutritionSummary: ', dailyNutritionSummary);
+   const caloriesEaten = dailyNutritionSummary.total_calories;
+   const caloriesRemaining = total_calories - caloriesEaten;
+   const progress = 1 - caloriesEaten / total_calories;
+
    return (
       <>
          <View style={styles.outercontainer}>
@@ -34,8 +37,8 @@ export const TotalNutritionCalorieSection = ({
                <CircularProgress
                   size={150}
                   color={theme.colors.primary}
-                  progress={0.5}
-                  amount={200}
+                  progress={progress < 0 ? 0 : progress}
+                  amount={caloriesRemaining < 0 ? 0 : caloriesRemaining}
                   metric={'kcal'}
                   isCaloriesRemaining={true}
                />
