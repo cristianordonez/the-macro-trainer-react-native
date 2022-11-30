@@ -22,6 +22,8 @@ import { CustomInput } from '../../../components/form-inputs/custom-input/Custom
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { createAccount } from '../../../redux/reducers/authReducer';
 import { toggleModal } from '../../../redux/reducers/modalReducer';
+import { saveGoals } from '../../../redux/reducers/userGoalsReducer';
+import { saveUserMetrics } from '../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../style/global.styles';
 import { makeRegistrationStyles } from './makeRegistrationStyles';
 
@@ -61,6 +63,9 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
          const response = await dispatch(createAccount(formData)).unwrap();
          await dispatch(toggleModal(true));
          console.log('response in onsubmit: ', response);
+         await dispatch(saveUserMetrics()).unwrap();
+         await dispatch(saveGoals()).unwrap();
+         await dispatch(toggleModal(false));
       } catch (err) {
          const error = err as unknown as ServerResponseError;
          console.error(error);
@@ -68,13 +73,6 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
             type: 'server',
             message: error.message,
          });
-      }
-      try {
-         //todo then send request to save users goals and metrics
-         //todo then update auth status
-         //todo dont forget to untoggle modal
-      } catch (err) {
-         console.error(err);
       }
    };
 

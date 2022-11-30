@@ -22,7 +22,6 @@ export const Home = ({ navigation }: Props) => {
    const metrics = useAppSelector(selectUserMetrics);
    const nutritionSummary = useAppSelector(selectNutritionSummaryToday);
 
-   console.log('nutritionSummary: ', nutritionSummary);
    const colors = [
       theme.colors.primary,
       theme.colors.secondary,
@@ -46,7 +45,7 @@ export const Home = ({ navigation }: Props) => {
          title: 'Calories Burned',
          iconName: 'fire',
          iconType: 'material-community',
-         amount: 200, //TODO: replace
+         amount: 200, //TODO: replace with exercise data
          goal: goals.calories_to_burn,
          metric: 'kcal',
          color: colors[1],
@@ -55,7 +54,7 @@ export const Home = ({ navigation }: Props) => {
          title: 'Water Drank',
          iconName: 'cup-water',
          iconType: 'material-community',
-         amount: 6, //TODO: replace
+         amount: 6, //TODO: replace with food log data
          goal: goals.water,
          metric: 'cups',
          color: colors[2],
@@ -64,7 +63,7 @@ export const Home = ({ navigation }: Props) => {
          title: 'Steps Completed',
          iconName: 'shoe-sneaker',
          iconType: 'material-community',
-         amount: 644, //TODO: replace
+         amount: 644, //TODO: replace with exercise data
          goal: goals.steps,
          metric: 'steps',
          color: colors[3],

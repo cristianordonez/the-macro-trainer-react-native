@@ -12,9 +12,18 @@ import {
    selectAuth,
    selectAuthStatus,
 } from '../redux/reducers/authReducer';
-import { getInitialFoodLogData } from '../redux/reducers/foodLogReducer';
-import { getGoals } from '../redux/reducers/userGoalsReducer';
-import { getMetrics } from '../redux/reducers/userMetricsReducer';
+import {
+   getInitialFoodLogData,
+   selectFoodLogStatus,
+} from '../redux/reducers/foodLogReducer';
+import {
+   getInitialGoals,
+   selectGoalsStatus,
+} from '../redux/reducers/userGoalsReducer';
+import {
+   getInitialMetrics,
+   selectMetricsStatus,
+} from '../redux/reducers/userMetricsReducer';
 import { global } from '../style/global.styles';
 import { AuthenticatedBottomTabScreen } from './authenticated-screens/index';
 import { WelcomeStackScreen } from './welcome-screens/index';
@@ -24,6 +33,9 @@ export default function App() {
    const dispatch = useAppDispatch();
    const [isReady, setIsReady] = useState<boolean>(false);
    const isAuthenticated = useAppSelector(selectAuth);
+   const metricsStatus = useAppSelector(selectMetricsStatus);
+   const goalsStatus = useAppSelector(selectGoalsStatus);
+   const foodLogStatus = useAppSelector(selectFoodLogStatus);
    const authStatus = useAppSelector(selectAuthStatus);
    const { theme } = useTheme();
 
@@ -45,10 +57,9 @@ export default function App() {
             await useFonts();
             const response = await dispatch(getAuthStatus()).unwrap();
             if (response.status === 200) {
-               await dispatch(getGoals());
-               await dispatch(getMetrics());
+               await dispatch(getInitialGoals());
+               await dispatch(getInitialMetrics());
                await dispatch(getInitialFoodLogData());
-               //now get users food log/nutr summary for current date
                //now get users exercise routines
             }
          } catch (err) {
@@ -73,7 +84,10 @@ export default function App() {
          <View style={global.flex} onLayout={onLayoutRootView}>
             <SafeAreaProvider>
                <NavigationContainer theme={navTheme}>
-                  {isAuthenticated ? (
+                  {isAuthenticated &&
+                  metricsStatus !== 'failed' &&
+                  goalsStatus !== 'failed' &&
+                  foodLogStatus !== 'failed' ? (
                      <AuthenticatedBottomTabScreen />
                   ) : (
                      <WelcomeStackScreen />

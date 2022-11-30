@@ -3,7 +3,8 @@ import {
    GlobalFoodLogState,
    ServerFoodLogResponse,
 } from '../../../types/types';
-import { foodLog } from '../api/foodLog';
+import { createUrl } from '../../utils/createUrl';
+import { apiHandlers } from '../api';
 import { RootState } from '../store/store';
 
 const initialState: GlobalFoodLogState = {
@@ -29,43 +30,54 @@ export const getInitialFoodLogData = createAsyncThunk<
    ServerFoodLogResponse,
    void,
    { state: RootState }
->('foodLog/getItemsByDay', async (data, { getState, rejectWithValue }) => {
-   const state = getState();
-   try {
-      const response = await foodLog.get(state.foodLog.currentDate.toString());
-      if (!response.ok) {
-         const err = await response.json();
-         throw { message: err.message, status: response.status };
-      } else {
-         const foodLogData = await response.json();
-         return foodLogData;
+>(
+   'foodLog/getInititalFoodLogData',
+   async (data, { getState, rejectWithValue }) => {
+      const state = getState();
+      const url = createUrl('/foodLog/day', {
+         date: state.foodLog.currentDate,
+      });
+      try {
+         const response = await apiHandlers.get(url);
+         if (!response.ok) {
+            const err = await response.json();
+            throw { message: err.message, status: response.status };
+         } else {
+            const foodLogData = await response.json();
+            return foodLogData;
+         }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err);
       }
-   } catch (err) {
-      console.error(err);
-      return rejectWithValue(err);
    }
-});
+);
 
 //todo fix this thunk
 export const getFoodLogItemsByDate = createAsyncThunk<
    ServerFoodLogResponse,
-   string | Date,
+   string,
    { state: RootState }
->('foodLog/getItemsByDay', async (date, { rejectWithValue }) => {
-   try {
-      const response = await foodLog.get(date.toString());
-      if (!response.ok) {
-         const err = await response.json();
-         throw { message: err.message, status: response.status };
-      } else {
-         const foodLogData = await response.json();
-         return foodLogData;
+>(
+   'foodLog/getFoodLogItemsByDate',
+   async (date: string, { rejectWithValue }) => {
+      try {
+         const url = createUrl('/foodLog/day', { date });
+
+         const response = await apiHandlers.get(url);
+         if (!response.ok) {
+            const err = await response.json();
+            throw { message: err.message, status: response.status };
+         } else {
+            const foodLogData = await response.json();
+            return foodLogData;
+         }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err);
       }
-   } catch (err) {
-      console.error(err);
-      return rejectWithValue(err);
    }
-});
+);
 
 const foodLogSlice = createSlice({
    name: 'foodLog',
@@ -77,11 +89,15 @@ const foodLogSlice = createSlice({
       },
    },
    extraReducers: (builder) => {
-      builder.addCase(getInitialFoodLogData.fulfilled, (state, action) => {
-         const { foodLogItems, nutritionSummary } = action.payload;
-         state.itemsToday = foodLogItems;
-         state.nutritionSummaryToday = nutritionSummary;
-      });
+      builder
+         .addCase(getInitialFoodLogData.fulfilled, (state, action) => {
+            const { foodLogItems, nutritionSummary } = action.payload;
+            state.itemsToday = foodLogItems;
+            state.nutritionSummaryToday = nutritionSummary;
+         })
+         .addCase(getInitialFoodLogData.rejected, (state, action) => {
+            state.status = 'failed';
+         });
    },
 });
 
@@ -92,8 +108,6 @@ export const selectNutritionSummaryToday = (state: RootState) =>
    state.foodLog.nutritionSummaryToday;
 export const selectFoodLogItemsToday = (state: RootState) =>
    state.foodLog.itemsToday;
-//select alternate items
-//select alternate nutrition summary
 export const selectFoodLogStatus = (state: RootState) => state.foodLog.status;
 
 export default foodLogSlice.reducer;

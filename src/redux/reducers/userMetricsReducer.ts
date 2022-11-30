@@ -1,6 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { GlobalMetricsState } from '../../../types/types';
-import { userMetrics } from '../api/userMetrics';
+import {
+   GlobalMetricsState,
+   MetricsServerResponse,
+   ServerGeneralResponse,
+} from '../../../types/types';
+import { apiHandlers } from '../api';
 import { RootState } from '../store/store';
 
 const initialState: GlobalMetricsState = {
@@ -15,20 +19,46 @@ const initialState: GlobalMetricsState = {
    status: 'idle',
 };
 
-export const getMetrics = createAsyncThunk(
-   'userMetrics/getMetrics',
-   async (data, { rejectWithValue }) => {
+export const getInitialMetrics = createAsyncThunk<
+   MetricsServerResponse,
+   void,
+   { state: RootState }
+>('userMetrics/getInitialMetrics', async (data, { rejectWithValue }) => {
+   try {
+      const response = await apiHandlers.get('/metrics');
+      if (!response.ok) {
+         const err = await response.json();
+         throw { message: err.message, status: response.status };
+      } else {
+         const metrics = await response.json();
+         return metrics;
+      }
+   } catch (err) {
+      console.error('errr in getmetrics', err);
+      return rejectWithValue(err);
+   }
+});
+
+export const saveUserMetrics = createAsyncThunk<
+   ServerGeneralResponse,
+   void,
+   { state: RootState }
+>(
+   'userMetrics/saveUserMetrics',
+   async (data, { rejectWithValue, getState }) => {
+      const state = getState();
       try {
-         const response = await userMetrics.get();
+         const response = await apiHandlers.post('/metrics', state.userMetrics);
          if (!response.ok) {
             const err = await response.json();
             throw { message: err.message, status: response.status };
          } else {
-            const metrics = await response.json();
-            return metrics;
+            const payload = await response.json();
+            payload.status = response.status;
+            return payload;
          }
       } catch (err) {
-         console.error(err);
+         console.error('errr in getmetrics', err);
          return rejectWithValue(err);
       }
    }
@@ -63,10 +93,10 @@ const userMetricsSlice = createSlice({
    },
    extraReducers: (builder) => {
       builder
-         .addCase(getMetrics.pending, (state, action) => {
+         .addCase(getInitialMetrics.pending, (state, action) => {
             state.status = 'loading';
          })
-         .addCase(getMetrics.fulfilled, (state, action) => {
+         .addCase(getInitialMetrics.fulfilled, (state, action) => {
             const { height, weight, age, gender, goal, activity_level } =
                action.payload;
             state.height = height;
@@ -77,7 +107,14 @@ const userMetricsSlice = createSlice({
             state.activityLevel = activity_level;
             state.status = 'succeeded';
          })
-         .addCase(getMetrics.rejected, (state, action) => {
+         .addCase(getInitialMetrics.rejected, (state) => {
+            state.status = 'failed';
+         });
+      builder
+         .addCase(saveUserMetrics.fulfilled, (state) => {
+            state.status = 'succeeded';
+         })
+         .addCase(saveUserMetrics.rejected, (state) => {
             state.status = 'failed';
          });
    },

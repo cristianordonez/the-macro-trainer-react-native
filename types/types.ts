@@ -2,15 +2,6 @@ import { ViewToken } from 'react-native';
 
 type SliceStatus = 'idle' | 'loading' | 'succeeded' | 'failed';
 
-type MetricsServerResponse = {
-   height: number;
-   weight: number;
-   age: number;
-   gender: 'male' | 'female' | 'non-binary';
-   goal: 'weight_loss' | 'maintain' | 'gain_muscle' | '';
-   activityLevel: 1 | 1.2 | 1.5 | 0;
-};
-
 type SharedUserState = {
    goal: 'weight_loss' | 'maintain' | 'gain_muscle' | '';
    activityLevel: 1 | 1.2 | 1.5 | 0;
@@ -191,7 +182,7 @@ type FoodLogItem = {
    data_type: string;
    serving_size: number | string;
    serving_size_unit: string;
-   date: string | Date;
+   date: string;
    slot: 1 | 2 | 3 | 4;
    servings: number | string;
    brand_owner: string;
@@ -202,7 +193,7 @@ type FoodLogItem = {
 };
 
 type GlobalFoodLogState = {
-   currentDate: string | Date;
+   currentDate: string;
    itemsToday: FoodLogItem[] | [];
    nutritionSummaryToday: DailyNutritionSummary;
    itemsAlternateDate: FoodLogItem[] | [];
@@ -211,9 +202,34 @@ type GlobalFoodLogState = {
    status: SliceStatus;
 };
 
+type LoginFormData = { username: string; password: string };
+
 type ServerFoodLogResponse = {
    foodLogItems: FoodLogItem[];
    nutritionSummary: DailyNutritionSummary;
+};
+
+type ServerGeneralResponse = {
+   message: string;
+};
+
+type MetricsServerResponse = {
+   height: number;
+   weight: number;
+   age: number;
+   gender: 'male' | 'female' | 'non_binary' | '';
+   goal: 'weight_loss' | 'maintain' | 'gain_muscle' | '';
+   activity_level: 1 | 1.2 | 1.5 | 0;
+};
+
+type ServerGoalsResponse = {
+   total_fat: number;
+   total_protein: number;
+   total_calories: number;
+   total_carbohydrates: number;
+   water: number;
+   steps: number;
+   calories_to_burn: number;
 };
 
 export {
@@ -239,4 +255,7 @@ export {
    FoodLogItem,
    GlobalFoodLogState,
    ServerFoodLogResponse,
+   ServerGeneralResponse,
+   ServerGoalsResponse,
+   LoginFormData,
 };
