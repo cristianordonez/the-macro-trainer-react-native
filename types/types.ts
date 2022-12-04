@@ -211,6 +211,7 @@ type ServerFoodLogResponse = {
 
 type ServerGeneralResponse = {
    message: string;
+   status: number;
 };
 
 type MetricsServerResponse = {

@@ -1,5 +1,5 @@
 import { Icon, Input, useTheme } from '@rneui/themed';
-import { Control, Controller } from 'react-hook-form';
+import { Control, useController } from 'react-hook-form';
 import { KeyboardTypeOptions } from 'react-native';
 import {
    LoginForm,
@@ -15,8 +15,8 @@ interface Props {
    iconType: string;
    textContentType: TextContentType;
    label: 'Email' | 'Password' | 'Username' | 'Confirm Password';
-   control: Control<SignupForm, unknown> | Control<LoginForm, unknown>;
-   name: 'email' | 'password' | 'username' | 'confirmPassword';
+   control: Control<SignupForm | LoginForm, unknown>;
+   name: 'email' | 'password' | 'confirmPassword';
 }
 
 export const CustomInput = ({
@@ -31,36 +31,37 @@ export const CustomInput = ({
 }: Props) => {
    const { theme } = useTheme();
 
+   const {
+      field,
+      fieldState: { invalid, isTouched, isDirty },
+      formState: { touchedFields, dirtyFields },
+   } = useController({
+      name,
+      control,
+      rules: { required: true },
+   });
+
    return (
-      <Controller
-         control={control}
-         rules={{
-            required: true,
-         }}
-         render={({ field: { onChange, onBlur, value } }) => (
-            <Input
-               containerStyle={inputStyles.input}
-               onBlur={onBlur}
-               onChangeText={onChange}
-               value={value}
-               placeholder={label}
-               secureTextEntry={secureTextEntry}
-               keyboardAppearance='dark'
-               keyboardType={keyboardType}
-               inputContainerStyle={inputStyles.input}
-               textContentType={textContentType}
-               returnKeyType='done'
-               leftIcon={
-                  <Icon
-                     name={iconName}
-                     type={iconType}
-                     size={20}
-                     color={theme.colors.black}
-                  />
-               }
+      <Input
+         containerStyle={inputStyles.input}
+         onBlur={field.onBlur}
+         onChangeText={field.onChange}
+         value={field.value}
+         placeholder={label}
+         secureTextEntry={secureTextEntry}
+         keyboardAppearance='dark'
+         keyboardType={keyboardType}
+         inputContainerStyle={inputStyles.input}
+         textContentType={textContentType}
+         returnKeyType='done'
+         leftIcon={
+            <Icon
+               name={iconName}
+               type={iconType}
+               size={20}
+               color={theme.colors.black}
             />
-         )}
-         name={name}
+         }
       />
    );
 };

@@ -62,7 +62,6 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
       try {
          const response = await dispatch(createAccount(formData)).unwrap();
          await dispatch(toggleModal(true));
-         console.log('response in onsubmit: ', response);
          await dispatch(saveUserMetrics()).unwrap();
          await dispatch(saveGoals()).unwrap();
          await dispatch(toggleModal(false));

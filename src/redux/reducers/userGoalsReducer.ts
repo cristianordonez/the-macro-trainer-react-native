@@ -30,6 +30,7 @@ export const getInitialGoals = createAsyncThunk<
          return goals;
       }
    } catch (err) {
+      console.error('getInitialGoals: ', err);
       return rejectWithValue(err);
    }
 });
@@ -51,7 +52,7 @@ export const calculateGoals = createAsyncThunk<
          return goals;
       }
    } catch (err) {
-      console.error(err);
+      console.error('calculateGoals: ', err);
       return err;
    }
 });
@@ -73,7 +74,7 @@ export const saveGoals = createAsyncThunk<
          return message;
       }
    } catch (err) {
-      console.error(err);
+      console.error('saveGoals', err);
       return rejectWithValue(err);
    }
 });

@@ -21,6 +21,7 @@ export const getAuthStatus = createAsyncThunk<
 >('auth/getAuthStatus', async (data, { rejectWithValue }) => {
    try {
       const response = await apiHandlers.get('/authentication');
+      console.log('response: ', response);
       if (response.status !== 200) {
          const error = await response.json();
          throw { message: error.message, status: response.status };
@@ -30,7 +31,7 @@ export const getAuthStatus = createAsyncThunk<
          return data;
       }
    } catch (err) {
-      console.error(err);
+      console.error('getAuthStatus: ', err);
       return rejectWithValue(err);
    }
 });
@@ -40,14 +41,14 @@ export const logoutUser = createAsyncThunk('auth/logoutUser', async () => {
       const statusCode = await apiHandlers.logout();
       if (statusCode !== 200) {
          throw {
-            message: 'Something went wrong. Please try again later.',
+            message: 'Something went wrong.',
             status: statusCode,
          };
       } else {
          return statusCode;
       }
    } catch (err) {
-      console.error(err);
+      console.error('logoutUser:', err);
       return err;
    }
 });
@@ -65,8 +66,9 @@ export const loginUser = createAsyncThunk<
          password,
       });
       if (response.status !== 200) {
+         const error = await response.json();
          throw {
-            message: 'No matching email and password found.',
+            message: error.message,
             status: response.status,
          };
       } else {
@@ -75,7 +77,7 @@ export const loginUser = createAsyncThunk<
          return data;
       }
    } catch (err) {
-      console.error(err);
+      console.error('loginUser: ', err);
       return rejectWithValue(err) as unknown as ServerResponseError;
    }
 });
@@ -96,7 +98,7 @@ export const createAccount = createAsyncThunk<
          return data;
       }
    } catch (err) {
-      console.error(err);
+      console.error('createAccount: ', err);
       return rejectWithValue(err) as unknown as ServerResponseError;
    }
 });

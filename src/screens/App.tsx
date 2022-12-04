@@ -56,6 +56,7 @@ export default function App() {
          try {
             await useFonts();
             const response = await dispatch(getAuthStatus()).unwrap();
+            console.log('response: ', response);
             if (response.status === 200) {
                await dispatch(getInitialGoals());
                await dispatch(getInitialMetrics());
@@ -72,7 +73,12 @@ export default function App() {
    }, []);
 
    const onLayoutRootView = useCallback(async () => {
-      if (isReady && (authStatus === 'succeeded' || authStatus === 'failed')) {
+      if (
+         isReady &&
+         (authStatus === 'succeeded' || authStatus === 'failed') &&
+         goalsStatus !== 'idle' &&
+         goalsStatus !== 'loading'
+      ) {
          await SplashScreen.hideAsync();
       }
    }, [authStatus, isReady]);

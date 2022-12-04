@@ -17,6 +17,17 @@ interface Props {
 export const WeightChart = ({ data, title }: Props) => {
    const { theme } = useTheme();
 
+   const getTickValues = (data: ChartValue[]) => {
+      let weights: number[] = [];
+      data.forEach((chartValue) => {
+         if (!weights.includes(chartValue.weight)) {
+            weights.push(chartValue.weight);
+         }
+      });
+      return weights;
+   };
+
+   const tickValues = getTickValues(data);
    return (
       <VictoryChart
          style={{
@@ -30,10 +41,11 @@ export const WeightChart = ({ data, title }: Props) => {
       >
          <VictoryAxis
             dependentAxis={true}
+            tickValues={tickValues}
             style={{
                grid: { stroke: 'none' },
                tickLabels: {
-                  fontSize: 15,
+                  fontSize: 12,
                   padding: 5,
                   fill: theme.colors.black,
                },
