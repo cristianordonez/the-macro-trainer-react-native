@@ -25,7 +25,7 @@ import {
    selectMetricsStatus,
 } from '../redux/reducers/userMetricsReducer';
 import { global } from '../style/global.styles';
-import { AuthenticatedBottomTabScreen } from './authenticated-screens/index';
+import { CustomDrawer } from './drawer-screens/CustomDrawer';
 import { WelcomeStackScreen } from './welcome-screens/index';
 SplashScreen.preventAutoHideAsync();
 
@@ -56,7 +56,6 @@ export default function App() {
          try {
             await useFonts();
             const response = await dispatch(getAuthStatus()).unwrap();
-            console.log('response: ', response);
             if (response.status === 200) {
                await dispatch(getInitialGoals());
                await dispatch(getInitialMetrics());
@@ -94,7 +93,7 @@ export default function App() {
                   metricsStatus !== 'failed' &&
                   goalsStatus !== 'failed' &&
                   foodLogStatus !== 'failed' ? (
-                     <AuthenticatedBottomTabScreen />
+                     <CustomDrawer />
                   ) : (
                      <WelcomeStackScreen />
                   )}

@@ -40,9 +40,10 @@ type WelcomeStackParamList = {
 type AuthenticatedTabsParamList = {
    Home: undefined;
    FoodLog: undefined;
-   Exercise: undefined;
-   Profile: undefined;
+   WeightLifting: undefined;
+   Cardio: undefined;
    Add: undefined;
+   HeaderAvatar: undefined;
 };
 
 type MainScreenCard = {

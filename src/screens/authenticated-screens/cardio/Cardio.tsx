@@ -6,14 +6,14 @@ import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { logoutUser } from '../../../redux/reducers/authReducer';
 import { createAlert } from '../../../utils/createAlert';
 
-type Props = NativeStackScreenProps<AuthenticatedTabsParamList, 'Profile'>;
+type Props = NativeStackScreenProps<AuthenticatedTabsParamList, 'Cardio'>;
 
-export const Profile = ({ navigation }: Props) => {
+export const Cardio = ({ navigation }: Props) => {
    const dispatch = useAppDispatch();
 
    return (
       <View>
-         <Text>profile screen</Text>
+         <Text>cardio </Text>
          <Button
             onPress={() =>
                createAlert({

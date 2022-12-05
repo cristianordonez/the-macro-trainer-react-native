@@ -3,12 +3,19 @@ import { Text } from '@rneui/themed';
 import { View } from 'react-native';
 import { AuthenticatedTabsParamList } from '../../../../types/types';
 
-type Props = NativeStackScreenProps<AuthenticatedTabsParamList, 'Exercise'>;
+type Props = NativeStackScreenProps<
+   AuthenticatedTabsParamList,
+   'WeightLifting'
+>;
 
-export const Exercise = ({ navigation }: Props) => {
+const sampleData = {
+   programName: 'nSuns 531 LP 4 day version',
+};
+
+export const WeightLifting = ({ navigation }: Props) => {
    return (
       <View>
-         <Text>exercise screen</Text>
+         <Text>weight lifting screen</Text>
       </View>
    );
 };
