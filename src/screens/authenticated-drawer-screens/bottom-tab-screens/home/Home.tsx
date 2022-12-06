@@ -70,6 +70,8 @@ export const Home = ({ navigation }: Props) => {
       },
    ];
 
+   console.log('goalstr: ', goals);
+
    return (
       <View style={global.screenEven}>
          <View style={[homeStyles.nutritionContainer, global.containerBorder]}>

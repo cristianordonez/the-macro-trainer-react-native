@@ -1,6 +1,7 @@
 import { Text, useTheme } from '@rneui/themed';
 
 import { View } from 'react-native';
+import AllDumbbell from './custom-icon-components/AllDumbbell';
 import BeginnerDumbbell from './custom-icon-components/BeginnerDumbbell';
 import IntermediateDumbbell from './custom-icon-components/IntermediateDumbbell';
 import NSuns from './custom-icon-components/NSunsCategory';
@@ -17,7 +18,7 @@ type Icons = {
 };
 
 const IconsMap = {
-   All: <NSuns />,
+   All: <AllDumbbell />,
    Beginner: <BeginnerDumbbell />,
    Intermediate: <IntermediateDumbbell />,
    'nSuns 531 Variants': <NSuns />,
