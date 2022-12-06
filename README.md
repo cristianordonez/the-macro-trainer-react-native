@@ -16,3 +16,5 @@ This project was built using the following technologies:
 ## Resources (include useful or related links)
 
 -  [Common error when trying to open simulator on Mac](https://stackoverflow.com/questions/69804969/react-native-runtimeerror-aborterror-xcrun-exited-with-non-zero-code-2-on)
+
+https://github.com/react-native-elements/react-native-elements/issues/3629

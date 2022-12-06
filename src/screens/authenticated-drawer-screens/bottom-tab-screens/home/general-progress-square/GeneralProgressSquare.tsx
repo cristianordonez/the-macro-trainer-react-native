@@ -1,6 +1,7 @@
-import { Icon, Text, useTheme } from '@rneui/themed';
+import { Icon, Text } from '@rneui/themed';
 import { View } from 'react-native';
 import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
+import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
 import { global } from '../../../../../style/global.styles';
 import { createFlexGap } from '../../../../../utils/createFlexGap';
 
@@ -23,31 +24,14 @@ export const GeneralProgressSquare = ({
    goal,
    metric,
 }: Props) => {
-   const { height, width, marginHorizontal, marginVertical } = createFlexGap(
-      2,
-      10
-   );
-   const { theme } = useTheme();
+   const { height } = createFlexGap(2, 10);
+
    return (
-      <View
-         style={[
-            global.containerBorder,
-            {
-               backgroundColor: theme.colors.searchBg,
-               height: height,
-               width: width,
-               marginVertical: marginVertical,
-               marginHorizontal: marginHorizontal,
-               alignItems: 'center',
-               justifyContent: 'space-evenly',
-            },
-         ]}
-      >
+      <CustomScreenContainerItem gap={10} itemsPerRow={2}>
          <View style={[global.rowCenter]}>
             <Text style={{ paddingRight: 5 }}>{title}</Text>
             <Icon name={iconName} type={iconType} size={12} />
          </View>
-
          <CircularProgress
             size={height - 75}
             color={color}
@@ -56,6 +40,6 @@ export const GeneralProgressSquare = ({
             metric={metric}
             isCaloriesRemaining={false}
          />
-      </View>
+      </CustomScreenContainerItem>
    );
 };

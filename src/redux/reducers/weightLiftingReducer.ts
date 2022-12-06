@@ -27,7 +27,7 @@ export const selectWeightLiftingData = (state: RootState) =>
 
 export const selectBeginnerPrograms = createSelector(
    (state: RootState) => state.weightLifting.data.programs,
-   (programs) => programs.filter((program) => program.category === 'beginner')
+   (programs) => programs.filter((program) => program.category === 'Beginner')
 );
 
 export const selectProgramCategories = createSelector(
