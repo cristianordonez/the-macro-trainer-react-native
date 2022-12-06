@@ -25,7 +25,7 @@ import {
    selectMetricsStatus,
 } from '../redux/reducers/userMetricsReducer';
 import { global } from '../style/global.styles';
-import { CustomDrawer } from './drawer-screens/CustomDrawer';
+import { CustomDrawer } from './authenticated-drawer-screens';
 import { WelcomeStackScreen } from './welcome-screens/index';
 SplashScreen.preventAutoHideAsync();
 

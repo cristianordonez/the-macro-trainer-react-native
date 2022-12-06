@@ -14,14 +14,6 @@ export const makeHomeStyles = (colors: Colors) =>
          justifyContent: 'center',
          overflow: 'hidden',
       },
-      generalProgressContainer: {
-         flex: 3,
-         flexDirection: 'row',
-         flexWrap: 'wrap',
-         marginHorizontal: -(gap / 2),
-         marginVertical: -(gap / 2),
-         paddingTop: 10,
-      },
       tabsContainer: {
          flex: 1,
          width: '60%',

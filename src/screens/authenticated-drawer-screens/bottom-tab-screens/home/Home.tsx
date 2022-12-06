@@ -2,18 +2,18 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Tab, TabView, useTheme } from '@rneui/themed';
 import { useState } from 'react';
 import { View } from 'react-native';
-import { AuthenticatedTabsParamList } from '../../../../types/types';
-import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
-import { useAppSelector } from '../../../redux/hooks/reduxHooks';
-import { selectNutritionSummaryToday } from '../../../redux/reducers/foodLogReducer';
-import { selectGoals } from '../../../redux/reducers/userGoalsReducer';
-import { selectUserMetrics } from '../../../redux/reducers/userMetricsReducer';
-import { global } from '../../../style/global.styles';
+import { BottomTabsParamList } from '../../../../../types/types';
+import { NutritionPieChart } from '../../../../components/nutrition-pie-chart/NutritionPieChart';
+import { useAppSelector } from '../../../../redux/hooks/reduxHooks';
+import { selectNutritionSummaryToday } from '../../../../redux/reducers/foodLogReducer';
+import { selectGoals } from '../../../../redux/reducers/userGoalsReducer';
+import { selectUserMetrics } from '../../../../redux/reducers/userMetricsReducer';
+import { global } from '../../../../style/global.styles';
 import { GeneralProgressSquare } from './general-progress-square/GeneralProgressSquare';
 import { makeHomeStyles } from './makeHomeStyles';
 import { TotalNutritionCalorieSection } from './total-nutrition-calorie-section';
 
-type Props = NativeStackScreenProps<AuthenticatedTabsParamList, 'Home'>;
+type Props = NativeStackScreenProps<BottomTabsParamList, 'Home'>;
 
 export const Home = ({ navigation }: Props) => {
    const { theme } = useTheme();
@@ -132,19 +132,21 @@ export const Home = ({ navigation }: Props) => {
                </TabView>
             </View>
          </View>
-         <View style={homeStyles.generalProgressContainer}>
-            {progressData.map((item) => (
-               <GeneralProgressSquare
-                  title={item.title}
-                  key={item.title}
-                  iconName={item.iconName}
-                  iconType={item.iconType}
-                  amount={item.amount}
-                  goal={item.goal}
-                  metric={item.metric}
-                  color={item.color}
-               />
-            ))}
+         <View style={{ flex: 3 }}>
+            <View style={global.customScreenContainer}>
+               {progressData.map((item) => (
+                  <GeneralProgressSquare
+                     title={item.title}
+                     key={item.title}
+                     iconName={item.iconName}
+                     iconType={item.iconType}
+                     amount={item.amount}
+                     goal={item.goal}
+                     metric={item.metric}
+                     color={item.color}
+                  />
+               ))}
+            </View>
          </View>
       </View>
    );

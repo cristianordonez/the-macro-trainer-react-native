@@ -4,6 +4,7 @@ import foodLogReducer from '../reducers/foodLogReducer';
 import modalReducer from '../reducers/modalReducer';
 import userGoalsReducer from '../reducers/userGoalsReducer';
 import userMetricsReducer from '../reducers/userMetricsReducer';
+import weightLiftingReducer from '../reducers/weightLiftingReducer';
 
 export const store = configureStore({
    reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
       auth: authReducer,
       modal: modalReducer,
       foodLog: foodLogReducer,
+      weightLifting: weightLiftingReducer,
    },
 });
 

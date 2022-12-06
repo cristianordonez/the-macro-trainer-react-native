@@ -1,7 +1,8 @@
 import { Icon, Text, useTheme } from '@rneui/themed';
-import { Dimensions, View } from 'react-native';
-import { CircularProgress } from '../../../../components/circular-progress/CircularProgress';
-import { global } from '../../../../style/global.styles';
+import { View } from 'react-native';
+import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
+import { global } from '../../../../../style/global.styles';
+import { createFlexGap } from '../../../../../utils/createFlexGap';
 
 interface Props {
    title: string;
@@ -13,12 +14,6 @@ interface Props {
    color: string;
 }
 
-const gap = 10;
-const itemsPerRow = 2;
-const totalGapSize = (itemsPerRow - 1) * gap;
-const windowWidth = Dimensions.get('window').width;
-const childWidth = (windowWidth - totalGapSize) / itemsPerRow;
-
 export const GeneralProgressSquare = ({
    title,
    iconName,
@@ -28,6 +23,10 @@ export const GeneralProgressSquare = ({
    goal,
    metric,
 }: Props) => {
+   const { height, width, marginHorizontal, marginVertical } = createFlexGap(
+      2,
+      10
+   );
    const { theme } = useTheme();
    return (
       <View
@@ -35,10 +34,10 @@ export const GeneralProgressSquare = ({
             global.containerBorder,
             {
                backgroundColor: theme.colors.searchBg,
-               height: childWidth - 10,
-               width: childWidth - 10,
-               marginVertical: gap / 2,
-               marginHorizontal: gap / 2,
+               height: height,
+               width: width,
+               marginVertical: marginVertical,
+               marginHorizontal: marginHorizontal,
                alignItems: 'center',
                justifyContent: 'space-evenly',
             },
@@ -50,7 +49,7 @@ export const GeneralProgressSquare = ({
          </View>
 
          <CircularProgress
-            size={childWidth - 75}
+            size={height - 75}
             color={color}
             progress={1 - amount / goal}
             amount={amount}

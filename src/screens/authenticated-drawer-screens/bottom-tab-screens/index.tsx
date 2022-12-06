@@ -1,23 +1,25 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon, useTheme } from '@rneui/themed';
+import { Icon, Text, useTheme } from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
-import { AuthenticatedTabsParamList } from '../../../types/types';
-import { DateTitle } from '../../components/date-title/DateTitle';
-import { AvatarHeader } from '../../components/header-avatar/HeaderAvatar';
+import { BottomTabsParamList } from '../../../../types/types';
+import { DateTitle } from '../../../components/date-title/DateTitle';
+import { AvatarHeader } from '../../../components/header-avatar/HeaderAvatar';
+import { useAppSelector } from '../../../redux/hooks/reduxHooks';
+import { selectProgramStatus } from '../../../redux/reducers/weightLiftingReducer';
 import { AddBtnModal } from './add-btn-modal/AddBtnModal';
 import { Cardio } from './cardio/Cardio';
 import { FoodLog } from './food-log/FoodLog';
 import { Home } from './home/Home';
 import { WeightLifting } from './weight-lifting/WeightLifting';
 
-const AuthenticatedTabs =
-   createBottomTabNavigator<AuthenticatedTabsParamList>();
+const BottomTabs = createBottomTabNavigator<BottomTabsParamList>();
 
-export const AuthenticatedBottomTabScreen = () => {
+export const BottomTabScreen = () => {
    const { theme } = useTheme();
-
+   const hasSelectedProgram = useAppSelector(selectProgramStatus);
+   const programName = 'nSuns 531 LP 4 day version';
    return (
-      <AuthenticatedTabs.Navigator
+      <BottomTabs.Navigator
          screenOptions={{
             headerStyle: {
                backgroundColor: theme.colors.background,
@@ -34,7 +36,7 @@ export const AuthenticatedBottomTabScreen = () => {
          }}
          initialRouteName='Home'
       >
-         <AuthenticatedTabs.Screen
+         <BottomTabs.Screen
             name='Home'
             component={Home}
             options={{
@@ -44,7 +46,7 @@ export const AuthenticatedBottomTabScreen = () => {
                ),
             }}
          />
-         <AuthenticatedTabs.Screen
+         <BottomTabs.Screen
             name='FoodLog'
             component={FoodLog}
             options={{
@@ -55,7 +57,7 @@ export const AuthenticatedBottomTabScreen = () => {
                ),
             }}
          />
-         <AuthenticatedTabs.Screen
+         <BottomTabs.Screen
             name='Add'
             component={AddBtnModal}
             listeners={{
@@ -69,12 +71,17 @@ export const AuthenticatedBottomTabScreen = () => {
                tabBarIcon: ({ color }) => <AddBtnModal />,
             }}
          />
-         <AuthenticatedTabs.Screen
+         <BottomTabs.Screen
             name='WeightLifting'
             component={WeightLifting}
             options={{
                tabBarLabel: 'Weight Lifting',
-               headerTitle: (props) => <DateTitle />,
+               headerTitle: (props) =>
+                  hasSelectedProgram ? (
+                     <Text h4>{programName}</Text>
+                  ) : (
+                     <Text h4>Select Program</Text>
+                  ),
                tabBarIcon: ({ color }: { color: string }) => (
                   <Icon
                      color={color}
@@ -84,17 +91,17 @@ export const AuthenticatedBottomTabScreen = () => {
                ),
             }}
          />
-         <AuthenticatedTabs.Screen
+         <BottomTabs.Screen
             name='Cardio'
             component={Cardio}
             options={{
                tabBarLabel: 'Cardio',
                headerTitle: (props) => <DateTitle />,
                tabBarIcon: ({ color }: { color: string }) => (
-                  <Icon color={color} name='user' type='feather' />
+                  <Icon color={color} name='running' type='font-awesome-5' />
                ),
             }}
          />
-      </AuthenticatedTabs.Navigator>
+      </BottomTabs.Navigator>
    );
 };

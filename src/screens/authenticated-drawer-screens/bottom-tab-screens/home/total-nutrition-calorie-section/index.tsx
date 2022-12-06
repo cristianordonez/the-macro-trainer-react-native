@@ -5,10 +5,10 @@ import {
    DailyNutritionSummary,
    Goals,
    MacroMap,
-} from '../../../../../types/types';
-import { CircularProgress } from '../../../../components/circular-progress/CircularProgress';
-import { global } from '../../../../style/global.styles';
-import { convertMacroKey } from '../../../../utils/convertMacroKey';
+} from '../../../../../../types/types';
+import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
+import { global } from '../../../../../style/global.styles';
+import { convertMacroKey } from '../../../../../utils/convertMacroKey';
 import { styles } from './styles';
 
 interface Props {

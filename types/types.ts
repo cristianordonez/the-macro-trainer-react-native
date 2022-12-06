@@ -37,7 +37,7 @@ type WelcomeStackParamList = {
    CompleteRegistration: undefined;
 };
 
-type AuthenticatedTabsParamList = {
+type BottomTabsParamList = {
    Home: undefined;
    FoodLog: undefined;
    WeightLifting: undefined;
@@ -203,6 +203,47 @@ type GlobalFoodLogState = {
    status: SliceStatus;
 };
 
+type Set = {
+   index: number;
+   reps: number;
+   percentageOf1RM: number;
+   amrap: boolean;
+};
+
+type Exercise = {
+   exercise_id: number;
+   name: string;
+   gif: string;
+   sets: Set[];
+};
+
+type Workout = {
+   day: number;
+   workout_id: number;
+   exercises: Exercise[];
+};
+
+type Program = {
+   program_id: number;
+   category: 'nSuns 531 Variants' | 'Beginner' | 'Intermediate';
+   name: string;
+   body: string;
+   workouts: Workout[];
+};
+
+type WeightLiftingState = {
+   user: {
+      hasSelectedProgram: boolean;
+      selectedProgramId: null | number;
+   };
+   data: {
+      programs: Program[];
+   };
+};
+type GlobalWeightLiftingState = WeightLiftingState & {
+   status: SliceStatus;
+};
+
 type LoginFormData = { username: string; password: string };
 
 type ServerFoodLogResponse = {
@@ -247,7 +288,7 @@ export {
    MainScreenCard,
    Goals,
    AuthReducerState,
-   AuthenticatedTabsParamList,
+   BottomTabsParamList,
    DailyNutritionSummary,
    MacroMap,
    LoginForm,
@@ -260,4 +301,6 @@ export {
    ServerGeneralResponse,
    ServerGoalsResponse,
    LoginFormData,
+   GlobalWeightLiftingState,
+   WeightLiftingState,
 };

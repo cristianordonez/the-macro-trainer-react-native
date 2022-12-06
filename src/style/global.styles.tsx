@@ -1,5 +1,7 @@
 import { StyleSheet } from 'react-native';
 
+const gap = 10;
+
 export const global = StyleSheet.create({
    flex: {
       flex: 1,
@@ -86,5 +88,13 @@ export const global = StyleSheet.create({
    },
    textOpacity: {
       opacity: 0.75,
+   },
+   customScreenContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginHorizontal: -(gap / 2),
+      marginVertical: -(gap / 2),
+      paddingTop: 10,
    },
 });

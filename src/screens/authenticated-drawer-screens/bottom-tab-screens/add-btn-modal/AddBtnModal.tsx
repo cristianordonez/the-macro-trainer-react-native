@@ -1,13 +1,16 @@
 import { Icon, Text, useTheme } from '@rneui/themed';
 import React from 'react';
 import { Pressable, View } from 'react-native';
-import { CustomModal } from '../../../components/custom-modal/CustomModal';
+import { CustomModal } from '../../../../components/custom-modal/CustomModal';
 import {
    useAppDispatch,
    useAppSelector,
-} from '../../../redux/hooks/reduxHooks';
-import { selectModal, toggleModal } from '../../../redux/reducers/modalReducer';
-import { global } from '../../../style/global.styles';
+} from '../../../../redux/hooks/reduxHooks';
+import {
+   selectModal,
+   toggleModal,
+} from '../../../../redux/reducers/modalReducer';
+import { global } from '../../../../style/global.styles';
 import { makeAddBtnModalStyles } from './makeAddBtnModalStyles';
 
 export function AddBtnModal() {
