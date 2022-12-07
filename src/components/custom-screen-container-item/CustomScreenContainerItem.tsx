@@ -7,12 +7,16 @@ interface Props {
    children: React.ReactNode;
    itemsPerRow: number;
    gap: number;
+   index: number;
+   handlePress: (index: number) => void;
 }
 
 export const CustomScreenContainerItem = ({
    children,
    itemsPerRow,
    gap,
+   index,
+   handlePress,
 }: Props) => {
    const { theme } = useTheme();
    const { height, width, marginHorizontal, marginVertical } = createFlexGap(
@@ -21,7 +25,7 @@ export const CustomScreenContainerItem = ({
    );
    return (
       <Pressable
-         onPress={() => {}}
+         onPress={() => handlePress(index)}
          style={({ pressed }) => [
             global.containerBorder,
             {

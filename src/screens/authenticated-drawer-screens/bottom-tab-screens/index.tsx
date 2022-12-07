@@ -1,16 +1,16 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Icon, Text, useTheme } from '@rneui/themed';
+import { Icon, useTheme } from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
 import { BottomTabsParamList } from '../../../../types/types';
+import { AvatarHeader } from '../../../components/avatar-header/AvatarHeader';
 import { DateTitle } from '../../../components/date-title/DateTitle';
-import { AvatarHeader } from '../../../components/header-avatar/HeaderAvatar';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
 import { selectProgramStatus } from '../../../redux/reducers/weightLiftingReducer';
 import { AddBtnModal } from './add-btn-modal/AddBtnModal';
 import { Cardio } from './cardio/Cardio';
 import { FoodLog } from './food-log/FoodLog';
 import { Home } from './home/Home';
-import { WeightLifting } from './weight-lifting/WeightLifting';
+import { WeightLifting } from './weight-lifting/index';
 
 const BottomTabs = createBottomTabNavigator<BottomTabsParamList>();
 
@@ -75,13 +75,8 @@ export const BottomTabScreen = () => {
             name='WeightLifting'
             component={WeightLifting}
             options={{
+               headerShown: false,
                tabBarLabel: 'Weight Lifting',
-               headerTitle: (props) =>
-                  hasSelectedProgram ? (
-                     <Text h4>{programName}</Text>
-                  ) : (
-                     <Text h4>Select Program</Text>
-                  ),
                tabBarIcon: ({ color }: { color: string }) => (
                   <Icon
                      color={color}

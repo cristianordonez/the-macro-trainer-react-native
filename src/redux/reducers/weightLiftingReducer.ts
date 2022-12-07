@@ -1,9 +1,8 @@
 import { createSelector, createSlice } from '@reduxjs/toolkit';
-import { GlobalWeightLiftingState } from '../../../types/types';
+import { GlobalWeightLiftingState, Program } from '../../../types/types';
 import { weightLiftingData } from '../store/sampleWeightLiftingData';
 import { RootState } from '../store/store';
 
-console.log('weightLiftingData in reducer: ', weightLiftingData);
 const initialState: GlobalWeightLiftingState = {
    user: weightLiftingData.user,
    data: weightLiftingData.data,
@@ -22,17 +21,26 @@ export const {} = weightLiftingSlice.actions;
 export const selectProgramStatus = (state: RootState) =>
    state.weightLifting.user.hasSelectedProgram;
 
-export const selectWeightLiftingData = (state: RootState) =>
-   state.weightLifting.data;
+export const selectAllPrograms = (state: RootState) =>
+   state.weightLifting.data.programs;
 
-export const selectBeginnerPrograms = createSelector(
-   (state: RootState) => state.weightLifting.data.programs,
-   (programs) => programs.filter((program) => program.category === 'Beginner')
-);
-
-export const selectProgramCategories = createSelector(
+export const selectAllProgramCategories = createSelector(
    (state: RootState) => state.weightLifting.data.programs,
    (programs) => programs.map((program) => program.category)
+);
+
+export const selectProgramsByCategory = createSelector(
+   [
+      selectAllPrograms,
+      (state: RootState, category: Program['category']) => category,
+   ],
+   (programs, category) => {
+      if (category === 'All') {
+         return programs;
+      } else {
+         return programs.filter((program) => program.category === category);
+      }
+   }
 );
 
 export default weightLiftingSlice.reducer;

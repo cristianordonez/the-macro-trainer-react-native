@@ -5,7 +5,6 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 
 export const AvatarHeader = () => {
    const navigation = useNavigation();
-   // navigation.dispatch(DrawerActions.openDrawer());
    const { theme } = useTheme();
 
    return (
@@ -14,7 +13,6 @@ export const AvatarHeader = () => {
             style={{
                alignItems: 'center',
                justifyContent: 'center',
-               marginRight: 10,
             }}
          >
             <Avatar

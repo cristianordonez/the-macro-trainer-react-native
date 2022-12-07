@@ -135,8 +135,8 @@ export const weightLiftingData: WeightLiftingState = {
          {
             program_id: 3,
             category: 'Intermediate',
-            name: 'nSuns 531 LP 4 day version',
-            body: 'The nSuns 531 LP 4 day variation was developed by...',
+            name: 'Wendler 531',
+            body: 'The Wendler 531 program was developed by...',
             workouts: [
                {
                   day: 1,

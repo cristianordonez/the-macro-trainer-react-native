@@ -24,7 +24,6 @@ export const WelcomeStackScreen = () => {
          screenOptions={{
             headerTitle: (props) => <Logo />,
             headerBackTitleVisible: false,
-            headerTitleContainerStyle: {},
             headerStyle: {
                backgroundColor: theme.colors.background,
             },

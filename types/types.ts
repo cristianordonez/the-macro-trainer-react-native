@@ -46,6 +46,21 @@ type BottomTabsParamList = {
    HeaderAvatar: undefined;
 };
 
+type WeightLiftingStack = {
+   SelectPrograms: undefined;
+   CurrentWorkouts: undefined;
+};
+
+type SelectProgramsStack = {
+   Categories: undefined;
+   Programs: { category: Program['category'] };
+};
+
+type CurrentWorkoutsStack = {
+   WorkoutsOverview: undefined;
+   ActiveWorkout: undefined;
+};
+
 type MainScreenCard = {
    logo: string;
    type: string;
@@ -225,7 +240,7 @@ type Workout = {
 
 type Program = {
    program_id: number;
-   category: 'nSuns 531 Variants' | 'Beginner' | 'Intermediate';
+   category: 'nSuns 531 Variants' | 'Beginner' | 'Intermediate' | 'All';
    name: string;
    body: string;
    workouts: Workout[];
@@ -296,6 +311,7 @@ export {
    MetricsServerResponse,
    FoodSearchResult,
    FoodLogItem,
+   Program,
    GlobalFoodLogState,
    ServerFoodLogResponse,
    ServerGeneralResponse,
@@ -303,4 +319,7 @@ export {
    LoginFormData,
    GlobalWeightLiftingState,
    WeightLiftingState,
+   WeightLiftingStack,
+   SelectProgramsStack,
+   CurrentWorkoutsStack,
 };
