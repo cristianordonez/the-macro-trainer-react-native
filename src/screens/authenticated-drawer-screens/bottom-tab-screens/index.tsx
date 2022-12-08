@@ -1,23 +1,22 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Icon, useTheme } from '@rneui/themed';
 import { TouchableOpacity } from 'react-native';
-import { BottomTabsParamList } from '../../../../types/types';
+import { BottomTabsParamList, DrawerStack } from '../../../../types/types';
 import { AvatarHeader } from '../../../components/avatar-header/AvatarHeader';
 import { DateTitle } from '../../../components/date-title/DateTitle';
-import { useAppSelector } from '../../../redux/hooks/reduxHooks';
-import { selectProgramStatus } from '../../../redux/reducers/weightLiftingReducer';
 import { AddBtnModal } from './add-btn-modal/AddBtnModal';
 import { Cardio } from './cardio/Cardio';
 import { FoodLog } from './food-log/FoodLog';
 import { Home } from './home/Home';
-import { WeightLifting } from './weight-lifting/index';
+import { WeightLifting } from './weight-lifting';
 
 const BottomTabs = createBottomTabNavigator<BottomTabsParamList>();
+type Props = NativeStackScreenProps<DrawerStack, 'BottomTabScreen'>;
 
-export const BottomTabScreen = () => {
+export const BottomTabScreen = ({ navigation, route }: Props) => {
    const { theme } = useTheme();
-   const hasSelectedProgram = useAppSelector(selectProgramStatus);
-   const programName = 'nSuns 531 LP 4 day version';
+
    return (
       <BottomTabs.Navigator
          screenOptions={{

@@ -1,13 +1,16 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'react-native';
-import { Program, SelectProgramsStack } from '../../../../../../types/types';
+import {
+   ChangeProgramsStackType,
+   Program,
+} from '../../../../../../types/types';
 import { CustomIconCircle } from '../../../../../components/custom-icon-circle/CustomIconCircle';
 import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
 import { selectAllProgramCategories } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
-type Props = NativeStackScreenProps<SelectProgramsStack, 'Categories'>;
+type Props = NativeStackScreenProps<ChangeProgramsStackType, 'Categories'>;
 
 export const Categories = ({ navigation }: Props) => {
    const programCategories = useAppSelector(selectAllProgramCategories);
@@ -15,6 +18,7 @@ export const Categories = ({ navigation }: Props) => {
 
    const handleNavigate = (index: number) => {
       const currentCategory = categories[index] as Program['category'];
+
       navigation.navigate('Programs', {
          category: currentCategory,
       });

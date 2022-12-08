@@ -4,11 +4,7 @@ import { StyleSheet } from 'react-native';
 export const makeWorkoutDayStyles = (colors: Colors) =>
    StyleSheet.create({
       container: {
-         width: '100%',
          backgroundColor: colors.searchBg,
-         paddingHorizontal: 10,
-         paddingTop: 20,
-         paddingBottom: 10,
       },
       dayText: { paddingBottom: 10 },
       text: {

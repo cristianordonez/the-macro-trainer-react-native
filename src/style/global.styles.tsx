@@ -97,4 +97,10 @@ export const global = StyleSheet.create({
       marginVertical: -(gap / 2),
       paddingTop: 10,
    },
+   largeContainer: {
+      width: '100%',
+      paddingHorizontal: 10,
+      paddingTop: 20,
+      paddingBottom: 10,
+   },
 });

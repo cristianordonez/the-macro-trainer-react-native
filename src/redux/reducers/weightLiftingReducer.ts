@@ -46,9 +46,26 @@ export const selectProgramNamesByCategory = createSelector(
    }
 );
 
-export const selectProgramById = createSelector(
+export const selectProgramByName = createSelector(
    [selectAllPrograms, (state: RootState, name: Program['name']) => name],
    (programs, name) => programs.filter((program) => program.name === name)
+);
+
+export const selectProgramExercises = createSelector(
+   [selectAllPrograms, (state: RootState, name: Program['name']) => name],
+   (programs, name) => {
+      const program = programs.filter((program) => program.name === name);
+      const exercises = program[0].workouts.map((workout) => {
+         return workout.exercises.map((exercise) => exercise.name);
+      });
+      const result: string[] = [];
+      exercises.forEach((exerciseDay) => {
+         exerciseDay.forEach((exercise) => {
+            if (!result.includes(exercise)) result.push(exercise);
+         });
+      });
+      return result;
+   }
 );
 
 export default weightLiftingSlice.reducer;

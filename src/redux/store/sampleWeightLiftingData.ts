@@ -214,6 +214,38 @@ export const weightLiftingData: WeightLiftingState = {
                      },
                   ],
                },
+               {
+                  day: 2,
+                  workout_id: 2,
+                  exercises: [
+                     {
+                        exercise_id: 2,
+                        name: 'Barbell Back Squat',
+                        gif: 'this_is_temp_gif',
+                        sets: [
+                           {
+                              index: 1,
+                              reps: 8,
+                              percentageOf1RM: 65,
+                              amrap: false,
+                           },
+                        ],
+                     },
+                     {
+                        exercise_id: 4,
+                        name: 'Deadlift',
+                        gif: 'this_is_temp_gif',
+                        sets: [
+                           {
+                              index: 2,
+                              reps: 8,
+                              percentageOf1RM: 65,
+                              amrap: false,
+                           },
+                        ],
+                     },
+                  ],
+               },
             ],
          },
       ],

@@ -1,23 +1,23 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import * as React from 'react';
-import { WeightLiftingStack } from '../../../../../types/types';
+import { BottomTabsParamList } from '../../../../../types/types';
 import { useAppSelector } from '../../../../redux/hooks/reduxHooks';
 import { selectProgramStatus } from '../../../../redux/reducers/weightLiftingReducer';
-import { CurrentWorkouts } from './current-workouts';
-import { SelectPrograms } from './select-programs';
+import { ChangeProgramsStack } from './change-programs-stack';
+import { CurrentWorkoutStack } from './current-workout-stack/CurrentWorkoutStack';
 
-const Stack = createNativeStackNavigator<WeightLiftingStack>();
+type Props = NativeStackScreenProps<BottomTabsParamList, 'WeightLifting'>;
 
-export const WeightLifting = () => {
+export const WeightLifting = ({ navigation }: Props) => {
    const hasSelectedProgram = useAppSelector(selectProgramStatus);
 
    return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <>
          {hasSelectedProgram ? (
-            <Stack.Screen name='CurrentWorkouts' component={CurrentWorkouts} />
+            <CurrentWorkoutStack />
          ) : (
-            <Stack.Screen name='SelectPrograms' component={SelectPrograms} />
+            <ChangeProgramsStack />
          )}
-      </Stack.Navigator>
+      </>
    );
 };

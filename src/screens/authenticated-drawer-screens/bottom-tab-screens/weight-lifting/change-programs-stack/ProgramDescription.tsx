@@ -1,20 +1,31 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text } from '@rneui/themed';
+import { Button, Text } from '@rneui/themed';
 import { FlatList, View } from 'react-native';
-import { SelectProgramsStack } from '../../../../../../types/types';
+import { ChangeProgramsStackType } from '../../../../../../types/types';
 import { WorkoutDayDescription } from '../../../../../components/workout-day-description/WorkoutDayDescription';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramById } from '../../../../../redux/reducers/weightLiftingReducer';
+import { selectProgramByName } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
-type Props = NativeStackScreenProps<SelectProgramsStack, 'ProgramDescription'>;
+type Props = NativeStackScreenProps<
+   ChangeProgramsStackType,
+   'ProgramDescription'
+>;
 
 export const ProgramDescription = ({ route, navigation }: Props) => {
-   const params = route.params;
+   const programName = route.params.programName;
+
    const program = useAppSelector((state) =>
-      selectProgramById(state, params.programName)
+      selectProgramByName(state, programName)
    );
    const currentProgram = program[0];
+
+   const handlePress = () => {
+      navigation.navigate('EnterWeights', {
+         programName,
+      });
+   };
+
    return (
       <>
          <View style={[global.screenEven]}>
@@ -40,6 +51,9 @@ export const ProgramDescription = ({ route, navigation }: Props) => {
                   day={workout.day}
                />
             ))}
+            <Button style={{ paddingTop: 10 }} onPress={handlePress}>
+               Enter weights and start
+            </Button>
          </View>
       </>
    );

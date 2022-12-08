@@ -1,9 +1,10 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import * as React from 'react';
+import { DrawerStack } from '../../../types/types';
 import { BottomTabScreen } from './bottom-tab-screens';
 import { CustomDrawerContent } from './CustomDrawerContents';
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<DrawerStack>();
 
 export const CustomDrawer = () => {
    return (

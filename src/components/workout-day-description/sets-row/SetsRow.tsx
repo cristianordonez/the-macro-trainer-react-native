@@ -12,7 +12,7 @@ export const SetsRow = ({ sets }: Props) => {
    return (
       <>
          {sets.map((set) => (
-            <View style={{ width: '100%' }}>
+            <View style={{ width: '100%' }} key={set.index}>
                <Text style={[SetsRowStyles.text, global.textOpacity]}>
                   {set.amrap ? `${set.reps}+` : set.reps} x{' '}
                </Text>

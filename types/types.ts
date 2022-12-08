@@ -37,6 +37,17 @@ type WelcomeStackParamList = {
    CompleteRegistration: undefined;
 };
 
+type DrawerStack = {
+   BottomTabScreen: undefined;
+};
+
+type ChangeProgramsStackType = {
+   Categories: undefined;
+   Programs: { category: Program['category'] };
+   ProgramDescription: { programName: Program['name'] };
+   EnterWeights: { programName: Program['name'] };
+};
+
 type BottomTabsParamList = {
    Home: undefined;
    FoodLog: undefined;
@@ -46,15 +57,9 @@ type BottomTabsParamList = {
    HeaderAvatar: undefined;
 };
 
-type WeightLiftingStack = {
-   SelectPrograms: undefined;
-   CurrentWorkouts: undefined;
-};
-
-type SelectProgramsStack = {
-   Categories: undefined;
-   Programs: { category: Program['category'] };
-   ProgramDescription: { programName: Program['name'] };
+type WeightLiftingStackType = {
+   ChangeProgramsStack: undefined;
+   CurrentWorkoutsStack: undefined;
 };
 
 type CurrentWorkoutsStack = {
@@ -326,9 +331,10 @@ export {
    LoginFormData,
    GlobalWeightLiftingState,
    WeightLiftingState,
-   WeightLiftingStack,
-   SelectProgramsStack,
+   WeightLiftingStackType,
+   ChangeProgramsStackType,
    CurrentWorkoutsStack,
    Workout,
    Set,
+   DrawerStack,
 };
