@@ -29,18 +29,26 @@ export const selectAllProgramCategories = createSelector(
    (programs) => programs.map((program) => program.category)
 );
 
-export const selectProgramsByCategory = createSelector(
+export const selectProgramNamesByCategory = createSelector(
    [
       selectAllPrograms,
       (state: RootState, category: Program['category']) => category,
    ],
    (programs, category) => {
       if (category === 'All') {
-         return programs;
+         return programs.map((program) => program.name);
       } else {
-         return programs.filter((program) => program.category === category);
+         const matchingPrograms = programs.filter(
+            (program) => program.category === category
+         );
+         return matchingPrograms.map((program) => program.name);
       }
    }
+);
+
+export const selectProgramById = createSelector(
+   [selectAllPrograms, (state: RootState, name: Program['name']) => name],
+   (programs, name) => programs.filter((program) => program.name === name)
 );
 
 export default weightLiftingSlice.reducer;

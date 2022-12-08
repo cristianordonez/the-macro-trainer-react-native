@@ -10,8 +10,30 @@ export const weightLiftingData: WeightLiftingState = {
          {
             program_id: 1,
             category: 'nSuns 531 Variants',
-            name: 'nSuns 531 LP 4 day Version',
+            name: 'nSuns 531 LP 4 Day Version',
             body: 'The nSuns 531 LP 4 day variation was developed by...',
+            progression: [
+               {
+                  id: 0,
+                  description:
+                     'If you get 0-1 reps, do not increase training max.',
+               },
+               {
+                  id: 1,
+                  description:
+                     'If you get 2-3 reps, increase training max by 5-10 lbs.',
+               },
+               {
+                  id: 2,
+                  description:
+                     'If you get 4-5 reps, increase training max by 10-15 lbs.',
+               },
+               {
+                  id: 3,
+                  description:
+                     'If you get 5+ reps, increase training max by 15 lbs.',
+               },
+            ],
             workouts: [
                {
                   day: 1,
@@ -51,7 +73,20 @@ export const weightLiftingData: WeightLiftingState = {
             program_id: 2,
             category: 'Beginner',
             name: 'StrongLifts 5x5',
-            body: 'The StrongLifts 5x5 workout program was designed with beginners in mind to be the ideal combination of basic yet foundational compound exercises to help build muscle, strength and lose fat. To be performed 3 days per week on non-consecutive days, i.e. Mon/Wed/Fri or Tues/Thurs/Sat etc. It consists of two workouts which are alternated.',
+            body: 'The StrongLifts 5x5 workout program was designed with beginners in mind to be the ideal combination of basic yet foundational compound exercises to help build muscle, strength and lose fat. To be performed 3 days per week on non-consecutive days, i.e. Mon/Wed/Fri or Tues/Thurs/Sat or something similar. It consists of two workouts which are alternated.',
+
+            progression: [
+               {
+                  id: 0,
+                  description:
+                     'For upper lifts increase training max by 5 lbs per month.',
+               },
+               {
+                  id: 1,
+                  description:
+                     'For lower lifts increase training max by 10 lbs per month.',
+               },
+            ],
             workouts: [
                {
                   day: 1,
@@ -137,6 +172,15 @@ export const weightLiftingData: WeightLiftingState = {
             category: 'Intermediate',
             name: 'Wendler 531',
             body: 'The Wendler 531 program was developed by...',
+            progression: [
+               {
+                  id: 0,
+                  description:
+                     'If you get 0-1 reps, do not increase training max',
+               },
+               { id: 1, description: 'If you get 2-3 reps, ' },
+            ],
+
             workouts: [
                {
                   day: 1,

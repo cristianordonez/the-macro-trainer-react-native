@@ -54,6 +54,7 @@ type WeightLiftingStack = {
 type SelectProgramsStack = {
    Categories: undefined;
    Programs: { category: Program['category'] };
+   ProgramDescription: { programName: Program['name'] };
 };
 
 type CurrentWorkoutsStack = {
@@ -238,11 +239,17 @@ type Workout = {
    exercises: Exercise[];
 };
 
+type Progress = {
+   id: number;
+   description: string;
+};
+
 type Program = {
    program_id: number;
    category: 'nSuns 531 Variants' | 'Beginner' | 'Intermediate' | 'All';
-   name: string;
+   name: 'StrongLifts 5x5' | 'nSuns 531 LP 4 Day Version' | 'Wendler 531';
    body: string;
+   progression: Progress[];
    workouts: Workout[];
 };
 
@@ -322,4 +329,6 @@ export {
    WeightLiftingStack,
    SelectProgramsStack,
    CurrentWorkoutsStack,
+   Workout,
+   Set,
 };

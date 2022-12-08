@@ -4,6 +4,7 @@ import * as React from 'react';
 import { SelectProgramsStack } from '../../../../../../types/types';
 import { AvatarHeader } from '../../../../../components/avatar-header/AvatarHeader';
 import { Categories } from './Categories';
+import { ProgramDescription } from './ProgramDescription';
 import { Programs } from './Programs';
 
 const Stack = createNativeStackNavigator<SelectProgramsStack>();
@@ -24,6 +25,11 @@ export const SelectPrograms = () => {
             name='Programs'
             component={Programs}
             options={({ route }) => ({ title: route.params.category })}
+         />
+         <Stack.Screen
+            name='ProgramDescription'
+            component={ProgramDescription}
+            options={({ route }) => ({ title: route.params.programName })}
          />
       </Stack.Navigator>
    );

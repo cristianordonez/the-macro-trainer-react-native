@@ -1,30 +1,26 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { CustomIconCircle } from '../../../../../components/custom-icon-circle/CustomIconCircle';
-import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
-import { global } from '../../../../../style/global.styles';
-
 import { View } from 'react-native';
 import { SelectProgramsStack } from '../../../../../../types/types';
+import { CustomIconCircle } from '../../../../../components/custom-icon-circle/CustomIconCircle';
+import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramsByCategory } from '../../../../../redux/reducers/weightLiftingReducer';
+import { selectProgramNamesByCategory } from '../../../../../redux/reducers/weightLiftingReducer';
+import { global } from '../../../../../style/global.styles';
 
-type Props = {
-   navigation: NativeStackScreenProps<SelectProgramsStack, 'Programs'>;
-   route: any;
-};
+type Props = NativeStackScreenProps<SelectProgramsStack, 'Programs'>;
 
 export const Programs = ({ route, navigation }: Props) => {
    const params = route.params;
    const programs = useAppSelector((state) =>
-      selectProgramsByCategory(state, params.category)
+      selectProgramNamesByCategory(state, params.category)
    );
 
-   //todo use category in header
-
-   //todo create container for every name returned, and use it to
-   //todo navigate to different screen passing down name as param
-
-   const handleNavigate = (index: number) => {};
+   const handleNavigate = (index: number) => {
+      const programName = programs[index];
+      navigation.navigate('ProgramDescription', {
+         programName,
+      });
+   };
 
    return (
       <View style={global.screenEven}>
@@ -34,10 +30,10 @@ export const Programs = ({ route, navigation }: Props) => {
                   itemsPerRow={2}
                   gap={10}
                   index={index}
-                  key={program.program_id}
+                  key={program}
                   handlePress={handleNavigate}
                >
-                  <CustomIconCircle title={program.name} />
+                  <CustomIconCircle title={program} />
                </CustomScreenContainerItem>
             ))}
          </View>
