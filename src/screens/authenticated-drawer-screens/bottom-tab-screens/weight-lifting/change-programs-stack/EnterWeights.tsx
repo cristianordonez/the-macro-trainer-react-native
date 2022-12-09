@@ -39,6 +39,7 @@ export const EnterWeights = ({ navigation, route }: Props) => {
          </View>
          {exercises.map((exercise) => (
             <ExerciseCalculatorInput
+               key={exercise}
                exercise={exercise}
                activeIndex={activeIndex}
             />

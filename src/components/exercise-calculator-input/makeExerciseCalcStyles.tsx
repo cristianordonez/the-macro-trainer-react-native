@@ -16,7 +16,11 @@ export const makeExerciseCalcstyles = (colors: Colors) =>
          justifyContent: 'center',
       },
       mainRowText: {
-         flex: 1,
+         flex: 2,
+         textAlign: 'center',
+      },
+      weightText: {
+         color: colors.primary,
       },
       inputContainer: {
          flex: 1,
@@ -39,5 +43,8 @@ export const makeExerciseCalcstyles = (colors: Colors) =>
          alignItems: 'center',
          justifyContent: 'center',
          height: '100%',
+      },
+      textError: {
+         color: colors.error,
       },
    });
