@@ -16,6 +16,7 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
    const [trainingMax, setTrainingMax] = useState('0');
 
    const inputValues = ['Weight', 'Reps'];
+   const labelValues = ['lb', 'kg'];
 
    return (
       <View
@@ -26,9 +27,13 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
             global.containerBorder,
          ]}
       >
-         <Text style={[]}>{exercise}</Text>
+         <Text style={[global.textBoldLarge, { alignSelf: 'center' }]}>
+            {exercise}
+         </Text>
          <View style={styles.mainRow}>
-            <Text style={[styles.mainRowText]}>Estimated 1 rep max: </Text>
+            <Text style={[[styles.mainRowText, global.textMedium]]}>
+               Estimated 1 rep max:{' '}
+            </Text>
             <View style={styles.inputContainer}>
                <CustomNumberInput
                   placeholder={'0'}
@@ -43,18 +48,26 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
             </View>
          </View>
          <View style={styles.calculateContents}>
-            <Text style={styles.calculateHeader}>Calculate 1RM</Text>
+            <Text style={[styles.calculateHeader, global.textMedium]}>
+               Calculate 1RM
+            </Text>
             {inputValues.map((value) => (
                <View style={styles.innerRow} key={value}>
                   <View style={styles.innerRowContents}>
-                     <Text style={{ textAlign: 'center' }}>{value}</Text>
+                     <Text style={[global.textCenter, global.textMedium]}>
+                        {value}
+                     </Text>
                   </View>
                   <View style={styles.innerRowContents}>
                      <CustomNumberInput
                         placeholder={'0'}
                         secureTextEntry={false}
                         keyboardType={'number-pad'}
-                        rightLabelVal={activeIndex === 0 ? 'lb' : 'kg'}
+                        rightLabelVal={
+                           value === 'Weight'
+                              ? labelValues[activeIndex]
+                              : 'reps'
+                        }
                         value={trainingMax}
                         setVal={setTrainingMax}
                         height={'75%'}

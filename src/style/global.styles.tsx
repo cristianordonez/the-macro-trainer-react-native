@@ -65,16 +65,16 @@ export const global = StyleSheet.create({
       minWidth: '75%',
       maxWidth: '75%',
    },
-   textBoldLarge: {
-      fontFamily: 'Lato_Bold',
-      fontWeight: 'bold',
-      fontSize: 18,
-      paddingBottom: 5,
-   },
    textBold: {
       fontFamily: 'Lato_Bold',
       fontWeight: 'bold',
       fontSize: 16,
+      paddingBottom: 5,
+   },
+   textBoldLarge: {
+      fontFamily: 'Lato_Bold',
+      fontWeight: 'bold',
+      fontSize: 18,
       paddingBottom: 5,
    },
    textXS: {
@@ -84,6 +84,10 @@ export const global = StyleSheet.create({
    textSmall: {
       fontFamily: 'Lato',
       fontSize: 12,
+   },
+   text: {
+      fontFamily: 'Lato',
+      fontSize: 14,
    },
    textMedium: {
       fontFamily: 'Lato',
