@@ -10,6 +10,8 @@ interface Props {
    rightLabelVal: string;
    value: string;
    setVal: Dispatch<SetStateAction<string>>;
+   height: string;
+   width: string;
 }
 
 export const CustomNumberInput = ({
@@ -19,6 +21,8 @@ export const CustomNumberInput = ({
    rightLabelVal,
    value,
    setVal,
+   height,
+   width,
 }: Props) => {
    const { theme } = useTheme();
    const heightInputStyles = makeNumberInputStyles(theme.colors);
@@ -26,7 +30,7 @@ export const CustomNumberInput = ({
    return (
       <Input
          placeholder={placeholder}
-         containerStyle={heightInputStyles.container}
+         containerStyle={[heightInputStyles.container, { height, width }]}
          secureTextEntry={secureTextEntry}
          defaultValue={value}
          onChangeText={(newInput) => setVal(newInput)}

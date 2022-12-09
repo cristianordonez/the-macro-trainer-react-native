@@ -72,9 +72,7 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                      },
                   ]}
                >
-                  <Text style={calculatedGoalsStyles.pieChartTitle}>
-                     Nutrition Goals
-                  </Text>
+                  <Text style={global.textLarge}>Nutrition Goals</Text>
                   <NutritionPieChart goals={goalState} showPercentage={false} />
                </View>
                <Button

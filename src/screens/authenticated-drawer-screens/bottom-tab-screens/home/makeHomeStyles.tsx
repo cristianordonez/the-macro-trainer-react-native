@@ -31,7 +31,6 @@ export const makeHomeStyles = (colors: Colors) =>
          justifyContent: 'center',
       },
       tabItemTitle: {
-         fontSize: 12,
          paddingVertical: 0,
          color: colors.black,
       },

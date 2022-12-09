@@ -5,7 +5,4 @@ export const dropDownGroupStyles = StyleSheet.create({
       width: 125,
       fontSize: 30,
    },
-   text: {
-      fontSize: 16,
-   },
 });

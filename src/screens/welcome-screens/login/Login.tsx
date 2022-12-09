@@ -18,6 +18,7 @@ import {
    WelcomeStackParamList,
 } from '../../../../types/types';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
+import { OrDividerLine } from '../../../components/or-divider-line/OrDividerLine';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { loginUser } from '../../../redux/reducers/authReducer';
 import { global } from '../../../style/global.styles';
@@ -120,15 +121,7 @@ export const Login = ({ navigation }: Props) => {
                      <Button size='lg' onPress={handleSubmit(onSubmit)}>
                         Log in
                      </Button>
-
-                     <View style={global.rowCenter}>
-                        <View style={loginStyles.dividerLine} />
-                        <View>
-                           <Text style={loginStyles.formText}>OR</Text>
-                        </View>
-                        <View style={loginStyles.dividerLine} />
-                     </View>
-
+                     <OrDividerLine />
                      <Button
                         size='lg'
                         color='#DB4437'

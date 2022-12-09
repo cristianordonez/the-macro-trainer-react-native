@@ -26,23 +26,13 @@ export const makeLoginStyles = (colors: Colors) =>
       link: {
          paddingLeft: 5,
       },
-      formText: {
-         width: 50,
-         textAlign: 'center',
-         paddingTop: 50,
-         paddingBottom: 50,
-      },
       textLink: {
          color: colors.link,
       },
       textRight: {
          textAlign: 'right',
       },
-      dividerLine: {
-         flex: 1,
-         height: 1,
-         backgroundColor: colors.divider,
-      },
+
       errorMessage: {
          color: 'red',
       },

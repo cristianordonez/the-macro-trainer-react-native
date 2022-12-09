@@ -1,5 +1,6 @@
 import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { global } from '../../../style/global.styles';
 import { dropDownGroupStyles } from './styles';
 
 type DropDownItem = {
@@ -64,7 +65,7 @@ export const DropDownGroup = ({
             dropDownDirection='AUTO'
             onOpen={onFtOpen}
             placeholder='ft'
-            textStyle={dropDownGroupStyles.text}
+            textStyle={global.textMedium}
             value={currentFtVal}
             items={ftItems}
             setOpen={setOpenFt}
@@ -76,7 +77,7 @@ export const DropDownGroup = ({
             open={openInch}
             placeholder='in'
             dropDownContainerStyle={{ height: '100%', width: '100%' }}
-            textStyle={dropDownGroupStyles.text}
+            textStyle={global.textMedium}
             onOpen={onInchOpen}
             theme={'DARK'}
             value={currentInchVal}

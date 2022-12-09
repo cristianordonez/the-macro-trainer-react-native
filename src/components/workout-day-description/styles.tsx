@@ -7,9 +7,6 @@ export const makeWorkoutDayStyles = (colors: Colors) =>
          backgroundColor: colors.searchBg,
       },
       dayText: { paddingBottom: 10 },
-      text: {
-         fontSize: 12,
-      },
       exerciseRowContainer: {
          width: '100%',
          flexDirection: 'row',

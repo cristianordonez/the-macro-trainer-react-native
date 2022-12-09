@@ -1,6 +1,6 @@
 import { Text, useTheme } from '@rneui/themed';
-
 import { View } from 'react-native';
+import { global } from '../../style/global.styles';
 import AllDumbbell from './custom-icon-components/AllDumbbell';
 import BeginnerDumbbell from './custom-icon-components/BeginnerDumbbell';
 import IntermediateDumbbell from './custom-icon-components/IntermediateDumbbell';
@@ -46,7 +46,7 @@ export const CustomIconCircle = ({ title }: Props) => {
          >
             {IconsMap[title as keyof Icons]}
          </View>
-         <Text style={{ fontSize: 13 }}>{title}</Text>
+         <Text style={global.textSmall}>{title}</Text>
       </>
    );
 };

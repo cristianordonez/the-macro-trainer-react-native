@@ -23,8 +23,6 @@ export const CircularProgress = ({
    metric,
    isCaloriesRemaining,
 }: Props) => {
-   console.log('metric in circ progress: ', metric);
-   console.log('amount: ', amount);
    const { theme } = useTheme();
    const radius = (size - strokeWidth) / 2;
    const circumference = radius * 2 * Math.PI;

@@ -29,7 +29,7 @@ export const global = StyleSheet.create({
       paddingBottom: 50,
    },
    containerBorder: {
-      borderRadius: 25,
+      borderRadius: 20,
    },
    containerCenter: {
       flex: 1,
@@ -65,11 +65,33 @@ export const global = StyleSheet.create({
       minWidth: '75%',
       maxWidth: '75%',
    },
+   textBoldLarge: {
+      fontFamily: 'Lato_Bold',
+      fontWeight: 'bold',
+      fontSize: 18,
+      paddingBottom: 5,
+   },
    textBold: {
       fontFamily: 'Lato_Bold',
       fontWeight: 'bold',
       fontSize: 16,
       paddingBottom: 5,
+   },
+   textXS: {
+      fontSize: 10,
+      fontFamily: 'Lato',
+   },
+   textSmall: {
+      fontFamily: 'Lato',
+      fontSize: 12,
+   },
+   textMedium: {
+      fontFamily: 'Lato',
+      fontSize: 16,
+   },
+   textLarge: {
+      fontFamily: 'Lato',
+      fontSize: 18,
    },
    toggleContainer: {
       width: 100,
@@ -100,7 +122,13 @@ export const global = StyleSheet.create({
    largeContainer: {
       width: '100%',
       paddingHorizontal: 10,
-      paddingTop: 20,
+      paddingTop: 10,
       paddingBottom: 10,
+   },
+   scrollableContainer: {
+      flexGrow: 1,
+      justifyContent: 'space-between',
+      paddingBottom: 50,
+      paddingHorizontal: 10,
    },
 });

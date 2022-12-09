@@ -28,7 +28,7 @@ export const WorkoutDayDescription = ({ day, exercises }: Workout) => {
                   key={exercise.exercise_id}
                >
                   <View style={workoutDayStyles.exerciseNameContainer}>
-                     <Text style={workoutDayStyles.text}>{exercise.name}</Text>
+                     <Text style={global.textSmall}>{exercise.name}</Text>
                   </View>
                   <View style={workoutDayStyles.setsContainer}>
                      <SetsRow sets={exercise.sets} />
