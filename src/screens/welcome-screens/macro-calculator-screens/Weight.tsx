@@ -71,8 +71,7 @@ export const Weight = ({ navigation }: Props) => {
                      value={currentWeight}
                      setVal={setCurrentWeight}
                      rightLabelVal={selectedIndex === 0 ? 'lbs' : 'kg'}
-                     height={'100%'}
-                     width={'100%'}
+                     textStyle={global.textLarge}
                   />
                </View>
                <View style={global.toggleContainer}>

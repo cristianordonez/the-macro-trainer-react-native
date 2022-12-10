@@ -115,8 +115,7 @@ export const Height = ({ navigation }: Props) => {
                         setVal={setCurrentCmVal}
                         rightLabelVal={'cm'}
                         value={currentCmVal}
-                        height={'100%'}
-                        width={'100%'}
+                        textStyle={global.textMedium}
                      />
                   </View>
                )}

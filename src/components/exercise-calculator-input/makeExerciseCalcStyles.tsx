@@ -5,7 +5,7 @@ export const makeExerciseCalcstyles = (colors: Colors) =>
    StyleSheet.create({
       container: {
          backgroundColor: colors.searchBg,
-         height: 250,
+         height: 275,
          marginBottom: 10,
       },
       mainRow: {
@@ -14,13 +14,15 @@ export const makeExerciseCalcstyles = (colors: Colors) =>
          width: '100%',
          alignItems: 'center',
          justifyContent: 'center',
+         paddingHorizontal: 20,
       },
       mainRowText: {
          flex: 2,
-         textAlign: 'center',
+         textAlign: 'left',
       },
       weightText: {
          color: colors.primary,
+         textAlign: 'right',
       },
       inputContainer: {
          flex: 1,
@@ -37,12 +39,16 @@ export const makeExerciseCalcstyles = (colors: Colors) =>
          width: '100%',
          alignItems: 'center',
          justifyContent: 'center',
+         paddingHorizontal: 35,
       },
       innerRowContents: {
          flex: 1,
          alignItems: 'center',
          justifyContent: 'center',
          height: '100%',
+      },
+      innerRowText: {
+         alignSelf: 'flex-start',
       },
       textError: {
          color: colors.error,

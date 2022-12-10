@@ -1,7 +1,7 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Text } from '@rneui/themed';
 import { useState } from 'react';
-import { ScrollView, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { ChangeProgramsStackType } from '../../../../../../types/types';
 import { ExerciseCalculatorInput } from '../../../../../components/exercise-calculator-input/ExerciseCalculatorInput';
 import { CustomButtonGroup } from '../../../../../components/form-inputs/custom-button-group/CustomButtonGroup';
@@ -22,28 +22,32 @@ export const EnterWeights = ({ navigation, route }: Props) => {
 
    //todo create global style for scroll view
    return (
-      <ScrollView contentContainerStyle={global.scrollableContainer}>
-         <View style={[global.rowCenter]}>
-            <View
-               style={{ flex: 2, alignItems: 'center', paddingVertical: 20 }}
-            >
-               <Text h4>Enter training maxes </Text>
+      <KeyboardAvoidingView
+         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      >
+         <ScrollView contentContainerStyle={global.scrollableContainer}>
+            <View style={[global.rowCenter]}>
+               <View
+                  style={{ flex: 2, alignItems: 'center', paddingVertical: 20 }}
+               >
+                  <Text h4>Enter training maxes </Text>
+               </View>
+               <View style={{ flex: 1, alignItems: 'flex-start' }}>
+                  <CustomButtonGroup
+                     buttons={['lb', 'kg']}
+                     selectedIndex={activeIndex}
+                     setSelectedIndex={setActiveIndex}
+                  />
+               </View>
             </View>
-            <View style={{ flex: 1, alignItems: 'flex-start' }}>
-               <CustomButtonGroup
-                  buttons={['lb', 'kg']}
-                  selectedIndex={activeIndex}
-                  setSelectedIndex={setActiveIndex}
+            {exercises.map((exercise) => (
+               <ExerciseCalculatorInput
+                  key={exercise}
+                  exercise={exercise}
+                  activeIndex={activeIndex}
                />
-            </View>
-         </View>
-         {exercises.map((exercise) => (
-            <ExerciseCalculatorInput
-               key={exercise}
-               exercise={exercise}
-               activeIndex={activeIndex}
-            />
-         ))}
-      </ScrollView>
+            ))}
+         </ScrollView>
+      </KeyboardAvoidingView>
    );
 };

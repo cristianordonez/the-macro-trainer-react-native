@@ -98,7 +98,7 @@ export const global = StyleSheet.create({
       fontSize: 18,
    },
    toggleContainer: {
-      width: 100,
+      width: 110,
       height: 'auto',
    },
    inputContainer: {

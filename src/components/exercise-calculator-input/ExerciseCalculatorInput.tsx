@@ -14,13 +14,11 @@ interface Props {
 export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
    const { theme } = useTheme();
    const [weight, setWeight] = useState<string>('0');
-   const [reps, setReps] = useState<string>('0');
+   const [reps, setReps] = useState<string>('1');
    const [error, setError] = useState<boolean>(false);
    const [errorMessage, setErrorMessage] = useState<string>('');
    const [oneRepMax, setOneRepMax] = useState<string>('0');
-
    const labelValues = ['lb', 'kg'];
-
    const inputs = [
       {
          label: labelValues[activeIndex],
@@ -35,27 +33,6 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
          humanText: 'Reps',
       },
    ];
-
-   // useEffect(() => {
-   //    if (activeIndex === 0 && Number(weight) >= 1000) {
-   //       setErrorMessage('Please enter a weight below 1000 lbs.');
-   //       setError(true);
-   //       return;
-   //    } else if (activeIndex === 1 && Number(weight) >= 455) {
-   //       setErrorMessage('Please enter a weight below 455 kg.');
-   //       setError(true);
-   //       return;
-   //    } else {
-   //       setError(false);
-   //    }
-   //    if (Number(reps) > 10) {
-   //       setErrorMessage('Please enter a rep range less than 10.');
-   //       setError(true);
-   //       return;
-   //    } else {
-   //       setError(false);
-   //    }
-   // }, [reps, weight, activeIndex]);
 
    useMemo(() => {
       if (activeIndex === 0 && Number(weight) >= 1000) {
@@ -84,14 +61,23 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
       );
       setOneRepMax(result.toString());
    }, [weight, reps, activeIndex]);
-   //todo create array to map over that includes training max to make another row
+
+   //todo allow screen to focus on input when entering values
+   const calculationRows = [
+      {
+         leftLabel: 'Estimated 1 rep max: ',
+         calculationValue: oneRepMax,
+         id: 0,
+      },
+      {
+         leftLabel: 'Training max (90% of 1RM): ',
+         calculationValue: Math.round((Number(oneRepMax) * 0.9) / 5) * 5,
+         id: 1,
+      },
+   ];
    const styles = makeExerciseCalcstyles(theme.colors);
    return (
-      // <KeyboardAvoidingView
-      //    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      // >
       <View
-         key={exercise}
          style={[
             global.largeContainer,
             styles.container,
@@ -101,16 +87,18 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
          <Text style={[global.textBoldLarge, { alignSelf: 'center' }]}>
             {exercise}
          </Text>
-         <View style={styles.mainRow}>
-            <Text style={[[styles.mainRowText, global.textMedium]]}>
-               Estimated 1 rep max:{' '}
-            </Text>
-            <View style={styles.inputContainer}>
-               <Text style={[global.textLarge, styles.weightText]}>
-                  {oneRepMax} {labelValues[activeIndex]}
+         {calculationRows.map((row) => (
+            <View style={styles.mainRow} key={row.id}>
+               <Text style={[[styles.mainRowText, global.textMedium]]}>
+                  {row.leftLabel}
                </Text>
+               <View style={styles.inputContainer}>
+                  <Text style={[global.textLarge, styles.weightText]}>
+                     {row.calculationValue} {labelValues[activeIndex]}
+                  </Text>
+               </View>
             </View>
-         </View>
+         ))}
          <View style={styles.calculateContents}>
             {error ? (
                <Text
@@ -118,19 +106,18 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
                      global.textSmall,
                      styles.textError,
                      global.textCenter,
-                     global.gap,
                   ]}
                >
                   {errorMessage}
                </Text>
             ) : null}
-            <Text style={[styles.calculateHeader, global.textMedium]}>
+            <Text style={[styles.calculateHeader, global.textBold]}>
                Calculate 1RM
             </Text>
             {inputs.map((inputItem) => (
                <View style={styles.innerRow} key={inputItem.humanText}>
                   <View style={styles.innerRowContents}>
-                     <Text style={[global.textCenter, global.textMedium]}>
+                     <Text style={[global.textMedium, styles.innerRowText]}>
                         {inputItem.humanText}
                      </Text>
                   </View>
@@ -142,14 +129,12 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
                         rightLabelVal={inputItem.label}
                         value={inputItem.value}
                         setVal={inputItem.setValue}
-                        height={'75%'}
-                        width={'75%'}
+                        textStyle={global.textMedium}
                      />
                   </View>
                </View>
             ))}
          </View>
       </View>
-      // </KeyboardAvoidingView>
    );
 };
