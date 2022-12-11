@@ -11,6 +11,7 @@ interface Props {
    rightLabelVal: string;
    value: string;
    setVal: Dispatch<SetStateAction<string>>;
+   textAlign?: 'left' | 'center';
 }
 
 export const CustomNumberInput = ({
@@ -20,10 +21,12 @@ export const CustomNumberInput = ({
    rightLabelVal,
    value,
    setVal,
+   textAlign = 'left',
 }: Props) => {
    const { theme } = useTheme();
    const heightInputStyles = makeNumberInputStyles(theme.colors);
 
+   const paddingLeft = textAlign === 'left' ? '25%' : '0%';
    return (
       <Input
          placeholder={placeholder}
@@ -34,8 +37,8 @@ export const CustomNumberInput = ({
          returnKeyType='done'
          keyboardType={keyboardType}
          inputContainerStyle={heightInputStyles.container}
-         inputStyle={[{ paddingLeft: '20%' }]}
-         textAlign={'left'}
+         inputStyle={{ paddingLeft }}
+         textAlign={textAlign}
          keyboardAppearance='dark'
          rightIcon={
             <CustomText h3={true} textAlign='left' humanText={rightLabelVal} />

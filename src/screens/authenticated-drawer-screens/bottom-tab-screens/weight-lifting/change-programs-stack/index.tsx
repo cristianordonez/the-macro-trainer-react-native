@@ -40,7 +40,7 @@ export const ChangeProgramsStack = () => {
          <Stack.Screen
             name='EnterWeights'
             component={EnterWeights}
-            options={({ route }) => ({ title: route.params.programName })}
+            options={({ route }) => ({ title: 'Enter Training Maxes' })}
          />
       </Stack.Navigator>
    );

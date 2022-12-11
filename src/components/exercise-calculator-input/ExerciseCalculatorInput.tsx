@@ -10,9 +10,14 @@ import { makeExerciseCalcstyles } from './makeExerciseCalcStyles';
 interface Props {
    exercise: string;
    activeIndex: number;
+   trainingMaxPercentage: string;
 }
 
-export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
+export const ExerciseCalculatorInput = ({
+   exercise,
+   activeIndex,
+   trainingMaxPercentage,
+}: Props) => {
    const { theme } = useTheme();
    const [weight, setWeight] = useState<string>('0');
    const [reps, setReps] = useState<string>('1');
@@ -63,7 +68,6 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
       setOneRepMax(result.toString());
    }, [weight, reps, activeIndex]);
 
-   //todo allow screen to focus on input when entering values
    const calculationRows = [
       {
          leftLabel: 'Estimated 1 rep max: ',
@@ -71,11 +75,15 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
          id: 0,
       },
       {
-         leftLabel: 'Training max (90% of 1RM): ',
-         calculationValue: Math.round((Number(oneRepMax) * 0.9) / 5) * 5,
+         leftLabel: `Training max (${trainingMaxPercentage}% of 1RM): `,
+         calculationValue: Math.round(
+            Number(oneRepMax) * (Number(trainingMaxPercentage) / 100)
+         ),
          id: 1,
       },
    ];
+
+   //todo dispatch action that saves exercise and 1 rep nax to store
    const styles = makeExerciseCalcstyles(theme.colors);
    return (
       <View
