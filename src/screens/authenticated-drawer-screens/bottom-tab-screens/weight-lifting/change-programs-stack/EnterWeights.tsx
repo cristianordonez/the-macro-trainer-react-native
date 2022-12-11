@@ -22,6 +22,8 @@ export const EnterWeights = ({ navigation, route }: Props) => {
    return (
       <KeyboardAvoidingView
          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+         enabled
+         keyboardVerticalOffset={100}
       >
          <ScrollView contentContainerStyle={global.scrollableContainer}>
             <View style={[global.rowCenter]}>

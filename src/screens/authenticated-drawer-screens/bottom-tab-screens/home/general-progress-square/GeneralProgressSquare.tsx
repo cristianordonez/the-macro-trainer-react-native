@@ -35,7 +35,9 @@ export const GeneralProgressSquare = ({
          index={1}
       >
          <View style={[global.rowCenter]}>
-            <CustomText humanText={title} h3={true} />
+            <View style={{ paddingRight: 5 }}>
+               <CustomText humanText={title} h3={true} />
+            </View>
             <Icon name={iconName} type={iconType} size={12} />
          </View>
          <CircularProgress
