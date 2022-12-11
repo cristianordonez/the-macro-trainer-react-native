@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import React, { useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
@@ -59,9 +60,14 @@ export const Weight = ({ navigation }: Props) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
          <View style={[global.screenEnd]}>
             <CustomLinearProgress index={6} progress={1} />
-            <Text h4 style={[global.screenTitle, global.textCenter]}>
-               What is your last known weight?
-            </Text>
+            <View style={{ paddingTop: '20%' }}>
+               <CustomText
+                  humanText='What is your last known weight?'
+                  h1={true}
+                  fontFamily='Lato_Bold'
+                  textAlign='center'
+               />
+            </View>
             <View style={global.inputRow}>
                <View style={global.inputContainer}>
                   <CustomNumberInput
@@ -71,7 +77,6 @@ export const Weight = ({ navigation }: Props) => {
                      value={currentWeight}
                      setVal={setCurrentWeight}
                      rightLabelVal={selectedIndex === 0 ? 'lbs' : 'kg'}
-                     textStyle={global.textLarge}
                   />
                </View>
                <View style={global.toggleContainer}>

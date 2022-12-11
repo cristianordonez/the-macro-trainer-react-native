@@ -1,7 +1,6 @@
-import { Text } from '@rneui/themed';
 import { View } from 'react-native';
 import { Set } from '../../../../types/types';
-import { global } from '../../../style/global.styles';
+import { CustomText } from '../../custom-text/CustomText';
 
 interface Props {
    sets: Set[];
@@ -12,12 +11,16 @@ export const SetsRow = ({ sets }: Props) => {
       <>
          {sets.map((set) => (
             <View style={{ width: '100%' }} key={set.index}>
-               <Text style={[global.textXS, global.textOpacity]}>
-                  {set.amrap ? `${set.reps}+` : set.reps} x{' '}
-               </Text>
-               <Text style={[global.textXS, global.textOpacity]}>
-                  {set.percentageOf1RM}%
-               </Text>
+               <CustomText
+                  h4={true}
+                  humanText={`${set.amrap ? `${set.reps}+` : set.reps} x`}
+                  fontFamily='Lato_Bold'
+               />
+               <CustomText
+                  h4={false}
+                  opacity={true}
+                  humanText={`${set.percentageOf1RM}%`}
+               />
             </View>
          ))}
       </>

@@ -1,8 +1,9 @@
-import { Text, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 import React from 'react';
 import { View } from 'react-native';
 import { Workout } from '../../../types/types';
 import { global } from '../../style/global.styles';
+import { CustomText } from '../custom-text/CustomText';
 import { SetsRow } from './sets-row/SetsRow';
 import { makeWorkoutDayStyles } from './styles';
 
@@ -19,7 +20,11 @@ export const WorkoutDayDescription = ({ day, exercises }: Workout) => {
          ]}
       >
          <View style={workoutDayStyles.dayText}>
-            <Text style={[global.textBold]}>Day {day}</Text>
+            <CustomText
+               h2={true}
+               fontFamily='Lato_Bold'
+               humanText={`Day ${day}`}
+            />
          </View>
          {exercises.map((exercise) => (
             <React.Fragment key={exercise.exercise_id}>
@@ -28,7 +33,7 @@ export const WorkoutDayDescription = ({ day, exercises }: Workout) => {
                   key={exercise.exercise_id}
                >
                   <View style={workoutDayStyles.exerciseNameContainer}>
-                     <Text style={global.textSmall}>{exercise.name}</Text>
+                     <CustomText h2={true} humanText={exercise.name} />
                   </View>
                   <View style={workoutDayStyles.setsContainer}>
                      <SetsRow sets={exercise.sets} />

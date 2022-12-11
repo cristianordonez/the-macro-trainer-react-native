@@ -1,4 +1,4 @@
-import { LinearProgress, Text, useTheme } from '@rneui/themed';
+import { LinearProgress, useTheme } from '@rneui/themed';
 import React from 'react';
 import { View } from 'react-native';
 import {
@@ -7,6 +7,7 @@ import {
    MacroMap,
 } from '../../../../../../types/types';
 import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
+import { CustomText } from '../../../../../components/custom-text/CustomText';
 import { global } from '../../../../../style/global.styles';
 import { convertMacroKey } from '../../../../../utils/convertMacroKey';
 import { styles } from './styles';
@@ -46,9 +47,32 @@ export const TotalNutritionCalorieSection = ({
             <View style={styles.linearProgressContainer}>
                {Object.keys(mainNutritionGoals).map((key, index) => (
                   <React.Fragment key={key}>
-                     <Text style={[global.textBold, styles.linearProgressText]}>
-                        {convertMacroKey(key as keyof MacroMap)}
-                     </Text>
+                     <View
+                        style={{
+                           flexDirection: 'row',
+                           alignItems: 'flex-end',
+                           justifyContent: 'space-evenly',
+                           width: '100%',
+                           flex: 1,
+                           paddingBottom: 5,
+                        }}
+                     >
+                        <CustomText
+                           humanText={convertMacroKey(key as keyof MacroMap)}
+                           h3={true}
+                           fontFamily='Lato_Bold'
+                        />
+                        <CustomText
+                           h3={true}
+                           textAlign='left'
+                           opacity={true}
+                           humanText={`${
+                              dailyNutritionSummary[
+                                 key as keyof DailyNutritionSummary
+                              ]
+                           } / ${goals[key as keyof Goals]}g`}
+                        />
+                     </View>
                      <LinearProgress
                         key={key}
                         style={[styles.linearProgress, global.containerBorder]}
@@ -62,21 +86,6 @@ export const TotalNutritionCalorieSection = ({
                         color={colors[index]}
                         trackColor={theme.colors.background}
                      />
-                     <Text
-                        style={[
-                           global.textOpacity,
-                           styles.linearProgressText,
-                           styles.linearProgressSubtitle,
-                           global.gap,
-                        ]}
-                     >
-                        {
-                           dailyNutritionSummary[
-                              key as keyof DailyNutritionSummary
-                           ]
-                        }{' '}
-                        / {goals[key as keyof Goals]}g
-                     </Text>
                   </React.Fragment>
                ))}
             </View>

@@ -1,7 +1,8 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text, useTheme } from '@rneui/themed';
+import { Button, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { LoadingImage } from '../../../components/loading-image/LoadingImage';
 import { global } from '../../../style/global.styles';
 import { mainStyles } from './styles';
@@ -13,13 +14,19 @@ export const Main = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <View style={mainStyles.headingContainer}>
-            <Text style={[global.textCenter, global.gap]} h1>
-               Welcome to MacroTrainer
-            </Text>
-            <Text style={[global.textCenter]}>
-               We'll help you create a personal nutrition program to help you
-               accomplish your goals.
-            </Text>
+            <CustomText
+               textAlign='center'
+               h0={true}
+               gap={true}
+               fontFamily='Lato_Bold'
+               humanText='Welcome to MacroTrainer'
+            />
+            <CustomText
+               h2={true}
+               textAlign='center'
+               humanText="We'll help you create a personal nutrition program to help you
+               accomplish your goals."
+            />
          </View>
 
          <View style={mainStyles.imageContainer}>

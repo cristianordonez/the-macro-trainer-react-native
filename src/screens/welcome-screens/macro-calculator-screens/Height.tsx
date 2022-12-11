@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import React, { useCallback, useState } from 'react';
 import { Keyboard, TouchableWithoutFeedback, View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { CustomButtonGroup } from '../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { DropDownGroup } from '../../../components/form-inputs/drop-down-group/DropDownGroup';
@@ -85,9 +86,14 @@ export const Height = ({ navigation }: Props) => {
       >
          <View style={global.screenEnd}>
             <CustomLinearProgress index={5} progress={0.8} />
-            <Text h4 style={global.screenTitle}>
-               How tall are you?
-            </Text>
+            <View style={{ paddingTop: '20%' }}>
+               <CustomText
+                  humanText='How tall are you?'
+                  h1={true}
+                  fontFamily='Lato_Bold'
+                  textAlign='center'
+               />
+            </View>
             <View style={[global.inputRow]}>
                {selectedIndex === 0 ? (
                   <DropDownGroup

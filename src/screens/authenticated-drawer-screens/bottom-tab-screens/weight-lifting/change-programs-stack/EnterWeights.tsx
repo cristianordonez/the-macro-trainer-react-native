@@ -1,8 +1,8 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Text } from '@rneui/themed';
 import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { ChangeProgramsStackType } from '../../../../../../types/types';
+import { CustomText } from '../../../../../components/custom-text/CustomText';
 import { ExerciseCalculatorInput } from '../../../../../components/exercise-calculator-input/ExerciseCalculatorInput';
 import { CustomButtonGroup } from '../../../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
@@ -18,9 +18,7 @@ export const EnterWeights = ({ navigation, route }: Props) => {
    const exercises = useAppSelector((state) =>
       selectProgramExercises(state, programName)
    );
-   console.log('exercises: ', exercises);
 
-   //todo create global style for scroll view
    return (
       <KeyboardAvoidingView
          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -30,7 +28,7 @@ export const EnterWeights = ({ navigation, route }: Props) => {
                <View
                   style={{ flex: 2, alignItems: 'center', paddingVertical: 20 }}
                >
-                  <Text h4>Enter training maxes </Text>
+                  <CustomText h1={true} humanText='Enter training maxes' />
                </View>
                <View style={{ flex: 1, alignItems: 'flex-start' }}>
                   <CustomButtonGroup

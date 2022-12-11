@@ -1,6 +1,7 @@
-import { Avatar, Text, useTheme } from '@rneui/themed';
+import { Avatar, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { MainScreenCard } from '../../../../../types/types';
+import { CustomText } from '../../../../components/custom-text/CustomText';
 import { global } from '../../../../style/global.styles';
 
 export const SignupDescription = ({
@@ -19,8 +20,17 @@ export const SignupDescription = ({
             containerStyle={{ backgroundColor: theme.colors.secondary }}
          />
          <View style={global.cardTextContainer}>
-            <Text style={[global.textBold]}>{title}</Text>
-            <Text>{description}</Text>
+            <CustomText
+               textAlign='left'
+               h2={true}
+               fontFamily='Lato_Bold'
+               humanText={title}
+            />
+            <CustomText
+               h3={true}
+               textAlign='left'
+               humanText={description || ''}
+            />
          </View>
       </View>
    );

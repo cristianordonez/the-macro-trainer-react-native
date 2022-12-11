@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { LoadingImage } from '../../../components/loading-image/LoadingImage';
 import { NutritionPieChart } from '../../../components/nutrition-pie-chart/NutritionPieChart';
 import { WeightChart } from '../../../components/weight-chart/WeightChart';
@@ -41,22 +42,28 @@ export const CalculatedGoals = ({ navigation }: Props) => {
             <>
                <View style={[calculatedGoalsStyles.goalWeights, { flex: 1 }]}>
                   <View style={calculatedGoalsStyles.weightCol}>
-                     <Text
-                        style={[calculatedGoalsStyles.textWeight, global.gap]}
-                     >
-                        {data[0].weight}
-                     </Text>
-                     <Text style={calculatedGoalsStyles.textTitle}>Start</Text>
+                     <CustomText
+                        gap={true}
+                        h3={true}
+                        humanText={`${data[0].weight}`}
+                     />
+                     <CustomText
+                        humanText={'Start'}
+                        textAlign='left'
+                        h3={true}
+                     />
                   </View>
                   <View style={calculatedGoalsStyles.weightCol}>
-                     <Text
-                        style={[calculatedGoalsStyles.textWeight, global.gap]}
-                     >
-                        {data[data.length - 1].weight}
-                     </Text>
-                     <Text style={calculatedGoalsStyles.textTitle}>
-                        Expected
-                     </Text>
+                     <CustomText
+                        gap={true}
+                        h3={true}
+                        humanText={`${data[data.length - 1].weight}`}
+                     />
+                     <CustomText
+                        h3={true}
+                        textAlign='center'
+                        humanText={'Expected'}
+                     />
                   </View>
                </View>
                <View style={{ flex: 4 }}>
@@ -72,7 +79,11 @@ export const CalculatedGoals = ({ navigation }: Props) => {
                      },
                   ]}
                >
-                  <Text style={global.textLarge}>Nutrition Goals</Text>
+                  <CustomText
+                     gap={true}
+                     h4={true}
+                     humanText={'Nutrition Goals'}
+                  />
                   <NutritionPieChart goals={goalState} showPercentage={false} />
                </View>
                <Button
@@ -87,9 +98,11 @@ export const CalculatedGoals = ({ navigation }: Props) => {
       return (
          <View style={[global.screenCenter, { paddingBottom: 0 }]}>
             <LoadingImage />
-            <Text h4 style={global.textCenter}>
-               Calculating your Nutritional Needs
-            </Text>
+            <CustomText
+               textAlign='center'
+               h3={true}
+               humanText={'Calculating your Nutritional Needs'}
+            />
          </View>
       );
    }

@@ -4,8 +4,7 @@ export const ageSliderStyles = StyleSheet.create({
    contentContainer: {
       alignItems: 'center',
       justifyContent: 'center',
-      paddingRight: 150,
-      paddingLeft: 150,
+      paddingHorizontal: 150,
    },
    contentContainerText: {
       bottom: 200,

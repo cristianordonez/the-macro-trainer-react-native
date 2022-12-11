@@ -1,6 +1,7 @@
-import { Input, Text, useTheme } from '@rneui/themed';
+import { Input, useTheme } from '@rneui/themed';
 import React, { Dispatch, SetStateAction } from 'react';
-import { KeyboardTypeOptions, TextStyle } from 'react-native';
+import { KeyboardTypeOptions } from 'react-native';
+import { CustomText } from '../../custom-text/CustomText';
 import { makeNumberInputStyles } from './styles';
 
 interface Props {
@@ -10,7 +11,6 @@ interface Props {
    rightLabelVal: string;
    value: string;
    setVal: Dispatch<SetStateAction<string>>;
-   textStyle: TextStyle;
 }
 
 export const CustomNumberInput = ({
@@ -20,7 +20,6 @@ export const CustomNumberInput = ({
    rightLabelVal,
    value,
    setVal,
-   textStyle,
 }: Props) => {
    const { theme } = useTheme();
    const heightInputStyles = makeNumberInputStyles(theme.colors);
@@ -35,10 +34,12 @@ export const CustomNumberInput = ({
          returnKeyType='done'
          keyboardType={keyboardType}
          inputContainerStyle={heightInputStyles.container}
-         inputStyle={[textStyle, { paddingLeft: '20%' }]}
+         inputStyle={[{ paddingLeft: '20%' }]}
          textAlign={'left'}
          keyboardAppearance='dark'
-         rightIcon={<Text style={[textStyle]}>{rightLabelVal}</Text>}
+         rightIcon={
+            <CustomText h3={true} textAlign='left' humanText={rightLabelVal} />
+         }
       />
    );
 };

@@ -75,7 +75,6 @@ export default function App() {
       if (
          isReady &&
          (authStatus === 'succeeded' || authStatus === 'failed') &&
-         goalsStatus !== 'idle' &&
          goalsStatus !== 'loading'
       ) {
          await SplashScreen.hideAsync();

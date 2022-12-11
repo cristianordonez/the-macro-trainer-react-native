@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { updateGender } from '../../../redux/reducers/userMetricsReducer';
@@ -59,10 +60,14 @@ export const Gender = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={3} progress={0.48} />
-         <Text h4 style={global.screenTitle}>
-            {' '}
-            What is your gender?
-         </Text>
+         <View style={{ paddingTop: '20%' }}>
+            <CustomText
+               humanText='What is your gender?'
+               textAlign='center'
+               fontFamily='Lato_Bold'
+               h1={true}
+            />
+         </View>
          <View style={global.containerCenter}>
             {cards.map((card) => (
                <CardOption

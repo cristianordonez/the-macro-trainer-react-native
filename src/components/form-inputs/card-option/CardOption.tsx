@@ -1,8 +1,9 @@
-import { Avatar, Text, useTheme } from '@rneui/themed';
+import { Avatar, useTheme } from '@rneui/themed';
 import { Dispatch, SetStateAction } from 'react';
 import { TouchableHighlight, View } from 'react-native';
 import { CardOptionType } from '../../../../types/types';
 import { global } from '../../../style/global.styles';
+import { CustomText } from '../../custom-text/CustomText';
 import { makeCardStyles } from './makeCardStyles';
 interface Props extends CardOptionType {
    activeVal: CardOptionType['value'];
@@ -34,8 +35,19 @@ export const CardOption = ({
             />
             <View style={global.cardTextContainer}>
                <View style={global.size}>
-                  <Text style={global.textBold}>{title}</Text>
-                  {description ? <Text>{description}</Text> : null}
+                  <CustomText
+                     h2={true}
+                     fontFamily='Lato_Bold'
+                     textAlign='left'
+                     humanText={title}
+                  />
+                  {description ? (
+                     <CustomText
+                        textAlign='left'
+                        humanText={description}
+                        h3={true}
+                     />
+                  ) : null}
                </View>
             </View>
          </View>

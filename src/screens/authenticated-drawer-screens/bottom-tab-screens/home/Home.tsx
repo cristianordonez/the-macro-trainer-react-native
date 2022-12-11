@@ -96,7 +96,7 @@ export const Home = ({ navigation }: Props) => {
                      })}
                      buttonStyle={{ paddingVertical: 5 }}
                      title='Total'
-                     titleStyle={[homeStyles.tabItemTitle, global.textSmall]}
+                     titleStyle={[homeStyles.tabItemTitle, { fontSize: 12 }]}
                   />
                   <Tab.Item
                      containerStyle={(active: boolean) => ({
@@ -111,7 +111,7 @@ export const Home = ({ navigation }: Props) => {
                      })}
                      buttonStyle={{ paddingVertical: 5 }}
                      title='Percentage'
-                     titleStyle={[homeStyles.tabItemTitle, global.textSmall]}
+                     titleStyle={[homeStyles.tabItemTitle, { fontSize: 12 }]}
                   />
                </Tab>
             </View>

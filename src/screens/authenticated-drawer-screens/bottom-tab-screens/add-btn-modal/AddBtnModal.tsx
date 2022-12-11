@@ -1,7 +1,8 @@
-import { Icon, Text, useTheme } from '@rneui/themed';
+import { Icon, useTheme } from '@rneui/themed';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import { CustomModal } from '../../../../components/custom-modal/CustomModal';
+import { CustomText } from '../../../../components/custom-text/CustomText';
 import {
    useAppDispatch,
    useAppSelector,
@@ -10,7 +11,6 @@ import {
    selectModal,
    toggleModal,
 } from '../../../../redux/reducers/modalReducer';
-import { global } from '../../../../style/global.styles';
 import { makeAddBtnModalStyles } from './makeAddBtnModalStyles';
 
 export function AddBtnModal() {
@@ -39,7 +39,11 @@ export function AddBtnModal() {
                children={
                   <View style={[addBtnModalStyles.modalContents]}>
                      <View style={addBtnModalStyles.headerRow}>
-                        <Text style={global.textBold}>Food and Exercise</Text>
+                        <CustomText
+                           h3={true}
+                           fontFamily='Lato_Bold'
+                           humanText={'Food and Exercise'}
+                        />
                         <Icon
                            style={addBtnModalStyles.iconStyle}
                            name='x'
@@ -71,7 +75,7 @@ export function AddBtnModal() {
                                  size={20}
                                  color={theme.colors.black}
                               />
-                              <Text>{option.title}</Text>
+                              <CustomText h3={true} humanText={option.title} />
                            </View>
                         </Pressable>
                      ))}

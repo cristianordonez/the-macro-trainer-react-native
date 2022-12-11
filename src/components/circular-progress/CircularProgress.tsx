@@ -1,7 +1,4 @@
 import { useTheme } from '@rneui/themed';
-// import * as Svg from 'react-native-svg';
-// const { Circle, Text } = Svg;
-// const SvgText = Text;
 import Svg, { Circle, Text as SvgText } from 'react-native-svg';
 
 const strokeWidth = 3;

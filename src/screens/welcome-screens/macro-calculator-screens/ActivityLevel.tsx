@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { updateActivityLevel } from '../../../redux/reducers/userMetricsReducer';
@@ -61,9 +62,13 @@ export const ActivityLevel = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={2} progress={0.32} />
-         <Text h3 style={global.screenTitle}>
-            What is your activity level?
-         </Text>
+         <View style={{ paddingTop: '20%' }}>
+            <CustomText
+               h1={true}
+               fontFamily='Lato_Bold'
+               humanText='What is your Activity Level?'
+            />
+         </View>
          <View style={global.containerCenter}>
             {cards.map((card) => (
                <CardOption

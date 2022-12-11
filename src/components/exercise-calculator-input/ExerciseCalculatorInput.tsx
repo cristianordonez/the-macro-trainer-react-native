@@ -1,8 +1,9 @@
-import { Text, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 import { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { global } from '../../style/global.styles';
 import { calculate1RepMax } from '../../utils/calculate1RepMax';
+import { CustomText } from '../custom-text/CustomText';
 import { CustomNumberInput } from '../form-inputs/custom-number-input/CustomNumberInput';
 import { makeExerciseCalcstyles } from './makeExerciseCalcStyles';
 
@@ -84,42 +85,46 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
             global.containerBorder,
          ]}
       >
-         <Text style={[global.textBoldLarge, { alignSelf: 'center' }]}>
-            {exercise}
-         </Text>
+         <CustomText h2={true} fontFamily='Lato_Bold' humanText={exercise} />
          {calculationRows.map((row) => (
             <View style={styles.mainRow} key={row.id}>
-               <Text style={[[styles.mainRowText, global.textMedium]]}>
-                  {row.leftLabel}
-               </Text>
+               <CustomText h2={true} humanText={row.leftLabel} />
                <View style={styles.inputContainer}>
-                  <Text style={[global.textLarge, styles.weightText]}>
-                     {row.calculationValue} {labelValues[activeIndex]}
-                  </Text>
+                  <CustomText
+                     h1={true}
+                     color='primary'
+                     textAlign='right'
+                     humanText={`${row.calculationValue} ${labelValues[activeIndex]}`}
+                  />
                </View>
             </View>
          ))}
          <View style={styles.calculateContents}>
             {error ? (
-               <Text
-                  style={[
-                     global.textSmall,
-                     styles.textError,
-                     global.textCenter,
-                  ]}
-               >
-                  {errorMessage}
-               </Text>
+               <CustomText
+                  color='error'
+                  h4={true}
+                  fontFamily='Lato_Italic'
+                  textAlign='center'
+                  humanText={errorMessage}
+               />
             ) : null}
-            <Text style={[styles.calculateHeader, global.textBold]}>
-               Calculate 1RM
-            </Text>
+            <CustomText
+               h3={true}
+               fontFamily='Lato_Bold'
+               humanText={'Calculate 1RM'}
+            />
+
             {inputs.map((inputItem) => (
                <View style={styles.innerRow} key={inputItem.humanText}>
                   <View style={styles.innerRowContents}>
-                     <Text style={[global.textMedium, styles.innerRowText]}>
-                        {inputItem.humanText}
-                     </Text>
+                     <View style={{ alignSelf: 'flex-start' }}>
+                        <CustomText
+                           h3={true}
+                           humanText={inputItem.humanText}
+                           textAlign='left'
+                        />
+                     </View>
                   </View>
                   <View style={styles.innerRowContents}>
                      <CustomNumberInput
@@ -129,7 +134,6 @@ export const ExerciseCalculatorInput = ({ exercise, activeIndex }: Props) => {
                         rightLabelVal={inputItem.label}
                         value={inputItem.value}
                         setVal={inputItem.setValue}
-                        textStyle={global.textMedium}
                      />
                   </View>
                </View>

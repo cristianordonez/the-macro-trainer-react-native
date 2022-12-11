@@ -1,8 +1,9 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import React, { useState } from 'react';
 import { View } from 'react-native';
 import { CardOptionType, WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { CardOption } from '../../../components/form-inputs/card-option/CardOption';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { updateGoal } from '../../../redux/reducers/userMetricsReducer';
@@ -60,9 +61,13 @@ export const Goals = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={1} progress={0.16} />
-         <Text h3 style={global.screenTitle}>
-            What are your goals?
-         </Text>
+         <View style={{ paddingTop: '20%' }}>
+            <CustomText
+               h1={true}
+               fontFamily='Lato_Bold'
+               humanText='What are your goals?'
+            />
+         </View>
          <View style={global.containerCenter}>
             {cards.map((card) => (
                <CardOption

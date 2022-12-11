@@ -1,7 +1,8 @@
-import { Icon, Text } from '@rneui/themed';
+import { Icon } from '@rneui/themed';
 import { View } from 'react-native';
 import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
 import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
+import { CustomText } from '../../../../../components/custom-text/CustomText';
 import { global } from '../../../../../style/global.styles';
 import { createFlexGap } from '../../../../../utils/createFlexGap';
 
@@ -27,9 +28,14 @@ export const GeneralProgressSquare = ({
    const { height } = createFlexGap(2, 10);
 
    return (
-      <CustomScreenContainerItem gap={10} itemsPerRow={2}>
+      <CustomScreenContainerItem
+         gap={10}
+         itemsPerRow={2}
+         handlePress={() => null}
+         index={1}
+      >
          <View style={[global.rowCenter]}>
-            <Text style={{ paddingRight: 5 }}>{title}</Text>
+            <CustomText humanText={title} h3={true} />
             <Icon name={iconName} type={iconType} size={12} />
          </View>
          <CircularProgress

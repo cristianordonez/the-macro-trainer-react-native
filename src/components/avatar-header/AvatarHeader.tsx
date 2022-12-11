@@ -17,7 +17,7 @@ export const AvatarHeader = () => {
          >
             <Avatar
                onPress={() => navigation.dispatch(DrawerActions.openDrawer())}
-               size={40}
+               size={36}
                rounded
                icon={{
                   name: 'user',

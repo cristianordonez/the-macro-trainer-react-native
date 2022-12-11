@@ -1,7 +1,8 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text } from '@rneui/themed';
+import { Button } from '@rneui/themed';
 import { View } from 'react-native';
 import { WelcomeStackParamList } from '../../../../types/types';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { global } from '../../../style/global.styles';
 import { CustomLinearProgress } from '../macro-calculator-screens/linear-progress/CustomLinearProgress';
 import { SignupDescription } from './signup-description/SignupDescription';
@@ -36,13 +37,17 @@ export const SignupInfo = ({ navigation }: Props) => {
    return (
       <View style={global.screenEnd}>
          <CustomLinearProgress index={0} progress={0} />
-         <Text h4 style={global.textCenter}>
-            First, let's calculate your daily calorie and macronutrient needs.
-         </Text>
-         <Text style={global.textCenter}>
-            To get the most accurate calculations, we'll first need to collect
-            some information from you.
-         </Text>
+         <CustomText
+            h2={true}
+            textAlign='center'
+            humanText={`First, let's calculate your daily calorie and macronutrient needs.`}
+         />
+         <CustomText
+            h2={true}
+            textAlign='center'
+            humanText="To get the most accurate calculations, we'll first need to collect
+            some information from you."
+         />
          {cards.map((card) => (
             <SignupDescription
                key={card.id}

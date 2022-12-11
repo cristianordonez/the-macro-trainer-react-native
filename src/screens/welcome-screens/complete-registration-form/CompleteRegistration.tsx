@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { Button, Text, useTheme } from '@rneui/themed';
+import { Button, useTheme } from '@rneui/themed';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
@@ -18,6 +18,7 @@ import {
    WelcomeStackParamList,
 } from '../../../../types/types';
 import { CustomModal } from '../../../components/custom-modal/CustomModal';
+import { CustomText } from '../../../components/custom-text/CustomText';
 import { CustomInput } from '../../../components/form-inputs/custom-input/CustomInput';
 import { useAppDispatch } from '../../../redux/hooks/reduxHooks';
 import { createAccount } from '../../../redux/reducers/authReducer';
@@ -84,14 +85,22 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
          >
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                <View style={[global.screenEnd, global.fullSize]}>
-                  <Text h4 style={[global.screenTitle, global.gap]}>
-                     Last step!
-                  </Text>
-                  <Text style={global.textCenter}>
-                     Fill out the fields below to save your nutrition goals and
-                     create your account.
-                  </Text>
+                  <View style={{ paddingTop: '20%' }}>
+                     <CustomText
+                        h1={true}
+                        gap={true}
+                        fontFamily='Lato_Bold'
+                        textAlign='center'
+                        humanText='Last step!'
+                     />
 
+                     <CustomText
+                        h3={true}
+                        textAlign='center'
+                        humanText='Fill out the fields below to save your nutrition goals and
+                     create your account.'
+                     />
+                  </View>
                   <View style={[registrationStyles.formContainer]}>
                      <View>
                         <CustomInput
@@ -105,9 +114,12 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                            textContentType='emailAddress'
                         />
                         {errors.email && (
-                           <Text style={registrationStyles.errorMessage}>
-                              {errors.email.message}
-                           </Text>
+                           <CustomText
+                              color='error'
+                              h3={true}
+                              fontFamily='Lato_Italic'
+                              humanText={errors.email.message || ''}
+                           />
                         )}
                      </View>
                      <View>
@@ -122,9 +134,12 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                            textContentType='password'
                         />
                         {errors.password && (
-                           <Text style={registrationStyles.errorMessage}>
-                              {errors.password.message}
-                           </Text>
+                           <CustomText
+                              color='error'
+                              h3={true}
+                              fontFamily='Lato_Italic'
+                              humanText={errors.password.message || ''}
+                           />
                         )}
                      </View>
                      <View>
@@ -139,9 +154,12 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                            textContentType='password'
                         />
                         {errors.confirmPassword && (
-                           <Text style={registrationStyles.errorMessage}>
-                              {errors.confirmPassword.message}
-                           </Text>
+                           <CustomText
+                              color='error'
+                              h3={true}
+                              fontFamily='Lato_Italic'
+                              humanText={errors.confirmPassword.message || ''}
+                           />
                         )}
                      </View>
                   </View>
@@ -161,9 +179,12 @@ export const CompleteRegistration = ({ route, navigation }: Props) => {
                   height: '100%',
                }}
             >
-               <Text style={[global.gap, global.textBold]}>
-                  Creating your account
-               </Text>
+               <CustomText
+                  h3={true}
+                  gap={true}
+                  fontFamily='Lato_Bold'
+                  humanText='Creating your account'
+               />
                <ActivityIndicator size='large' />
             </View>
          </CustomModal>

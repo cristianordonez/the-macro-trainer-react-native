@@ -1,6 +1,7 @@
-import { Text, useTheme } from '@rneui/themed';
+import { useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { global } from '../../style/global.styles';
+import { CustomText } from '../custom-text/CustomText';
 import { makeOrDividerLineStyles } from './styles';
 
 export const OrDividerLine = () => {
@@ -9,8 +10,8 @@ export const OrDividerLine = () => {
    return (
       <View style={global.rowCenter}>
          <View style={styles.dividerLine} />
-         <View>
-            <Text style={styles.formText}>OR</Text>
+         <View style={{ paddingHorizontal: 10 }}>
+            <CustomText h3={true} humanText={'OR'} fontFamily='Lato_Bold' />
          </View>
          <View style={styles.dividerLine} />
       </View>

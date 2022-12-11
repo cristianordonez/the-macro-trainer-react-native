@@ -42,7 +42,9 @@ export const AgeSliderItem = ({
          ]}
          onPress={() => setSelectedVal(item.value)}
       >
-         <Text style={[opacity, fontSize]}>{item.value}</Text>
+         <Text style={[opacity, fontSize, { fontFamily: 'Lato' }]}>
+            {item.value}
+         </Text>
       </TouchableOpacity>
    );
 };

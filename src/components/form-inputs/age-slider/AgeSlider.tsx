@@ -1,4 +1,3 @@
-import { Text } from '@rneui/themed';
 import * as Haptics from 'expo-haptics';
 import React, {
    Dispatch,
@@ -14,9 +13,11 @@ import {
    NativeScrollEvent,
    NativeSyntheticEvent,
    SafeAreaView,
+   View,
 } from 'react-native';
 import { RenderItemType } from '../../../../types/types';
 import { global } from '../../../style/global.styles';
+import { CustomText } from '../../custom-text/CustomText';
 import { AgeSliderItem } from './AgeSliderItem';
 import { ageSliderStyles } from './styles';
 
@@ -105,12 +106,9 @@ export const AgeSlider = ({ selectedVal, setSelectedVal }: Props) => {
             snapToAlignment='center'
             snapToInterval={FULL_SIZE}
          />
-         <Text
-            style={[global.textCenter, ageSliderStyles.contentContainerText]}
-            h4
-         >
-            Years old
-         </Text>
+         <View style={{ paddingBottom: '20%' }}>
+            <CustomText humanText='Years old' h0={true} gap={true} />
+         </View>
       </SafeAreaView>
    );
 };

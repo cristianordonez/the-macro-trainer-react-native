@@ -1,5 +1,6 @@
-import { LinearProgress, Text } from '@rneui/themed';
+import { LinearProgress } from '@rneui/themed';
 import { View } from 'react-native';
+import { CustomText } from '../../../../components/custom-text/CustomText';
 import { global } from '../../../../style/global.styles';
 import { customProgressStyles } from './styles';
 
@@ -11,7 +12,7 @@ export const CustomLinearProgress = ({ index, progress }: Props) => {
    return (
       <>
          <View style={[customProgressStyles.container, global.size]}>
-            <Text style={global.textCenter}>{index}/6</Text>
+            <CustomText h3={true} textAlign='center' humanText={`${index}/6`} />
             <LinearProgress
                value={progress}
                animation={false}

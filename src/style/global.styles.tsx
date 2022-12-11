@@ -36,12 +36,6 @@ export const global = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
    },
-   screenTitle: {
-      paddingTop: '20%',
-   },
-   textCenter: {
-      textAlign: 'center',
-   },
    rowCenter: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -65,38 +59,6 @@ export const global = StyleSheet.create({
       minWidth: '75%',
       maxWidth: '75%',
    },
-   textBold: {
-      fontFamily: 'Lato_Bold',
-      fontWeight: 'bold',
-      fontSize: 16,
-      paddingBottom: 5,
-   },
-   textBoldLarge: {
-      fontFamily: 'Lato_Bold',
-      fontWeight: 'bold',
-      fontSize: 18,
-      paddingBottom: 5,
-   },
-   textXS: {
-      fontSize: 10,
-      fontFamily: 'Lato',
-   },
-   textSmall: {
-      fontFamily: 'Lato',
-      fontSize: 12,
-   },
-   text: {
-      fontFamily: 'Lato',
-      fontSize: 14,
-   },
-   textMedium: {
-      fontFamily: 'Lato',
-      fontSize: 16,
-   },
-   textLarge: {
-      fontFamily: 'Lato',
-      fontSize: 18,
-   },
    toggleContainer: {
       width: 110,
       height: 'auto',
@@ -111,9 +73,6 @@ export const global = StyleSheet.create({
       alignItems: 'center',
       width: '100%',
       height: '75%',
-   },
-   textOpacity: {
-      opacity: 0.75,
    },
    customScreenContainer: {
       flex: 1,
