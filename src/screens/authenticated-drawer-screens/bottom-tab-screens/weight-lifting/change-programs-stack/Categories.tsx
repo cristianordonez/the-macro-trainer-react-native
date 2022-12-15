@@ -1,24 +1,23 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { View } from 'react-native';
 import {
+   Category,
    ChangeProgramsStackType,
-   Program,
 } from '../../../../../../types/types';
 import { CustomIconCircle } from '../../../../../components/custom-icon-circle/CustomIconCircle';
 import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectAllProgramCategories } from '../../../../../redux/reducers/weightLiftingReducer';
+import { selectProgramCategoryNames } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<ChangeProgramsStackType, 'Categories'>;
 
 export const Categories = ({ navigation }: Props) => {
-   const programCategories = useAppSelector(selectAllProgramCategories);
+   const programCategories = useAppSelector(selectProgramCategoryNames);
    const categories = ['All', ...programCategories];
 
    const handleNavigate = (index: number) => {
-      const currentCategory = categories[index] as Program['category'];
-
+      const currentCategory = categories[index] as Category['category_name'];
       navigation.navigate('Programs', {
          category: currentCategory,
       });

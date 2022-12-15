@@ -21,7 +21,6 @@ export const getAuthStatus = createAsyncThunk<
 >('auth/getAuthStatus', async (data, { rejectWithValue }) => {
    try {
       const response = await apiHandlers.get('/authentication');
-      console.log('response: ', response);
       if (response.status !== 200) {
          const error = await response.json();
          throw { message: error.message, status: response.status };

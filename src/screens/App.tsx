@@ -24,6 +24,10 @@ import {
    getInitialMetrics,
    selectMetricsStatus,
 } from '../redux/reducers/userMetricsReducer';
+import {
+   getInitialWeightLiftingData,
+   selectWeightLiftingStatus,
+} from '../redux/reducers/weightLiftingReducer';
 import { global } from '../style/global.styles';
 import { CustomDrawer } from './authenticated-drawer-screens';
 import { WelcomeStackScreen } from './welcome-screens/index';
@@ -37,6 +41,7 @@ export default function App() {
    const goalsStatus = useAppSelector(selectGoalsStatus);
    const foodLogStatus = useAppSelector(selectFoodLogStatus);
    const authStatus = useAppSelector(selectAuthStatus);
+   const weightliftingStatus = useAppSelector(selectWeightLiftingStatus);
    const { theme } = useTheme();
 
    const navTheme = {
@@ -60,7 +65,7 @@ export default function App() {
                await dispatch(getInitialGoals());
                await dispatch(getInitialMetrics());
                await dispatch(getInitialFoodLogData());
-               //now get users exercise routines
+               await dispatch(getInitialWeightLiftingData());
             }
          } catch (err) {
             console.error('err: ', err);
@@ -91,6 +96,7 @@ export default function App() {
                   {isAuthenticated &&
                   metricsStatus !== 'failed' &&
                   goalsStatus !== 'failed' &&
+                  weightliftingStatus !== 'failed' &&
                   foodLogStatus !== 'failed' ? (
                      <CustomDrawer />
                   ) : (

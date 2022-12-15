@@ -15,19 +15,19 @@ type Icons = {
    Beginner: React.ReactNode;
    Intermediate: React.ReactNode;
    'nSuns 531 Variants': React.ReactNode;
-   'Wendler 531': React.ReactNode;
+   'Wendler 531 Variants': React.ReactNode;
    'StrongLifts 5x5': React.ReactNode;
-   'nSuns 531 LP 4 Day Version': React.ReactNode;
+   'nSuns 531 LP 4 day variation': React.ReactNode;
 };
 
 const IconsMap = {
    All: <AllDumbbell />,
    Beginner: <BeginnerDumbbell />,
    Intermediate: <IntermediateDumbbell />,
+   'Wendler 531 Variants': <NSuns />,
    'nSuns 531 Variants': <NSuns />,
-   'Wendler 531': <IntermediateDumbbell />,
    'StrongLifts 5x5': <BeginnerDumbbell />,
-   'nSuns 531 LP 4 Day Version': <NSuns />,
+   'nSuns 531 LP 4 day variation': <NSuns />,
 };
 
 export const CustomIconCircle = ({ title }: Props) => {

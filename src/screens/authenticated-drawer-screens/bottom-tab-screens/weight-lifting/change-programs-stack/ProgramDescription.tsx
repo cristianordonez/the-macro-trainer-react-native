@@ -2,10 +2,8 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button } from '@rneui/themed';
 import { ScrollView, View } from 'react-native';
 import { ChangeProgramsStackType } from '../../../../../../types/types';
-import { CustomText } from '../../../../../components/custom-text/CustomText';
-import { WorkoutDayDescription } from '../../../../../components/workout-day-description/WorkoutDayDescription';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramByName } from '../../../../../redux/reducers/weightLiftingReducer';
+import { selectProgramDescription } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<
@@ -15,11 +13,13 @@ type Props = NativeStackScreenProps<
 
 export const ProgramDescription = ({ route, navigation }: Props) => {
    const programName = route.params.programName;
+   const category = route.params.category;
 
    const program = useAppSelector((state) =>
-      selectProgramByName(state, programName)
+      selectProgramDescription(state, programName, category)
    );
    const currentProgram = program[0];
+   console.log('program: ', program);
 
    const handlePress = () => {
       navigation.navigate('EnterWeights', {
@@ -37,7 +37,7 @@ export const ProgramDescription = ({ route, navigation }: Props) => {
                   justifyContent: 'space-between',
                }}
             >
-               <CustomText
+               {/* <CustomText
                   h2={true}
                   gap={true}
                   textAlign='left'
@@ -58,7 +58,7 @@ export const ProgramDescription = ({ route, navigation }: Props) => {
                      exercises={workout.exercises}
                      day={workout.day}
                   />
-               ))}
+               ))} */}
                <Button style={{ marginTop: 10 }} onPress={handlePress}>
                   Enter weights and start
                </Button>

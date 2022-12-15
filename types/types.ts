@@ -43,8 +43,11 @@ type DrawerStack = {
 
 type ChangeProgramsStackType = {
    Categories: undefined;
-   Programs: { category: Program['category'] };
-   ProgramDescription: { programName: Program['name'] };
+   Programs: { category: Category['category_name'] };
+   ProgramDescription: {
+      programName: Program['name'];
+      category: Category['category_name'];
+   };
    EnterWeights: { programName: Program['name'] };
 };
 
@@ -224,49 +227,79 @@ type GlobalFoodLogState = {
    status: SliceStatus;
 };
 
-type Set = {
-   index: number;
-   reps: number;
-   percentageOf1RM: number;
-   amrap: boolean;
-};
-
 type Exercise = {
-   exercise_id: number;
+   id: number;
    name: string;
    gif: string;
-   sets: Set[];
+   body_part: string;
+   equipment: string;
+};
+
+type ExerciseProgram = Exercise & {
+   target_muscle: string;
+};
+
+type Set = {
+   amrap: boolean;
+   reps_target: number;
+   id: number;
+   set_number: number;
+   percentage_rm: number;
+   weightlifting_exercise: ExerciseProgram;
 };
 
 type Workout = {
    day: number;
-   workout_id: number;
-   exercises: Exercise[];
+   week: number;
+   id: number;
+   sets: Set[];
 };
 
-type Progress = {
+type Progression = {
    id: number;
    description: string;
+   min_rep: number;
+   max_rep: number;
+   weight_to_add: number;
 };
 
 type Program = {
    program_id: number;
-   category: 'nSuns 531 Variants' | 'Beginner' | 'Intermediate' | 'All';
-   name: 'StrongLifts 5x5' | 'nSuns 531 LP 4 Day Version' | 'Wendler 531';
+   is_default: boolean;
+   name: 'StrongLifts 5x5' | 'nSuns 531 LP 4 Day Variation' | 'Wendler 531';
    body: string;
-   progression: Progress[];
+   progression: Progression[];
    workouts: Workout[];
+};
+
+type Category = {
+   category_name:
+      | 'nSuns 531 Variants'
+      | 'Beginner'
+      | 'Intermediate'
+      | 'Wendler 531 Variants'
+      | 'All';
+   category_id: number;
+   programs: Program[];
+};
+
+type ExerciseByMuscle = {
+   muscle: string;
+   id: number;
+   exercises: Exercise[];
 };
 
 type WeightLiftingState = {
    user: {
       hasSelectedProgram: boolean;
-      selectedProgramId: null | number;
+      selectedProgramId: number | null;
    };
    data: {
-      programs: Program[];
+      muscles: ExerciseByMuscle[];
+      categories: Category[];
    };
 };
+
 type GlobalWeightLiftingState = WeightLiftingState & {
    status: SliceStatus;
 };
@@ -337,4 +370,5 @@ export {
    Workout,
    Set,
    DrawerStack,
+   Category,
 };
