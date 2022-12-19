@@ -85,8 +85,7 @@ export const global = StyleSheet.create({
    largeContainer: {
       width: '100%',
       paddingHorizontal: 10,
-      paddingTop: 10,
-      paddingBottom: 10,
+      paddingVertical: 10,
    },
    scrollableContainer: {
       flexGrow: 1,

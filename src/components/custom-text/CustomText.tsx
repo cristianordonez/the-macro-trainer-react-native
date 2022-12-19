@@ -7,6 +7,7 @@ interface Props {
    h2?: boolean;
    h3?: boolean;
    h4?: boolean;
+   h5?: boolean;
    fontFamily?: 'Lato_Bold' | 'Lato_Italic' | 'Lato';
    textAlign?: 'left' | 'right' | 'center';
    opacity?: boolean;
@@ -23,6 +24,7 @@ export const CustomText = ({
    h2 = false,
    h3 = false,
    h4 = false,
+   h5 = false,
    opacity = false,
    gap = false,
    color = 'black',
@@ -50,6 +52,7 @@ export const CustomText = ({
             opacity === true ? { opacity: 0.75 } : { opacity: 1 },
             gap === true ? { paddingBottom: 10 } : { paddingBottom: 0 },
             h0 === true ? { fontSize: 24 } : null,
+            h5 === true ? { fontSize: 10 } : null,
          ]}
          h1={h1 === true}
          h1Style={{ fontSize: 18 }}

@@ -46,9 +46,10 @@ type ChangeProgramsStackType = {
    Programs: { category: Category['category_name'] };
    ProgramDescription: {
       programName: Program['name'];
-      category: Category['category_name'];
    };
-   EnterWeights: { programName: Program['name'] };
+   EnterWeights: {
+      programName: Program['name'];
+   };
 };
 
 type BottomTabsParamList = {
@@ -227,32 +228,34 @@ type GlobalFoodLogState = {
    status: SliceStatus;
 };
 
-type Exercise = {
+type Set = {
+   amrap: boolean;
+   percentage_rm: number;
+   reps_target: number;
+   set_number: number;
+   id: number;
+};
+
+type SharedExerciseData = {
    id: number;
    name: string;
-   gif: string;
+   gif_url: string;
+};
+
+type ExerciseData = SharedExerciseData & {
    body_part: string;
    equipment: string;
 };
 
-type ExerciseProgram = Exercise & {
-   target_muscle: string;
-};
-
-type Set = {
-   amrap: boolean;
-   reps_target: number;
-   id: number;
-   set_number: number;
-   percentage_rm: number;
-   weightlifting_exercise: ExerciseProgram;
+type ExerciseForWorkout = SharedExerciseData & {
+   sets: Set[];
 };
 
 type Workout = {
    day: number;
    week: number;
    id: number;
-   sets: Set[];
+   exercises: ExerciseForWorkout[];
 };
 
 type Progression = {
@@ -286,7 +289,7 @@ type Category = {
 type ExerciseByMuscle = {
    muscle: string;
    id: number;
-   exercises: Exercise[];
+   exercises: ExerciseData[];
 };
 
 type WeightLiftingState = {
@@ -300,8 +303,16 @@ type WeightLiftingState = {
    };
 };
 
+type ExerciseRepMax = {
+   name: string;
+   max: number;
+};
+
 type GlobalWeightLiftingState = WeightLiftingState & {
    status: SliceStatus;
+   activeProgram: Program['name'] | '';
+   activeCategory: Category['category_name'] | '';
+   exerciseRepMaxes: ExerciseRepMax[];
 };
 
 type LoginFormData = { username: string; password: string };

@@ -3,24 +3,31 @@ import { View } from 'react-native';
 import { ChangeProgramsStackType } from '../../../../../../types/types';
 import { CustomIconCircle } from '../../../../../components/custom-icon-circle/CustomIconCircle';
 import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
-import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramsByCategory } from '../../../../../redux/reducers/weightLiftingReducer';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../../redux/hooks/reduxHooks';
+import {
+   getProgramsByActiveCategory,
+   updateActiveProgram,
+} from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<ChangeProgramsStackType, 'Programs'>;
 
 export const Programs = ({ route, navigation }: Props) => {
+   const dispatch = useAppDispatch();
    const params = route.params;
    const programs = useAppSelector((state) =>
-      selectProgramsByCategory(state, params.category)
+      getProgramsByActiveCategory(state)
    );
 
    const handleNavigate = (index: number) => {
       if (programs !== null) {
          const programName = programs[index].name;
+         dispatch(updateActiveProgram(programName));
          navigation.navigate('ProgramDescription', {
             programName,
-            category: params.category,
          });
       }
    };

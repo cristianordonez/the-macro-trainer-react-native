@@ -3,11 +3,17 @@ import React from 'react';
 import { View } from 'react-native';
 import { Workout } from '../../../types/types';
 import { global } from '../../style/global.styles';
+import { capitalizeExerciseName } from '../../utils/capitalizeExerciseName';
 import { CustomText } from '../custom-text/CustomText';
 import { SetsRow } from './sets-row/SetsRow';
 import { makeWorkoutDayStyles } from './styles';
 
-export const WorkoutDayDescription = ({ day, exercises }: Workout) => {
+export const WorkoutDayDescription = ({
+   day,
+   exercises,
+   week,
+   id,
+}: Workout) => {
    const { theme } = useTheme();
    const workoutDayStyles = makeWorkoutDayStyles(theme.colors);
 
@@ -27,13 +33,15 @@ export const WorkoutDayDescription = ({ day, exercises }: Workout) => {
             />
          </View>
          {exercises.map((exercise) => (
-            <React.Fragment key={exercise.exercise_id}>
+            <React.Fragment key={exercise.id}>
                <View
                   style={[workoutDayStyles.exerciseRowContainer, global.gap]}
-                  key={exercise.exercise_id}
                >
                   <View style={workoutDayStyles.exerciseNameContainer}>
-                     <CustomText h2={true} humanText={exercise.name} />
+                     <CustomText
+                        h4={true}
+                        humanText={capitalizeExerciseName(exercise.name)}
+                     />
                   </View>
                   <View style={workoutDayStyles.setsContainer}>
                      <SetsRow sets={exercise.sets} />

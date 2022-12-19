@@ -6,18 +6,26 @@ import {
 } from '../../../../../../types/types';
 import { CustomIconCircle } from '../../../../../components/custom-icon-circle/CustomIconCircle';
 import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
-import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramCategoryNames } from '../../../../../redux/reducers/weightLiftingReducer';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../../redux/hooks/reduxHooks';
+import {
+   selectProgramCategoryNames,
+   updateActiveCategory,
+} from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<ChangeProgramsStackType, 'Categories'>;
 
 export const Categories = ({ navigation }: Props) => {
+   const dispatch = useAppDispatch();
    const programCategories = useAppSelector(selectProgramCategoryNames);
    const categories = ['All', ...programCategories];
 
    const handleNavigate = (index: number) => {
       const currentCategory = categories[index] as Category['category_name'];
+      dispatch(updateActiveCategory(currentCategory));
       navigation.navigate('Programs', {
          category: currentCategory,
       });

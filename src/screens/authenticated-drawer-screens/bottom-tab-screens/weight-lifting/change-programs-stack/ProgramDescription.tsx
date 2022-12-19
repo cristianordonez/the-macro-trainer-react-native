@@ -2,8 +2,10 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { Button } from '@rneui/themed';
 import { ScrollView, View } from 'react-native';
 import { ChangeProgramsStackType } from '../../../../../../types/types';
+import { CustomText } from '../../../../../components/custom-text/CustomText';
+import { WorkoutDayDescription } from '../../../../../components/workout-day-description/WorkoutDayDescription';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramDescription } from '../../../../../redux/reducers/weightLiftingReducer';
+import { getProgramByActiveName } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<
@@ -12,14 +14,13 @@ type Props = NativeStackScreenProps<
 >;
 
 export const ProgramDescription = ({ route, navigation }: Props) => {
-   const programName = route.params.programName;
-   const category = route.params.category;
+   const { programName } = route.params;
+   const program = useAppSelector((state) => getProgramByActiveName(state));
 
-   const program = useAppSelector((state) =>
-      selectProgramDescription(state, programName, category)
-   );
-   const currentProgram = program[0];
-   console.log('program: ', program);
+   let currentProgram;
+   if (program !== null) {
+      currentProgram = program[0];
+   }
 
    const handlePress = () => {
       navigation.navigate('EnterWeights', {
@@ -27,43 +28,57 @@ export const ProgramDescription = ({ route, navigation }: Props) => {
       });
    };
 
-   return (
-      <>
-         <ScrollView contentContainerStyle={global.scrollableContainer}>
-            <View
-               style={{
-                  flex: 1,
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-               }}
-            >
-               {/* <CustomText
-                  h2={true}
-                  gap={true}
-                  textAlign='left'
-                  humanText={currentProgram.body}
-               />
-               {currentProgram.progression.map((item) => (
-                  <View style={global.rowCenter} key={item.id}>
-                     <CustomText
-                        h2={true}
-                        humanText={` ${'\u2022' + ' '}${item.description}`}
-                     />
-                  </View>
-               ))}
-               {currentProgram.workouts.map((workout, index) => (
-                  <WorkoutDayDescription
-                     workout_id={workout.workout_id}
-                     key={workout.workout_id}
-                     exercises={workout.exercises}
-                     day={workout.day}
+   if (currentProgram !== undefined) {
+      return (
+         <>
+            <ScrollView contentContainerStyle={global.scrollableContainer}>
+               <View
+                  style={{
+                     flex: 1,
+                     alignItems: 'center',
+                     justifyContent: 'space-between',
+                  }}
+               >
+                  <CustomText
+                     h2={true}
+                     gap={true}
+                     textAlign='left'
+                     humanText={currentProgram.body}
                   />
-               ))} */}
-               <Button style={{ marginTop: 10 }} onPress={handlePress}>
-                  Enter weights and start
-               </Button>
-            </View>
-         </ScrollView>
-      </>
-   );
+                  {currentProgram.progression.map((item) => (
+                     <View
+                        style={[
+                           global.rowCenter,
+                           global.gap,
+                           { alignSelf: 'flex-start', width: '100%' },
+                        ]}
+                        key={item.id}
+                     >
+                        <CustomText
+                           h2={true}
+                           humanText={` ${'\u2022' + ' '}${item.description}`}
+                        />
+                     </View>
+                  ))}
+                  <View style={{ justifyContent: 'space-evenly' }}>
+                     {currentProgram.workouts.map((workout, index) => (
+                        <WorkoutDayDescription
+                           key={workout.id}
+                           exercises={workout.exercises}
+                           day={workout.day}
+                           id={workout.id}
+                           week={workout.week}
+                        />
+                     ))}
+                  </View>
+                  <Button style={{ marginTop: 10 }} onPress={handlePress}>
+                     Enter weights and start
+                  </Button>
+               </View>
+            </ScrollView>
+         </>
+      );
+   } else {
+      return null;
+   }
 };

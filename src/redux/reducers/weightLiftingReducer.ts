@@ -4,9 +4,7 @@ import {
    createSlice,
 } from '@reduxjs/toolkit';
 import {
-   Category,
    GlobalWeightLiftingState,
-   Program,
    WeightLiftingState,
 } from '../../../types/types';
 import { apiHandlers } from '../api';
@@ -20,9 +18,10 @@ const initialState: GlobalWeightLiftingState = {
    },
    data: initialData,
    status: 'idle',
+   activeProgram: '',
+   activeCategory: '',
+   exerciseRepMaxes: [],
 };
-
-//todo get all programs from api
 
 export const getInitialWeightLiftingData = createAsyncThunk<
    WeightLiftingState['data'],
@@ -51,7 +50,29 @@ export const getInitialWeightLiftingData = createAsyncThunk<
 const weightLiftingSlice = createSlice({
    name: 'weightLifting',
    initialState,
-   reducers: {},
+   reducers: {
+      updateActiveCategory(state, action) {
+         state.activeCategory = action.payload;
+      },
+      updateActiveProgram(state, action) {
+         state.activeProgram = action.payload;
+      },
+      updateExerciseRepMaxes(state, action) {
+         let isPresent = false;
+         const currRepMaxes = [...state.exerciseRepMaxes];
+
+         for (let exercise of currRepMaxes) {
+            if (exercise.name === action.payload.name) {
+               isPresent = true;
+               exercise.max = action.payload.max;
+            }
+         }
+         if (!isPresent) {
+            currRepMaxes.push(action.payload);
+         }
+         state.exerciseRepMaxes = currRepMaxes;
+      },
+   },
    extraReducers: (builder) => {
       builder
          .addCase(getInitialWeightLiftingData.pending, (state, action) => {
@@ -68,7 +89,11 @@ const weightLiftingSlice = createSlice({
    },
 });
 
-export const {} = weightLiftingSlice.actions;
+export const {
+   updateActiveCategory,
+   updateActiveProgram,
+   updateExerciseRepMaxes,
+} = weightLiftingSlice.actions;
 
 export const selectWeightLiftingStatus = (state: RootState) =>
    state.weightLifting.status;
@@ -85,15 +110,15 @@ export const selectProgramCategoryNames = (state: RootState) => {
    );
 };
 
+export const selectExerciseRepMaxes = (state: RootState) => {
+   return state.weightLifting.exerciseRepMaxes;
+};
+
 //takes in category name and returns all programs under this category
-export const selectProgramsByCategory = createSelector(
-   [
-      selectAllProgramsByCategory,
-      (state: RootState, category_name: Category['category_name']) =>
-         category_name,
-   ],
-   (categories, category_name) => {
-      if (category_name === 'All') {
+export const getProgramsByActiveCategory = createSelector(
+   [selectAllProgramsByCategory, (state: RootState) => state],
+   (categories, state) => {
+      if (state.weightLifting.activeCategory === 'All') {
          const allCategories = categories.filter(
             (category) => category.programs !== null
          );
@@ -104,7 +129,9 @@ export const selectProgramsByCategory = createSelector(
             .flat(1);
       }
       for (let i = 0; i < categories.length; i++) {
-         if (categories[i].category_name === category_name) {
+         if (
+            categories[i].category_name === state.weightLifting.activeCategory
+         ) {
             return categories[i].programs;
          }
       }
@@ -112,45 +139,43 @@ export const selectProgramsByCategory = createSelector(
    }
 );
 
-//todo takes in category name and program name to return all data for selected program
-export const selectProgramDescription = createSelector(
+//takes in category name and program name to return all data for selected program
+export const getProgramByActiveName = createSelector(
    [
-      selectAllProgramsByCategory,
-      (
-         state: RootState,
-         name: Program['name'],
-         category: Category['category_name']
-      ) => {
-         return { name, category };
+      getProgramsByActiveCategory,
+      (state: RootState) => {
+         return state;
       },
    ],
-   (categories, inputs) => {
-      console.log('inputs: ', inputs);
-      const { category, name } = inputs;
-      const selectedPrograms = categories.filter(
-         (currentCategory) => currentCategory.category_name === category
-      );
-      return selectedPrograms[0].programs.filter(
-         (program) => program.name === name
-      );
+   (programs, state) => {
+      if (programs !== null && programs.length > 0) {
+         return programs.filter(
+            (program) => program.name === state.weightLifting.activeProgram
+         );
+      } else {
+         return null;
+      }
    }
 );
 
-// export const selectProgramExercises = createSelector(
-//    [selectAllPrograms, (state: RootState, name: Program['name']) => name],
-//    (programs, name) => {
-//       const program = programs.filter((program) => program.name === name);
-//       const exercises = program[0].workouts.map((workout) => {
-//          return workout.exercises.map((exercise) => exercise.name);
-//       });
-//       const result: string[] = [];
-//       exercises.forEach((exerciseDay) => {
-//          exerciseDay.forEach((exercise) => {
-//             if (!result.includes(exercise)) result.push(exercise);
-//          });
-//       });
-//       return result;
-//    }
-// );
+export const getActiveProgramUniqueExercises = createSelector(
+   [
+      getProgramByActiveName,
+      (state: RootState) => {
+         return state;
+      },
+   ],
+   (program, state) => {
+      const uniqueExercises = new Set();
+      if (program !== null) {
+         for (let workout of program[0].workouts) {
+            for (let exercise of workout.exercises) {
+               uniqueExercises.add(exercise.name);
+            }
+         }
+      }
+      return Array.from(uniqueExercises) as string[];
+   }
+);
 
 export default weightLiftingSlice.reducer;

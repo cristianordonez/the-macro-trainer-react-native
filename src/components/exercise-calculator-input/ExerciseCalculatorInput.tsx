@@ -1,8 +1,11 @@
 import { useTheme } from '@rneui/themed';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
+import { useAppDispatch } from '../../redux/hooks/reduxHooks';
+import { updateExerciseRepMaxes } from '../../redux/reducers/weightLiftingReducer';
 import { global } from '../../style/global.styles';
 import { calculate1RepMax } from '../../utils/calculate1RepMax';
+import { capitalizeExerciseName } from '../../utils/capitalizeExerciseName';
 import { CustomText } from '../custom-text/CustomText';
 import { CustomNumberInput } from '../form-inputs/custom-number-input/CustomNumberInput';
 import { makeExerciseCalcstyles } from './makeExerciseCalcStyles';
@@ -18,12 +21,12 @@ export const ExerciseCalculatorInput = ({
    activeIndex,
    trainingMaxPercentage,
 }: Props) => {
+   const dispatch = useAppDispatch();
    const { theme } = useTheme();
    const [weight, setWeight] = useState<string>('0');
    const [reps, setReps] = useState<string>('1');
    const [error, setError] = useState<boolean>(false);
    const [errorMessage, setErrorMessage] = useState<string>('');
-   const [oneRepMax, setOneRepMax] = useState<string>('0');
    const labelValues = ['lb', 'kg'];
    const inputs = [
       {
@@ -40,7 +43,7 @@ export const ExerciseCalculatorInput = ({
       },
    ];
 
-   useMemo(() => {
+   const oneRepMax = useMemo(() => {
       if (activeIndex === 0 && Number(weight) >= 1000) {
          setErrorMessage('Please enter a weight below 1000 lbs.');
          setError(true);
@@ -49,11 +52,8 @@ export const ExerciseCalculatorInput = ({
          setErrorMessage('Please enter a weight below 455 kg.');
          setError(true);
          return;
-      } else {
-         setError(false);
-      }
-      if (Number(reps) > 10) {
-         setErrorMessage('Please enter a rep range less than 10.');
+      } else if (Number(reps) > 20) {
+         setErrorMessage('Please enter a rep range less than or equal to 20.');
          setError(true);
          return;
       } else {
@@ -65,8 +65,19 @@ export const ExerciseCalculatorInput = ({
          Number(weight),
          weightMetric
       );
-      setOneRepMax(result.toString());
+      return result.toString();
    }, [weight, reps, activeIndex]);
+
+   useEffect(() => {
+      dispatch(
+         updateExerciseRepMaxes({
+            max: Math.round(
+               Number(oneRepMax) * (Number(trainingMaxPercentage) / 100)
+            ),
+            name: exercise,
+         })
+      );
+   }, [oneRepMax]);
 
    const calculationRows = [
       {
@@ -83,7 +94,6 @@ export const ExerciseCalculatorInput = ({
       },
    ];
 
-   //todo dispatch action that saves exercise and 1 rep nax to store
    const styles = makeExerciseCalcstyles(theme.colors);
    return (
       <View
@@ -93,7 +103,11 @@ export const ExerciseCalculatorInput = ({
             global.containerBorder,
          ]}
       >
-         <CustomText h2={true} fontFamily='Lato_Bold' humanText={exercise} />
+         <CustomText
+            h2={true}
+            fontFamily='Lato_Bold'
+            humanText={capitalizeExerciseName(exercise)}
+         />
          {calculationRows.map((row) => (
             <View style={styles.mainRow} key={row.id}>
                <CustomText h2={true} humanText={row.leftLabel} />

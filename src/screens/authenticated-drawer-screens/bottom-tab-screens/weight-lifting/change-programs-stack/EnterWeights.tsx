@@ -8,18 +8,39 @@ import { ExerciseCalculatorInput } from '../../../../../components/exercise-calc
 import { CustomButtonGroup } from '../../../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../../../components/form-inputs/custom-number-input/CustomNumberInput';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { selectProgramExercises } from '../../../../../redux/reducers/weightLiftingReducer';
+import {
+   getActiveProgramUniqueExercises,
+   selectExerciseRepMaxes,
+} from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
+import { createAlert } from '../../../../../utils/createAlert';
 
 type Props = NativeStackScreenProps<ChangeProgramsStackType, 'EnterWeights'>;
 
 export const EnterWeights = ({ navigation, route }: Props) => {
-   const programName = route.params.programName;
+   //todo get initial values from store for user 1 rep maxes
    const [activeIndex, setActiveIndex] = useState<number>(0);
    const [trainingMaxPercentage, setTrainingMaxPercentage] = useState('90');
    const exercises = useAppSelector((state) =>
-      selectProgramExercises(state, programName)
+      getActiveProgramUniqueExercises(state)
    );
+
+   const repMaxes = useAppSelector(selectExerciseRepMaxes);
+   const handleSave = () => {
+      console.log('repMaxes: ', repMaxes);
+      //todo do not do anything if value is 0 for any of them
+      for (let repMax of repMaxes) {
+         if (Number(repMax.max === 0)) {
+            createAlert({
+               heading: 'HOld on',
+               message: 'Please enter a training max for each exercise.',
+               btnOptions: [{ text: 'Okay' }],
+            });
+            return;
+         }
+      }
+      //call thunk that saves one rep maxes to database and adds selected program to user workouts
+   };
 
    return (
       <KeyboardAvoidingView
@@ -68,7 +89,7 @@ export const EnterWeights = ({ navigation, route }: Props) => {
                   activeIndex={activeIndex}
                />
             ))}
-            <Button>Save</Button>
+            <Button onPress={handleSave}>Save</Button>
          </ScrollView>
       </KeyboardAvoidingView>
    );

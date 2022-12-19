@@ -5,6 +5,10 @@ export const makeWorkoutDayStyles = (colors: Colors) =>
    StyleSheet.create({
       container: {
          backgroundColor: colors.searchBg,
+         height: 'auto',
+         marginBottom: 10,
+         alignItems: 'center',
+         justifyContent: 'center',
       },
       dayText: { paddingBottom: 10 },
       exerciseRowContainer: {
@@ -12,11 +16,13 @@ export const makeWorkoutDayStyles = (colors: Colors) =>
          flexDirection: 'row',
       },
       exerciseNameContainer: {
-         maxWidth: '30%',
-         minWidth: '30%',
+         flex: 1,
       },
       setsContainer: {
+         flex: 5,
          alignSelf: 'flex-start',
-         paddingLeft: 10,
+         flexDirection: 'row',
+         alignItems: 'center',
+         justifyContent: 'space-evenly',
       },
    });

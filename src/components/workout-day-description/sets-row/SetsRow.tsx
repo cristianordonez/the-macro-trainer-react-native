@@ -10,16 +10,18 @@ export const SetsRow = ({ sets }: Props) => {
    return (
       <>
          {sets.map((set) => (
-            <View style={{ width: '100%' }} key={set.index}>
+            <View key={set.id}>
                <CustomText
-                  h4={true}
-                  humanText={`${set.amrap ? `${set.reps}+` : set.reps} x`}
+                  h5={true}
+                  humanText={`${
+                     set.amrap ? `${set.reps_target}+` : set.reps_target
+                  } x`}
                   fontFamily='Lato_Bold'
                />
                <CustomText
-                  h4={false}
+                  h5={true}
                   opacity={true}
-                  humanText={`${set.percentageOf1RM}%`}
+                  humanText={`${set.percentage_rm}%`}
                />
             </View>
          ))}
