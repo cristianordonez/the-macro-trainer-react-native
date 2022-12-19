@@ -23,7 +23,7 @@ export const ExerciseCalculatorInput = ({
 }: Props) => {
    const dispatch = useAppDispatch();
    const { theme } = useTheme();
-   const [weight, setWeight] = useState<string>('0');
+   const [weight, setWeight] = useState<string>('');
    const [reps, setReps] = useState<string>('1');
    const [error, setError] = useState<boolean>(false);
    const [errorMessage, setErrorMessage] = useState<string>('');
@@ -47,15 +47,15 @@ export const ExerciseCalculatorInput = ({
       if (activeIndex === 0 && Number(weight) >= 1000) {
          setErrorMessage('Please enter a weight below 1000 lbs.');
          setError(true);
-         return;
+         return Number(weight);
       } else if (activeIndex === 1 && Number(weight) >= 455) {
          setErrorMessage('Please enter a weight below 455 kg.');
          setError(true);
-         return;
+         return Number(weight);
       } else if (Number(reps) > 20) {
          setErrorMessage('Please enter a rep range less than or equal to 20.');
          setError(true);
-         return;
+         return Number(weight);
       } else {
          setError(false);
       }

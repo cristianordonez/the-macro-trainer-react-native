@@ -32,7 +32,7 @@ export const EnterWeights = ({ navigation, route }: Props) => {
       for (let repMax of repMaxes) {
          if (Number(repMax.max === 0)) {
             createAlert({
-               heading: 'HOld on',
+               heading: 'Hold on!',
                message: 'Please enter a training max for each exercise.',
                btnOptions: [{ text: 'Okay' }],
             });
