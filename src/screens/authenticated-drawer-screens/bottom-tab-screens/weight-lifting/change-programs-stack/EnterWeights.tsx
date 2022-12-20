@@ -7,39 +7,31 @@ import { CustomText } from '../../../../../components/custom-text/CustomText';
 import { ExerciseCalculatorInput } from '../../../../../components/exercise-calculator-input/ExerciseCalculatorInput';
 import { CustomButtonGroup } from '../../../../../components/form-inputs/custom-button-group/CustomButtonGroup';
 import { CustomNumberInput } from '../../../../../components/form-inputs/custom-number-input/CustomNumberInput';
-import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
+import {
+   useAppDispatch,
+   useAppSelector,
+} from '../../../../../redux/hooks/reduxHooks';
 import {
    getActiveProgramUniqueExercises,
-   selectExerciseRepMaxes,
+   saveExerciseRepMaxData,
 } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
-import { createAlert } from '../../../../../utils/createAlert';
 
 type Props = NativeStackScreenProps<ChangeProgramsStackType, 'EnterWeights'>;
 
 export const EnterWeights = ({ navigation, route }: Props) => {
    //todo get initial values from store for user 1 rep maxes
+   const dispatch = useAppDispatch();
    const [activeIndex, setActiveIndex] = useState<number>(0);
    const [trainingMaxPercentage, setTrainingMaxPercentage] = useState('90');
    const exercises = useAppSelector((state) =>
       getActiveProgramUniqueExercises(state)
    );
 
-   const repMaxes = useAppSelector(selectExerciseRepMaxes);
-   const handleSave = () => {
-      console.log('repMaxes: ', repMaxes);
-      //todo do not do anything if value is 0 for any of them
-      for (let repMax of repMaxes) {
-         if (Number(repMax.max === 0)) {
-            createAlert({
-               heading: 'Hold on!',
-               message: 'Please enter a training max for each exercise.',
-               btnOptions: [{ text: 'Okay' }],
-            });
-            return;
-         }
-      }
-      //call thunk that saves one rep maxes to database and adds selected program to user workouts
+   //called when save button first clicks, gives option to confirm or cancels if error is present
+   const handleSaveInitial = () => {
+      //thunk that checks if there is error present or presents a confirm dialog
+      dispatch(saveExerciseRepMaxData());
    };
 
    return (
@@ -89,7 +81,7 @@ export const EnterWeights = ({ navigation, route }: Props) => {
                   activeIndex={activeIndex}
                />
             ))}
-            <Button onPress={handleSave}>Save</Button>
+            <Button onPress={handleSaveInitial}>Save</Button>
          </ScrollView>
       </KeyboardAvoidingView>
    );

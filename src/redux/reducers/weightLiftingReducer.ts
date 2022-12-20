@@ -5,8 +5,10 @@ import {
 } from '@reduxjs/toolkit';
 import {
    GlobalWeightLiftingState,
+   ServerGeneralResponse,
    WeightLiftingState,
 } from '../../../types/types';
+import { createAlert } from '../../utils/createAlert';
 import { apiHandlers } from '../api';
 import { initialData } from '../store/initialData';
 import { RootState } from '../store/store';
@@ -47,6 +49,48 @@ export const getInitialWeightLiftingData = createAsyncThunk<
    }
 );
 
+export const saveExerciseRepMaxData = createAsyncThunk<
+   ServerGeneralResponse | undefined,
+   void,
+   { state: RootState }
+>(
+   'weightLifting/saveExerciseRepMaxData',
+   async (data, { getState, rejectWithValue }) => {
+      const state = getState();
+      try {
+         const repMaxes = state.weightLifting.exerciseRepMaxes;
+         //check if error is present in any of the exercises, if so display alert
+         console.log('repMaxes: ', repMaxes);
+
+         for (let exerciseRepMax of repMaxes) {
+            if (exerciseRepMax.isError === true) {
+               console.log('right before  create alert');
+               createAlert({
+                  heading: 'Hold on',
+                  message: 'Please enter valid weights before continuing',
+                  btnOptions: [{ text: 'Okay' }],
+               });
+               throw { message: 'Please enter valid weights', status: 400 };
+            }
+            //todo throw error here instead
+         }
+         //todo if no error present, then save to api
+         console.log('repMaxes: ', repMaxes);
+         // const response = await apiHandlers.post('/weightLifting', repMaxes);
+         // if (!response.ok) {
+         // const err = await response.json();
+         // throw { message: err.message, status: response.status };
+         // } else {
+         // const initialData = await response.json();
+         // return initialData;
+         // }
+      } catch (err) {
+         console.error(err);
+         return rejectWithValue(err);
+      }
+   }
+);
+
 const weightLiftingSlice = createSlice({
    name: 'weightLifting',
    initialState,
@@ -65,6 +109,10 @@ const weightLiftingSlice = createSlice({
             if (exercise.name === action.payload.name) {
                isPresent = true;
                exercise.max = action.payload.max;
+               exercise.reps = action.payload.reps;
+               exercise.weight = action.payload.weight;
+               exercise.weightMetric = action.payload.weightMetric;
+               exercise.isError = action.payload.isError;
             }
          }
          if (!isPresent) {
@@ -79,13 +127,19 @@ const weightLiftingSlice = createSlice({
             state.status = 'loading';
          })
          .addCase(getInitialWeightLiftingData.fulfilled, (state, action) => {
-            console.log('action.payload: ', action.payload);
             state.data = action.payload;
             state.status = 'succeeded';
          })
          .addCase(getInitialWeightLiftingData.rejected, (state, action) => {
             state.status = 'failed';
-         });
+         }),
+         builder
+            .addCase(saveExerciseRepMaxData.fulfilled, (state, action) => {
+               console.log('here in add case');
+            })
+            .addCase(saveExerciseRepMaxData.rejected, (state, action) => {
+               console.log('here in rejected case');
+            });
    },
 });
 

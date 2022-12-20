@@ -23,9 +23,13 @@ export const ExerciseCalculatorInput = ({
 }: Props) => {
    const dispatch = useAppDispatch();
    const { theme } = useTheme();
+
    const [weight, setWeight] = useState<string>('');
    const [reps, setReps] = useState<string>('1');
-   const [error, setError] = useState<boolean>(false);
+   //sets the default error state to be true only when the user has not entered anything and state is an empty string
+   const initialError = weight === '' ? true : false;
+   console.log('initialError: ', initialError);
+   const [error, setError] = useState<boolean>(initialError);
    const [errorMessage, setErrorMessage] = useState<string>('');
    const labelValues = ['lb', 'kg'];
    const inputs = [
@@ -43,6 +47,7 @@ export const ExerciseCalculatorInput = ({
       },
    ];
 
+   //this calculates the value for 1RM, or just returns the typed in value
    const oneRepMax = useMemo(() => {
       if (activeIndex === 0 && Number(weight) >= 1000) {
          setErrorMessage('Please enter a weight below 1000 lbs.');
@@ -56,6 +61,9 @@ export const ExerciseCalculatorInput = ({
          setErrorMessage('Please enter a rep range less than or equal to 20.');
          setError(true);
          return Number(weight);
+      } else if (weight === '') {
+         //this needs to be called in case initial value is zero or empty
+         setError(true);
       } else {
          setError(false);
       }
@@ -68,16 +76,22 @@ export const ExerciseCalculatorInput = ({
       return result.toString();
    }, [weight, reps, activeIndex]);
 
+   //updates the exercise object inside global state, if error is present saves it to the object
    useEffect(() => {
+      console.log('error in useeffect: ', error);
       dispatch(
          updateExerciseRepMaxes({
+            name: exercise,
             max: Math.round(
                Number(oneRepMax) * (Number(trainingMaxPercentage) / 100)
             ),
-            name: exercise,
+            reps,
+            weight,
+            weightMetric: labelValues[activeIndex],
+            isError: error,
          })
       );
-   }, [oneRepMax]);
+   }, [oneRepMax, error]);
 
    const calculationRows = [
       {

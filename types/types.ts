@@ -306,6 +306,10 @@ type WeightLiftingState = {
 type ExerciseRepMax = {
    name: string;
    max: number;
+   reps: number;
+   weight: number;
+   weightMetric: number;
+   isError: boolean;
 };
 
 type GlobalWeightLiftingState = WeightLiftingState & {

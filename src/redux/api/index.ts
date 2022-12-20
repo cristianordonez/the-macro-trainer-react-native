@@ -1,5 +1,6 @@
 import {
    GlobalMetricsState,
+   GlobalWeightLiftingState,
    Goals,
    LoginForm,
    LoginFormData,
@@ -21,7 +22,13 @@ export const apiHandlers = {
    },
    post: async (
       urlPath: string,
-      body: LoginForm | SignupForm | LoginFormData | GlobalMetricsState | Goals
+      body:
+         | LoginForm
+         | SignupForm
+         | LoginFormData
+         | GlobalMetricsState
+         | Goals
+         | GlobalWeightLiftingState['exerciseRepMaxes']
    ) => {
       const currentUrl = `${url}${urlPath}`;
       const requestOptions = {
