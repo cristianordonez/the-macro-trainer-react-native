@@ -36,12 +36,9 @@ export const EnterWeights = ({ navigation, route }: Props) => {
 
    const handleSaveInitial = async () => {
       try {
-         //dispatch action to save the users data to api
-         const response = await dispatch(saveExerciseRepMaxData()).unwrap();
+         const response = await dispatch(saveExerciseRepMaxData()).unwrap(); //dispatch action that saves data to api and will change condition to render different stack
          if (response && response.status === 200) {
-            //toggle loading component only if user can move away
             setIsLoading(true);
-            //todo navigate to correct screen
          }
       } catch (err) {
          console.log('err: ', err);

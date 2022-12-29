@@ -11,10 +11,7 @@ const Stack = createNativeStackNavigator<CurrentWorkoutStackType>();
 
 export const CurrentWorkoutStack = () => {
    const { theme } = useTheme();
-   //first get all the program data needed using users selected program id
    const program = useAppSelector(getProgramByUserSelectedId);
-   console.log('program[0]: ', program[0]);
-   //todo update header so that it has program title
 
    return (
       <Stack.Navigator
