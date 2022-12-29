@@ -20,13 +20,19 @@ const initialState: GlobalWeightLiftingState = {
    },
    data: initialData,
    status: 'idle',
-   activeProgram: '',
+   activeProgramId: null,
    activeCategory: '',
    exerciseRepMaxes: [],
 };
 
+type InitialData = WeightLiftingState['data'] & {
+   selectedProgram: {
+      program_id: number | null;
+   };
+};
+
 export const getInitialWeightLiftingData = createAsyncThunk<
-   WeightLiftingState['data'],
+   InitialData,
    void,
    { state: RootState }
 >(
@@ -58,13 +64,10 @@ export const saveExerciseRepMaxData = createAsyncThunk<
    async (data, { getState, rejectWithValue }) => {
       const state = getState();
       try {
-         const repMaxes = state.weightLifting.exerciseRepMaxes;
-         //check if error is present in any of the exercises, if so display alert
-         console.log('repMaxes: ', repMaxes);
-
-         for (let exerciseRepMax of repMaxes) {
+         const exerciseRepMaxes = state.weightLifting.exerciseRepMaxes;
+         for (let exerciseRepMax of exerciseRepMaxes) {
             if (exerciseRepMax.isError === true) {
-               console.log('right before  create alert');
+               //check if error is present in any exercise to display alert accordingly
                createAlert({
                   heading: 'Hold on',
                   message: 'Please enter valid weights before continuing',
@@ -72,18 +75,19 @@ export const saveExerciseRepMaxData = createAsyncThunk<
                });
                throw { message: 'Please enter valid weights', status: 400 };
             }
-            //todo throw error here instead
          }
-         //todo if no error present, then save to api
-         console.log('repMaxes: ', repMaxes);
-         // const response = await apiHandlers.post('/weightLifting', repMaxes);
-         // if (!response.ok) {
-         // const err = await response.json();
-         // throw { message: err.message, status: response.status };
-         // } else {
-         // const initialData = await response.json();
-         // return initialData;
-         // }
+         const response = await apiHandlers.post('/weightLifting', {
+            //if no error present save to API
+            activeProgramId: state.weightLifting.activeProgramId,
+            exerciseRepMaxes,
+         });
+         if (!response.ok) {
+            const err = await response.json();
+            throw { message: err.message, status: response.status };
+         } else {
+            const initialData = await response.json();
+            return initialData;
+         }
       } catch (err) {
          console.error(err);
          return rejectWithValue(err);
@@ -98,8 +102,8 @@ const weightLiftingSlice = createSlice({
       updateActiveCategory(state, action) {
          state.activeCategory = action.payload;
       },
-      updateActiveProgram(state, action) {
-         state.activeProgram = action.payload;
+      updateActiveProgramId(state, action) {
+         state.activeProgramId = action.payload;
       },
       updateExerciseRepMaxes(state, action) {
          let isPresent = false;
@@ -127,7 +131,13 @@ const weightLiftingSlice = createSlice({
             state.status = 'loading';
          })
          .addCase(getInitialWeightLiftingData.fulfilled, (state, action) => {
-            state.data = action.payload;
+            const { muscles, categories, selectedProgram } = action.payload;
+            state.data.categories = categories;
+            state.data.muscles = muscles;
+            state.user.selectedProgramId = selectedProgram.program_id;
+            if (selectedProgram.program_id) {
+               state.user.hasSelectedProgram = true; //db returns null if user does not have selected program so make sure hasselectedprogram does not update  when this is so
+            }
             state.status = 'succeeded';
          })
          .addCase(getInitialWeightLiftingData.rejected, (state, action) => {
@@ -135,17 +145,18 @@ const weightLiftingSlice = createSlice({
          }),
          builder
             .addCase(saveExerciseRepMaxData.fulfilled, (state, action) => {
-               console.log('here in add case');
+               state.user.selectedProgramId = state.activeProgramId; //use active program id in state to update the users selected program id
+               state.user.hasSelectedProgram = true; //update state so selected program will be false, will fulfill conditional and display new screen stack
             })
             .addCase(saveExerciseRepMaxData.rejected, (state, action) => {
-               console.log('here in rejected case');
+               console.log('Unable to save selected program to database.');
             });
    },
 });
 
 export const {
    updateActiveCategory,
-   updateActiveProgram,
+   updateActiveProgramId,
    updateExerciseRepMaxes,
 } = weightLiftingSlice.actions;
 
@@ -167,6 +178,24 @@ export const selectProgramCategoryNames = (state: RootState) => {
 export const selectExerciseRepMaxes = (state: RootState) => {
    return state.weightLifting.exerciseRepMaxes;
 };
+
+//selector that searches for active program using users selected program_id
+export const getProgramByUserSelectedId = createSelector(
+   [selectAllProgramsByCategory, (state: RootState) => state],
+   (categories, state) => {
+      const selectedProgramId = state.weightLifting.user.selectedProgramId;
+      const allCategories = categories.filter(
+         (category) => category.programs !== null
+      );
+      return allCategories
+         .map((category) => {
+            return category.programs.filter(
+               (program) => program.program_id === selectedProgramId
+            );
+         })
+         .flat(1);
+   }
+);
 
 //takes in category name and returns all programs under this category
 export const getProgramsByActiveCategory = createSelector(
@@ -193,8 +222,8 @@ export const getProgramsByActiveCategory = createSelector(
    }
 );
 
-//takes in category name and program name to return all data for selected program
-export const getProgramByActiveName = createSelector(
+//takes in category name and program id to return all data for selected program
+export const getProgramByActiveId = createSelector(
    [
       getProgramsByActiveCategory,
       (state: RootState) => {
@@ -204,7 +233,8 @@ export const getProgramByActiveName = createSelector(
    (programs, state) => {
       if (programs !== null && programs.length > 0) {
          return programs.filter(
-            (program) => program.name === state.weightLifting.activeProgram
+            (program) =>
+               program.program_id === state.weightLifting.activeProgramId
          );
       } else {
          return null;
@@ -212,9 +242,10 @@ export const getProgramByActiveName = createSelector(
    }
 );
 
+//get a list of unique exercises found in currently selected program
 export const getActiveProgramUniqueExercises = createSelector(
    [
-      getProgramByActiveName,
+      getProgramByActiveId,
       (state: RootState) => {
          return state;
       },

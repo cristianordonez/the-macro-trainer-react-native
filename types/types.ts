@@ -52,6 +52,11 @@ type ChangeProgramsStackType = {
    };
 };
 
+type CurrentWorkoutStackType = {
+   Overview: undefined;
+   ActiveWorkout: undefined;
+};
+
 type BottomTabsParamList = {
    Home: undefined;
    FoodLog: undefined;
@@ -314,9 +319,14 @@ type ExerciseRepMax = {
 
 type GlobalWeightLiftingState = WeightLiftingState & {
    status: SliceStatus;
-   activeProgram: Program['name'] | '';
+   activeProgramId: null | number;
    activeCategory: Category['category_name'] | '';
    exerciseRepMaxes: ExerciseRepMax[];
+};
+
+type WeightliftingPostData = {
+   activeProgramId: GlobalWeightLiftingState['activeProgramId'];
+   exerciseRepMaxes: GlobalWeightLiftingState['exerciseRepMaxes'];
 };
 
 type LoginFormData = { username: string; password: string };
@@ -386,4 +396,6 @@ export {
    Set,
    DrawerStack,
    Category,
+   WeightliftingPostData,
+   CurrentWorkoutStackType,
 };

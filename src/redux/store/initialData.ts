@@ -9,7 +9,7 @@ export const initialData: WeightLiftingState['data'] = {
             {
                id: 0,
                name: '',
-               gif: '',
+               gif_url: '',
                body_part: '',
                equipment: '',
             },
@@ -40,21 +40,20 @@ export const initialData: WeightLiftingState['data'] = {
                      day: 0,
                      week: 0,
                      id: 0,
-                     sets: [
+                     exercises: [
                         {
-                           amrap: false,
-                           reps_target: 5,
                            id: 0,
-                           set_number: 0,
-                           percentage_rm: 1,
-                           weightlifting_exercise: {
-                              id: 0,
-                              name: 'Barbell bench press',
-                              gif: 'temp_gif.gif',
-                              body_part: 'upper body',
-                              equipment: 'barbell',
-                              target_muscle: 'chest',
-                           },
+                           name: 'barbell bench press',
+                           gif_url: 'sample.gif',
+                           sets: [
+                              {
+                                 amrap: false,
+                                 percentage_rm: 0.1,
+                                 reps_target: 5,
+                                 set_number: 0,
+                                 id: 1,
+                              },
+                           ],
                         },
                      ],
                   },

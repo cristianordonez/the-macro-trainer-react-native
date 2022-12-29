@@ -5,7 +5,7 @@ import { ChangeProgramsStackType } from '../../../../../../types/types';
 import { CustomText } from '../../../../../components/custom-text/CustomText';
 import { WorkoutDayDescription } from '../../../../../components/workout-day-description/WorkoutDayDescription';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
-import { getProgramByActiveName } from '../../../../../redux/reducers/weightLiftingReducer';
+import { getProgramByActiveId } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<
@@ -15,7 +15,7 @@ type Props = NativeStackScreenProps<
 
 export const ProgramDescription = ({ route, navigation }: Props) => {
    const { programName } = route.params;
-   const program = useAppSelector((state) => getProgramByActiveName(state));
+   const program = useAppSelector((state) => getProgramByActiveId(state));
 
    let currentProgram;
    if (program !== null) {

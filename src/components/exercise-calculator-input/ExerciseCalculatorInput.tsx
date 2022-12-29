@@ -23,12 +23,10 @@ export const ExerciseCalculatorInput = ({
 }: Props) => {
    const dispatch = useAppDispatch();
    const { theme } = useTheme();
-
    const [weight, setWeight] = useState<string>('');
    const [reps, setReps] = useState<string>('1');
    //sets the default error state to be true only when the user has not entered anything and state is an empty string
    const initialError = weight === '' ? true : false;
-   console.log('initialError: ', initialError);
    const [error, setError] = useState<boolean>(initialError);
    const [errorMessage, setErrorMessage] = useState<string>('');
    const labelValues = ['lb', 'kg'];
@@ -76,15 +74,21 @@ export const ExerciseCalculatorInput = ({
       return result.toString();
    }, [weight, reps, activeIndex]);
 
-   //updates the exercise object inside global state, if error is present saves it to the object
+   //updates the exercise object inside global state, if error is present saves it to the object, converts to lbs if currently set to kg
    useEffect(() => {
-      console.log('error in useeffect: ', error);
+      const trainingMax =
+         activeIndex === 0
+            ? Math.round(
+                 Number(oneRepMax) * (Number(trainingMaxPercentage) / 100)
+              )
+            : Math.round(
+                 (Number(oneRepMax) / 2.2) *
+                    (Number(trainingMaxPercentage) / 100)
+              );
       dispatch(
          updateExerciseRepMaxes({
             name: exercise,
-            max: Math.round(
-               Number(oneRepMax) * (Number(trainingMaxPercentage) / 100)
-            ),
+            max: trainingMax,
             reps,
             weight,
             weightMetric: labelValues[activeIndex],
@@ -150,7 +154,6 @@ export const ExerciseCalculatorInput = ({
                fontFamily='Lato_Bold'
                humanText={'Calculate 1RM'}
             />
-
             {inputs.map((inputItem) => (
                <View style={styles.innerRow} key={inputItem.humanText}>
                   <View style={styles.innerRowContents}>

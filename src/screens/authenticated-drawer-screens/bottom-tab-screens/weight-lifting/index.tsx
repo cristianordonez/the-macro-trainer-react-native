@@ -4,13 +4,12 @@ import { BottomTabsParamList } from '../../../../../types/types';
 import { useAppSelector } from '../../../../redux/hooks/reduxHooks';
 import { selectProgramStatus } from '../../../../redux/reducers/weightLiftingReducer';
 import { ChangeProgramsStack } from './change-programs-stack';
-import { CurrentWorkoutStack } from './current-workout-stack/CurrentWorkoutStack';
+import { CurrentWorkoutStack } from './current-workout-stack';
 
 type Props = NativeStackScreenProps<BottomTabsParamList, 'WeightLifting'>;
 
 export const WeightLifting = ({ navigation }: Props) => {
    const hasSelectedProgram = useAppSelector(selectProgramStatus);
-
    return (
       <>
          {hasSelectedProgram ? (

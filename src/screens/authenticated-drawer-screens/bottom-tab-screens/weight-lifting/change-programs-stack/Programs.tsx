@@ -9,23 +9,23 @@ import {
 } from '../../../../../redux/hooks/reduxHooks';
 import {
    getProgramsByActiveCategory,
-   updateActiveProgram,
+   updateActiveProgramId,
 } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<ChangeProgramsStackType, 'Programs'>;
 
-export const Programs = ({ route, navigation }: Props) => {
+export const Programs = ({ navigation }: Props) => {
    const dispatch = useAppDispatch();
-   const params = route.params;
    const programs = useAppSelector((state) =>
       getProgramsByActiveCategory(state)
    );
 
    const handleNavigate = (index: number) => {
       if (programs !== null) {
-         const programName = programs[index].name;
-         dispatch(updateActiveProgram(programName));
+         const programName = programs[index].name; //name used for header
+         const programId = programs[index].program_id; //id used for global state
+         dispatch(updateActiveProgramId(programId));
          navigation.navigate('ProgramDescription', {
             programName,
          });

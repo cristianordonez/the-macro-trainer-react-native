@@ -1,10 +1,10 @@
 import {
    GlobalMetricsState,
-   GlobalWeightLiftingState,
    Goals,
    LoginForm,
    LoginFormData,
    SignupForm,
+   WeightliftingPostData,
 } from '../../../types/types';
 
 const url = 'http://192.168.1.10:8080/api';
@@ -28,7 +28,7 @@ export const apiHandlers = {
          | LoginFormData
          | GlobalMetricsState
          | Goals
-         | GlobalWeightLiftingState['exerciseRepMaxes']
+         | WeightliftingPostData
    ) => {
       const currentUrl = `${url}${urlPath}`;
       const requestOptions = {
