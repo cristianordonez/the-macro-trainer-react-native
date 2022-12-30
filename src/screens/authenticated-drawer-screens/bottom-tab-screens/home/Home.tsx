@@ -3,15 +3,15 @@ import { Tab, TabView, useTheme } from '@rneui/themed';
 import { useState } from 'react';
 import { View } from 'react-native';
 import { BottomTabsParamList } from '../../../../../types/types';
+import { GeneralProgressSquare } from '../../../../components/general-progress-square/GeneralProgressSquare';
 import { NutritionPieChart } from '../../../../components/nutrition-pie-chart/NutritionPieChart';
+import { TotalNutritionCalorieSection } from '../../../../components/total-nutrition-calorie-section';
 import { useAppSelector } from '../../../../redux/hooks/reduxHooks';
 import { selectNutritionSummaryToday } from '../../../../redux/reducers/foodLogReducer';
 import { selectGoals } from '../../../../redux/reducers/userGoalsReducer';
 import { selectUserMetrics } from '../../../../redux/reducers/userMetricsReducer';
 import { global } from '../../../../style/global.styles';
-import { GeneralProgressSquare } from './general-progress-square/GeneralProgressSquare';
 import { makeHomeStyles } from './makeHomeStyles';
-import { TotalNutritionCalorieSection } from './total-nutrition-calorie-section';
 
 type Props = NativeStackScreenProps<BottomTabsParamList, 'Home'>;
 
@@ -69,8 +69,6 @@ export const Home = ({ navigation }: Props) => {
          color: colors[3],
       },
    ];
-
-   console.log('goalstr: ', goals);
 
    return (
       <View style={global.screenEven}>

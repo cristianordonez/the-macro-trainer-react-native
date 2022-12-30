@@ -5,8 +5,8 @@ import { Workout } from '../../../types/types';
 import { global } from '../../style/global.styles';
 import { capitalizeExerciseName } from '../../utils/capitalizeExerciseName';
 import { CustomText } from '../custom-text/CustomText';
+import { makeWorkoutDayStyles } from './makeWorkoutDayStyles';
 import { SetsRow } from './sets-row/SetsRow';
-import { makeWorkoutDayStyles } from './styles';
 
 export const WorkoutDayDescription = ({
    day,

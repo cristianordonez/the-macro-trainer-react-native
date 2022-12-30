@@ -1,10 +1,10 @@
 import { Icon } from '@rneui/themed';
 import { View } from 'react-native';
-import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
-import { CustomScreenContainerItem } from '../../../../../components/custom-screen-container-item/CustomScreenContainerItem';
-import { CustomText } from '../../../../../components/custom-text/CustomText';
-import { global } from '../../../../../style/global.styles';
-import { createFlexGap } from '../../../../../utils/createFlexGap';
+import { global } from '../../style/global.styles';
+import { createFlexGap } from '../../utils/createFlexGap';
+import { CircularProgress } from '../circular-progress/CircularProgress';
+import { CustomScreenContainerItem } from '../custom-screen-container-item/CustomScreenContainerItem';
+import { CustomText } from '../custom-text/CustomText';
 
 interface Props {
    title: string;

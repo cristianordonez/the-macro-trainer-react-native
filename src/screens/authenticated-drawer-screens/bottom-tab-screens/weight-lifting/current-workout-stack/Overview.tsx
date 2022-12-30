@@ -1,16 +1,27 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { View } from 'react-native';
+import { ScrollView } from 'react-native';
 import { CurrentWorkoutStackType } from '../../../../../../types/types';
+import { WorkoutOverview } from '../../../../../components/workout-overview/WorkoutOverview';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
 import { getProgramByUserSelectedId } from '../../../../../redux/reducers/weightLiftingReducer';
+import { global } from '../../../../../style/global.styles';
 
 type Props = NativeStackScreenProps<CurrentWorkoutStackType, 'Overview'>;
 
 export const Overview = ({ navigation }: Props) => {
-    const program = useAppSelector(getProgramByUserSelectedId);
-    //todo render all workouts
-   console.log('program[0]: ', program[0]);
+   const program = useAppSelector(getProgramByUserSelectedId);
 
-   return <View></View>;
+   return (
+      <ScrollView contentContainerStyle={global.scrollableContainer}>
+         {program[0].workouts.map((workout) => (
+            <WorkoutOverview
+               day={workout.day}
+               week={workout.week}
+               id={workout.id}
+               exercises={workout.exercises}
+               key={workout.id}
+            />
+         ))}
+      </ScrollView>
+   );
 };
- 

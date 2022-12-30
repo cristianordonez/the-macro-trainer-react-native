@@ -1,15 +1,11 @@
 import { LinearProgress, useTheme } from '@rneui/themed';
 import React from 'react';
 import { View } from 'react-native';
-import {
-   DailyNutritionSummary,
-   Goals,
-   MacroMap,
-} from '../../../../../../types/types';
-import { CircularProgress } from '../../../../../components/circular-progress/CircularProgress';
-import { CustomText } from '../../../../../components/custom-text/CustomText';
-import { global } from '../../../../../style/global.styles';
-import { convertMacroKey } from '../../../../../utils/convertMacroKey';
+import { DailyNutritionSummary, Goals, MacroMap } from '../../../types/types';
+import { global } from '../../style/global.styles';
+import { convertMacroKey } from '../../utils/convertMacroKey';
+import { CircularProgress } from '../circular-progress/CircularProgress';
+import { CustomText } from '../custom-text/CustomText';
 import { styles } from './styles';
 
 interface Props {
