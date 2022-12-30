@@ -2,8 +2,8 @@ import { Button, Divider, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { Workout } from '../../../types/types';
 import { global } from '../../style/global.styles';
-import { capitalizeExerciseName } from '../../utils/capitalizeExerciseName';
 import { CustomText } from '../custom-text/CustomText';
+import { ExerciseRow } from './ExerciseRow';
 import { makeWorkoutDayStyles } from './makeWorkoutOverviewStyles';
 
 const titleCol = ['Exercise', 'Reps', 'Weight'];
@@ -11,7 +11,7 @@ const titleCol = ['Exercise', 'Reps', 'Weight'];
 export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
    const { theme } = useTheme();
    const styles = makeWorkoutDayStyles(theme.colors);
-   console.log('exercises: ', exercises[0]);
+   //todo move row on bottom to seperate component so that I can use correct appselector within it using id of exercise
    return (
       <View
          style={[
@@ -52,29 +52,7 @@ export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
                width={2}
             />
             {exercises.map((exercise) => (
-               <View style={styles.row} key={exercise.id}>
-                  <View style={styles.column}>
-                     <CustomText
-                        humanText={capitalizeExerciseName(exercise.name)}
-                     />
-                  </View>
-                  <View style={styles.column}>
-                     {exercise.sets.map((set) => (
-                        <CustomText
-                           humanText={
-                              set.amrap
-                                 ? `${set.reps_target}+`
-                                 : `${set.reps_target}`
-                           }
-                        />
-                     ))}
-                  </View>
-                  <View style={styles.column}>
-                     {exercise.sets.map((set) => (
-                        <CustomText humanText={`${set.percentage_rm}`} />
-                     ))}
-                  </View>
-               </View>
+               <ExerciseRow exercise={exercise} key={exercise.id} />
             ))}
          </View>
          <Button

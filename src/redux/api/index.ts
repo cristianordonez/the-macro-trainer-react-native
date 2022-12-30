@@ -12,7 +12,6 @@ const url = 'http://192.168.1.10:8080/api';
 export const apiHandlers = {
    get: async (urlPath: string) => {
       const currentUrl = `${url}${urlPath}`;
-      console.log('currentUrl: ', currentUrl);
       const fetchOptions = {
          method: 'GET',
          headers: { 'Content-Type': 'application/json' },

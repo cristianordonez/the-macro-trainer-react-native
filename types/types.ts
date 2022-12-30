@@ -398,4 +398,6 @@ export {
    Category,
    WeightliftingPostData,
    CurrentWorkoutStackType,
+   ExerciseData,
+   ExerciseForWorkout,
 };

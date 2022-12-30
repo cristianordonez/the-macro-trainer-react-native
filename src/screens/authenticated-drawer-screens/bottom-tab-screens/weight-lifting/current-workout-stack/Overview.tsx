@@ -1,7 +1,7 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { ScrollView } from 'react-native';
 import { CurrentWorkoutStackType } from '../../../../../../types/types';
-import { WorkoutOverview } from '../../../../../components/workout-overview/WorkoutOverview';
+import { WorkoutOverview } from '../../../../../components/workout-overview';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
 import { getProgramByUserSelectedId } from '../../../../../redux/reducers/weightLiftingReducer';
 import { global } from '../../../../../style/global.styles';

@@ -4,6 +4,7 @@ import {
    createSlice,
 } from '@reduxjs/toolkit';
 import {
+   ExerciseData,
    GlobalWeightLiftingState,
    ServerGeneralResponse,
    WeightLiftingState,
@@ -31,6 +32,7 @@ type InitialData = WeightLiftingState['data'] & {
    };
 };
 
+//TODO get initial rep maxes for user as well and update state
 export const getInitialWeightLiftingData = createAsyncThunk<
    InitialData,
    void,
@@ -260,6 +262,15 @@ export const getActiveProgramUniqueExercises = createSelector(
          }
       }
       return Array.from(uniqueExercises) as string[];
+   }
+);
+
+//TODO gets the exercise rep max for a exercise using its id
+export const getExerciseRepMaxFromId = createSelector(
+   [selectExerciseRepMaxes, (state: RootState, id: ExerciseData['id']) => id],
+   (repMaxes, id) => {
+      console.log('repMaxes: ', repMaxes);
+      console.log('id: ', id);
    }
 );
 
