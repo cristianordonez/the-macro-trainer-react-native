@@ -6,8 +6,8 @@ import {
 import {
    ExerciseData,
    GlobalWeightLiftingState,
+   InitialDataFromAPI,
    ServerGeneralResponse,
-   WeightLiftingState,
 } from '../../../types/types';
 import { createAlert } from '../../utils/createAlert';
 import { apiHandlers } from '../api';
@@ -26,15 +26,9 @@ const initialState: GlobalWeightLiftingState = {
    exerciseRepMaxes: [],
 };
 
-type InitialData = WeightLiftingState['data'] & {
-   selectedProgram: {
-      program_id: number | null;
-   };
-};
-
 //TODO get initial rep maxes for user as well and update state
 export const getInitialWeightLiftingData = createAsyncThunk<
-   InitialData,
+   InitialDataFromAPI,
    void,
    { state: RootState }
 >(
@@ -48,6 +42,7 @@ export const getInitialWeightLiftingData = createAsyncThunk<
             throw { message: err.message, status: response.status };
          } else {
             const initialData = await response.json();
+
             return initialData;
          }
       } catch (err) {
@@ -133,10 +128,12 @@ const weightLiftingSlice = createSlice({
             state.status = 'loading';
          })
          .addCase(getInitialWeightLiftingData.fulfilled, (state, action) => {
-            const { muscles, categories, selectedProgram } = action.payload;
+            const { muscles, categories, selectedProgram, exerciseRepMaxes } =
+               action.payload;
             state.data.categories = categories;
             state.data.muscles = muscles;
             state.user.selectedProgramId = selectedProgram.program_id;
+            state.exerciseRepMaxes = exerciseRepMaxes;
             if (selectedProgram.program_id) {
                state.user.hasSelectedProgram = true; //db returns null if user does not have selected program so make sure hasselectedprogram does not update  when this is so
             }
@@ -145,13 +142,15 @@ const weightLiftingSlice = createSlice({
          .addCase(getInitialWeightLiftingData.rejected, (state, action) => {
             state.status = 'failed';
          }),
+         // no need to update repmax state array here as it should already contain the needed rep maxes from users inputs
          builder
             .addCase(saveExerciseRepMaxData.fulfilled, (state, action) => {
                state.user.selectedProgramId = state.activeProgramId; //use active program id in state to update the users selected program id
                state.user.hasSelectedProgram = true; //update state so selected program will be false, will fulfill conditional and display new screen stack
             })
             .addCase(saveExerciseRepMaxData.rejected, (state, action) => {
-               console.log('Unable to save selected program to database.');
+               console.error('Unable to save selected program to database.');
+               state.status = 'failed';
             });
    },
 });
@@ -265,12 +264,14 @@ export const getActiveProgramUniqueExercises = createSelector(
    }
 );
 
-//TODO gets the exercise rep max for a exercise using its id
+//gets the exercise rep max for a exercise using its id
 export const getExerciseRepMaxFromId = createSelector(
    [selectExerciseRepMaxes, (state: RootState, id: ExerciseData['id']) => id],
-   (repMaxes, id) => {
-      console.log('repMaxes: ', repMaxes);
-      console.log('id: ', id);
+   (exerciseRepMaxes, id) => {
+      const result = exerciseRepMaxes.filter(
+         (repMax) => repMax.exercise_id === id
+      );
+      return result[0].max;
    }
 );
 

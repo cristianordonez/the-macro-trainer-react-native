@@ -6,11 +6,12 @@ import { CustomText } from '../custom-text/CustomText';
 import { ExerciseRow } from './ExerciseRow';
 import { makeWorkoutDayStyles } from './makeWorkoutOverviewStyles';
 
-const titleCol = ['Exercise', 'Reps', 'Weight'];
+const titleCol = ['Exercise', 'Reps', 'Weight (lbs)'];
 
 export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
    const { theme } = useTheme();
    const styles = makeWorkoutDayStyles(theme.colors);
+   console.log('exercises: ', exercises);
    //todo move row on bottom to seperate component so that I can use correct appselector within it using id of exercise
    return (
       <View

@@ -16,9 +16,9 @@ export const ExerciseRow = ({ exercise }: Props) => {
    const styles = makeWorkoutDayStyles(theme.colors);
 
    const max = useAppSelector((state) => {
-      getExerciseRepMaxFromId(state, exercise.id);
+      return getExerciseRepMaxFromId(state, exercise.id);
    });
-   console.log('max in exercise row : ', max);
+
    return (
       <View style={styles.row} key={exercise.id}>
          <View style={styles.column}>
@@ -27,6 +27,7 @@ export const ExerciseRow = ({ exercise }: Props) => {
          <View style={styles.column}>
             {exercise.sets.map((set) => (
                <CustomText
+                  key={set.id}
                   humanText={
                      set.amrap ? `${set.reps_target}+` : `${set.reps_target}`
                   }
@@ -35,7 +36,10 @@ export const ExerciseRow = ({ exercise }: Props) => {
          </View>
          <View style={styles.column}>
             {exercise.sets.map((set) => (
-               <CustomText humanText={`${set.percentage_rm}`} />
+               <CustomText
+                  humanText={`${Math.round((set.percentage_rm * max) / 5) * 5}`}
+                  key={set.id}
+               />
             ))}
          </View>
       </View>

@@ -309,12 +309,13 @@ type WeightLiftingState = {
 };
 
 type ExerciseRepMax = {
+   exercise_id?: number;
    name: string;
    max: number;
-   reps: number;
+   reps?: number;
    weight: number;
-   weightMetric: number;
-   isError: boolean;
+   weightMetric?: number;
+   isError?: boolean;
 };
 
 type GlobalWeightLiftingState = WeightLiftingState & {
@@ -326,6 +327,13 @@ type GlobalWeightLiftingState = WeightLiftingState & {
 
 type WeightliftingPostData = {
    activeProgramId: GlobalWeightLiftingState['activeProgramId'];
+   exerciseRepMaxes: GlobalWeightLiftingState['exerciseRepMaxes'];
+};
+
+type InitialDataFromAPI = WeightLiftingState['data'] & {
+   selectedProgram: {
+      program_id: number | null;
+   };
    exerciseRepMaxes: GlobalWeightLiftingState['exerciseRepMaxes'];
 };
 
@@ -400,4 +408,5 @@ export {
    CurrentWorkoutStackType,
    ExerciseData,
    ExerciseForWorkout,
+   InitialDataFromAPI,
 };
