@@ -1,6 +1,7 @@
 import { Button } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import { formatSeconds } from '../../utils/format-seconds/formatSeconds';
 
 export const WorkoutTimer = () => {
    const [seconds, setSeconds] = useState<number>(0);
@@ -20,7 +21,9 @@ export const WorkoutTimer = () => {
 
    return (
       <View>
-         <Button onPress={() => setIsActive(!isActive)}>{`${seconds}`}</Button>
+         <Button onPress={() => setIsActive(!isActive)}>
+            {formatSeconds(seconds)}
+         </Button>
       </View>
    );
 };

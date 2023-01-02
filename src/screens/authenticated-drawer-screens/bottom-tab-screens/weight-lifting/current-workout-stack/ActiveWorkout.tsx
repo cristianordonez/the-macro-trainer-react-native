@@ -13,8 +13,6 @@ export const ActiveWorkout = ({ navigation, route }: Props) => {
       return getWorkoutFromId(state, id);
    });
 
-   console.log('workout: ', workout);
-
    return (
       <View>
          <WorkoutTimer />
