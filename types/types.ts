@@ -54,7 +54,9 @@ type ChangeProgramsStackType = {
 
 type CurrentWorkoutStackType = {
    Overview: undefined;
-   ActiveWorkout: undefined;
+   ActiveWorkout: {
+      id: Workout['id'];
+   };
 };
 
 type BottomTabsParamList = {

@@ -1,3 +1,4 @@
+import { Link } from '@react-navigation/native';
 import { Button, Divider, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { Workout } from '../../../types/types';
@@ -11,8 +12,7 @@ const titleCol = ['Exercise', 'Reps', 'Weight (lbs)'];
 export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
    const { theme } = useTheme();
    const styles = makeWorkoutDayStyles(theme.colors);
-   console.log('exercises: ', exercises);
-   //todo move row on bottom to seperate component so that I can use correct appselector within it using id of exercise
+   //todo send workout id to next screen
    return (
       <View
          style={[
@@ -23,19 +23,23 @@ export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
       >
          <View style={[styles.titleRow, global.gap]}>
             {day === 1 ? (
-               <CustomText
-                  h1={true}
-                  fontFamily='Lato_Bold'
-                  humanText={`Start new workout`}
-                  color={'primary'}
-               />
+               <Link to={{ screen: 'ActiveWorkout', params: { id } }}>
+                  <CustomText
+                     h1={true}
+                     fontFamily='Lato_Bold'
+                     humanText={`Start next workout`}
+                     color={'primary'}
+                  />
+               </Link>
             ) : (
-               <CustomText
-                  h1={true}
-                  fontFamily='Lato_Bold'
-                  humanText={`Upcoming workout`}
-                  color={'primary'}
-               />
+               <Link to={{ screen: 'ActiveWorkout', params: { id } }}>
+                  <CustomText
+                     h1={true}
+                     fontFamily='Lato_Bold'
+                     humanText={`Upcoming workout`}
+                     color={'primary'}
+                  />
+               </Link>
             )}
             <CustomText h2={true} humanText={`Day ${day}`} />
          </View>

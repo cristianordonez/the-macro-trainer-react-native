@@ -5,6 +5,7 @@ import { CurrentWorkoutStackType } from '../../../../../../types/types';
 import { AvatarHeader } from '../../../../../components/avatar-header/AvatarHeader';
 import { useAppSelector } from '../../../../../redux/hooks/reduxHooks';
 import { getProgramByUserSelectedId } from '../../../../../redux/reducers/weightLiftingReducer';
+import { ActiveWorkout } from './ActiveWorkout';
 import { Overview } from './Overview';
 
 const Stack = createNativeStackNavigator<CurrentWorkoutStackType>();
@@ -25,6 +26,11 @@ export const CurrentWorkoutStack = () => {
          <Stack.Screen
             name='Overview'
             component={Overview}
+            options={() => ({ headerTitle: program[0].name })}
+         />
+         <Stack.Screen
+            name='ActiveWorkout'
+            component={ActiveWorkout}
             options={() => ({ headerTitle: program[0].name })}
          />
       </Stack.Navigator>

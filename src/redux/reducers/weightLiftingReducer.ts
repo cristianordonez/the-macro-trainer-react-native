@@ -8,6 +8,7 @@ import {
    GlobalWeightLiftingState,
    InitialDataFromAPI,
    ServerGeneralResponse,
+   Workout,
 } from '../../../types/types';
 import { createAlert } from '../../utils/createAlert';
 import { apiHandlers } from '../api';
@@ -275,4 +276,16 @@ export const getExerciseRepMaxFromId = createSelector(
    }
 );
 
+//TODO gets workout from workout id
+export const getWorkoutFromId = createSelector(
+   [getProgramByUserSelectedId, (state: RootState, id: Workout['id']) => id],
+   (program, id) => {
+      for (let i = 0; i < program[0].workouts.length; i++) {
+         if (program[0].workouts[i].id === id) {
+            return program[0].workouts[i];
+         }
+      }
+      return null;
+   }
+);
 export default weightLiftingSlice.reducer;
