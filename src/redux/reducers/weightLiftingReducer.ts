@@ -265,7 +265,7 @@ export const getActiveProgramUniqueExercises = createSelector(
    }
 );
 
-//gets the exercise rep max for a exercise using its id
+// gets the exercise rep max for a exercise using its id
 export const getExerciseRepMaxFromId = createSelector(
    [selectExerciseRepMaxes, (state: RootState, id: ExerciseData['id']) => id],
    (exerciseRepMaxes, id) => {
@@ -276,7 +276,7 @@ export const getExerciseRepMaxFromId = createSelector(
    }
 );
 
-//TODO gets workout from workout id
+// gets workout from workout id
 export const getWorkoutFromId = createSelector(
    [getProgramByUserSelectedId, (state: RootState, id: Workout['id']) => id],
    (program, id) => {

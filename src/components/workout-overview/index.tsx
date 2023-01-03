@@ -1,4 +1,5 @@
 import { Link } from '@react-navigation/native';
+
 import { Button, Divider, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { Workout } from '../../../types/types';
@@ -12,7 +13,7 @@ const titleCol = ['Exercise', 'Reps', 'Weight (lbs)'];
 export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
    const { theme } = useTheme();
    const styles = makeWorkoutDayStyles(theme.colors);
-   //todo send workout id to next screen
+
    return (
       <View
          style={[

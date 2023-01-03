@@ -39,6 +39,9 @@ type WelcomeStackParamList = {
 
 type DrawerStack = {
    BottomTabScreen: undefined;
+   ActiveWorkout: {
+      id: Workout['id'];
+   };
 };
 
 type ChangeProgramsStackType = {
@@ -59,6 +62,11 @@ type CurrentWorkoutStackType = {
    };
 };
 
+type CurrentWorkoutsStack = {
+   WorkoutsOverview: undefined;
+   ActiveWorkout: undefined;
+};
+
 type BottomTabsParamList = {
    Home: undefined;
    FoodLog: undefined;
@@ -71,11 +79,6 @@ type BottomTabsParamList = {
 type WeightLiftingStackType = {
    ChangeProgramsStack: undefined;
    CurrentWorkoutsStack: undefined;
-};
-
-type CurrentWorkoutsStack = {
-   WorkoutsOverview: undefined;
-   ActiveWorkout: undefined;
 };
 
 type MainScreenCard = {
