@@ -2,6 +2,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
 import { ScrollView } from 'react-native';
 import { CurrentWorkoutStackType } from '../../../../types/types';
+import { ActiveWorkoutExercise } from '../../../components/active-workout-exercise/ActiveWorkoutExercise';
 import { WorkoutTimer } from '../../../components/workout-timer/WorkoutTimer';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
 import { getWorkoutFromId } from '../../../redux/reducers/weightLiftingReducer';
@@ -20,9 +21,19 @@ export const ActiveWorkout = ({ navigation, route }: Props) => {
       });
    }, [id]);
 
+   console.log('workout.exercises: ', workout?.exercises.length);
    return (
       <ScrollView>
          <WorkoutTimer />
+         {workout?.exercises.map((exercise) => (
+            <ActiveWorkoutExercise
+               key={exercise.id}
+               id={exercise.id}
+               gif_url={exercise.gif_url}
+               name={exercise.name}
+               sets={exercise.sets}
+            />
+         ))}
       </ScrollView>
    );
 };

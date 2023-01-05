@@ -3,11 +3,6 @@ import { StyleSheet } from 'react-native';
 
 export const makeWorkoutDayStyles = (colors: Colors) =>
    StyleSheet.create({
-      container: {
-         backgroundColor: colors.searchBg,
-         marginVertical: 10,
-         justifyContent: 'space-between',
-      },
       titleRow: {
          flexDirection: 'row',
          justifyContent: 'space-between',

@@ -5,6 +5,7 @@ import { Workout } from '../../../types/types';
 import { global } from '../../style/global.styles';
 import { capitalizeExerciseName } from '../../utils/capitalizeExerciseName';
 import { CustomText } from '../custom-text/CustomText';
+import { LargeContainer } from '../large-container/LargeContainer';
 import { makeWorkoutDayStyles } from './makeWorkoutDayStyles';
 import { SetsRow } from './sets-row/SetsRow';
 
@@ -18,13 +19,7 @@ export const WorkoutDayDescription = ({
    const workoutDayStyles = makeWorkoutDayStyles(theme.colors);
 
    return (
-      <View
-         style={[
-            workoutDayStyles.container,
-            global.containerBorder,
-            global.largeContainer,
-         ]}
-      >
+      <LargeContainer>
          <View style={workoutDayStyles.dayText}>
             <CustomText
                h2={true}
@@ -49,6 +44,6 @@ export const WorkoutDayDescription = ({
                </View>
             </React.Fragment>
          ))}
-      </View>
+      </LargeContainer>
    );
 };

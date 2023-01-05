@@ -27,7 +27,6 @@ const initialState: GlobalWeightLiftingState = {
    exerciseRepMaxes: [],
 };
 
-//TODO get initial rep maxes for user as well and update state
 export const getInitialWeightLiftingData = createAsyncThunk<
    InitialDataFromAPI,
    void,

@@ -1,10 +1,10 @@
 import { Link } from '@react-navigation/native';
-
 import { Button, Divider, useTheme } from '@rneui/themed';
 import { View } from 'react-native';
 import { Workout } from '../../../types/types';
 import { global } from '../../style/global.styles';
 import { CustomText } from '../custom-text/CustomText';
+import { LargeContainer } from '../large-container/LargeContainer';
 import { ExerciseRow } from './ExerciseRow';
 import { makeWorkoutDayStyles } from './makeWorkoutOverviewStyles';
 
@@ -15,13 +15,7 @@ export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
    const styles = makeWorkoutDayStyles(theme.colors);
 
    return (
-      <View
-         style={[
-            global.containerBorder,
-            global.largeContainer,
-            styles.container,
-         ]}
-      >
+      <LargeContainer>
          <View style={[styles.titleRow, global.gap]}>
             {day === 1 ? (
                <Link to={{ screen: 'ActiveWorkout', params: { id } }}>
@@ -67,6 +61,6 @@ export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
             type='clear'
             size='lg'
          />
-      </View>
+      </LargeContainer>
    );
 };

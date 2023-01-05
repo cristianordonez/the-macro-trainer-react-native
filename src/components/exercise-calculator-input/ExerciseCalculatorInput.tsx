@@ -3,11 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { useAppDispatch } from '../../redux/hooks/reduxHooks';
 import { updateExerciseRepMaxes } from '../../redux/reducers/weightLiftingReducer';
-import { global } from '../../style/global.styles';
 import { calculate1RepMax } from '../../utils/calculate1RepMax';
 import { capitalizeExerciseName } from '../../utils/capitalizeExerciseName';
 import { CustomText } from '../custom-text/CustomText';
 import { CustomNumberInput } from '../form-inputs/custom-number-input/CustomNumberInput';
+import { LargeContainer } from '../large-container/LargeContainer';
 import { makeExerciseCalcstyles } from './makeExerciseCalcStyles';
 
 interface Props {
@@ -114,13 +114,7 @@ export const ExerciseCalculatorInput = ({
 
    const styles = makeExerciseCalcstyles(theme.colors);
    return (
-      <View
-         style={[
-            global.largeContainer,
-            styles.container,
-            global.containerBorder,
-         ]}
-      >
+      <LargeContainer>
          <CustomText
             h2={true}
             fontFamily='Lato_Bold'
@@ -178,6 +172,6 @@ export const ExerciseCalculatorInput = ({
                </View>
             ))}
          </View>
-      </View>
+      </LargeContainer>
    );
 };

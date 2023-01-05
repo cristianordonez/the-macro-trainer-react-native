@@ -3,11 +3,6 @@ import { StyleSheet } from 'react-native';
 
 export const makeExerciseCalcstyles = (colors: Colors) =>
    StyleSheet.create({
-      container: {
-         backgroundColor: colors.searchBg,
-         height: 275,
-         marginBottom: 10,
-      },
       mainRow: {
          flexDirection: 'row',
          flex: 1,
