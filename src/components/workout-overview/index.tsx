@@ -36,7 +36,11 @@ export const WorkoutOverview = ({ day, week, id, exercises }: Workout) => {
                   />
                </Link>
             )}
-            <CustomText h2={true} humanText={`Day ${day}`} />
+            <CustomText
+               h2={true}
+               fontFamily='Lato_Italic'
+               humanText={`Day ${day}`}
+            />
          </View>
          <View style={styles.rowsContainer}>
             <View style={styles.row}>
