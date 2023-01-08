@@ -40,7 +40,7 @@ export const ActiveWorkoutExercise = ({
          <View style={[styles.tableRow, global.gap]}>
             {columnHeaders.map((header) =>
                typeof header === 'string' ? (
-                  <View style={styles.tableCell}>
+                  <View style={styles.tableCell} key={header}>
                      <CustomText
                         humanText={`${header}`}
                         h2={true}
@@ -48,7 +48,9 @@ export const ActiveWorkoutExercise = ({
                      />
                   </View>
                ) : (
-                  <View style={styles.tableCell}>{header}</View>
+                  <View style={styles.tableCell} key={header}>
+                     {header}
+                  </View>
                )
             )}
          </View>

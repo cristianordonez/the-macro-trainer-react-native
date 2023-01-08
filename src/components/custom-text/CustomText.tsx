@@ -12,7 +12,7 @@ interface Props {
    textAlign?: 'left' | 'right' | 'center';
    opacity?: boolean;
    gap?: boolean;
-   color?: 'error' | 'black' | 'primary' | 'link';
+   color?: 'error' | 'black' | 'primary' | 'link' | 'button';
 }
 
 export const CustomText = ({
@@ -37,6 +37,8 @@ export const CustomText = ({
       currentColor = theme.colors.error;
    } else if (color === 'link') {
       currentColor = theme.colors.link;
+   } else if (color === 'button') {
+      currentColor = theme.colors.secondary;
    } else {
       currentColor = theme.colors.primary;
    }

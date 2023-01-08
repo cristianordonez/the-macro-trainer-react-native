@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { CurrentWorkoutStackType } from '../../../../types/types';
 import { ActiveWorkoutExercise } from '../../../components/active-workout-exercise/ActiveWorkoutExercise';
+import { CustomAlertAmrap } from '../../../components/custom-alert-amrap/CustomAlertAmrap';
 import { WorkoutTimer } from '../../../components/workout-timer/WorkoutTimer';
 import { useAppSelector } from '../../../redux/hooks/reduxHooks';
 import { getWorkoutFromId } from '../../../redux/reducers/weightLiftingReducer';
@@ -42,6 +43,7 @@ export const ActiveWorkout = ({ navigation, route }: Props) => {
                   />
                ))}
             </View>
+            <CustomAlertAmrap />
          </ScrollView>
       </KeyboardAvoidingView>
    );

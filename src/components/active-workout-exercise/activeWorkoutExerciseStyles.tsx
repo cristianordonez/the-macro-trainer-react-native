@@ -16,6 +16,7 @@ export const activeWorkoutExerciseStyles = (colors: Colors) =>
       tableCell: {
          flex: 1,
          alignItems: 'center',
+         justifyContent: 'center',
       },
       setNumContainer: {
          height: 35,

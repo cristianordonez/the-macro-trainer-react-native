@@ -83,7 +83,7 @@ const userGoalsSlice = createSlice({
    name: 'userGoals',
    initialState,
    reducers: {
-      resetStatus(state, action) {
+      resetStatus(state) {
          state.status = 'idle';
       },
    },

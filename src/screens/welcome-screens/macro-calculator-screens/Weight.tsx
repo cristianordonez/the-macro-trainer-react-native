@@ -52,7 +52,7 @@ export const Weight = ({ navigation }: Props) => {
          weightMetric,
       });
       dispatch(action);
-      dispatch(resetStatus);
+      dispatch(resetStatus());
       dispatch(calculateGoals());
       navigation.navigate('CalculatedGoals');
    };
