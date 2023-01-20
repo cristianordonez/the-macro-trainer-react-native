@@ -1,4 +1,5 @@
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { Button } from '@rneui/themed';
 import { useEffect } from 'react';
 import { KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { CurrentWorkoutStackType } from '../../../../types/types';
@@ -31,7 +32,7 @@ export const ActiveWorkout = ({ navigation, route }: Props) => {
          keyboardVerticalOffset={100}
       >
          <ScrollView contentContainerStyle={global.scrollableContainer}>
-            <View>
+            <View style={global.gap}>
                <WorkoutTimer />
                {workout?.exercises.map((exercise) => (
                   <ActiveWorkoutExercise
@@ -44,6 +45,7 @@ export const ActiveWorkout = ({ navigation, route }: Props) => {
                ))}
             </View>
             <CustomAlertAmrap />
+            <Button title='Complete workout' />
          </ScrollView>
       </KeyboardAvoidingView>
    );

@@ -5,11 +5,14 @@ import { RootState } from '../store/store';
 interface ActiveWorkoutState {
    showModal: boolean;
    currentAmrapGoal: number;
+   isWorkoutActive: boolean;
+   timerInSeconds: number;
 }
-
 const initialState = {
    showModal: false,
    currentAmrapGoal: 0,
+   isWorkoutActive: false,
+   timerInSeconds: 0,
 } as ActiveWorkoutState;
 
 const activeWorkoutSlice = createSlice({
@@ -30,6 +33,16 @@ const activeWorkoutSlice = createSlice({
       setCurrentAmrapGoal(state, action) {
          state.currentAmrapGoal = action.payload;
       },
+      beginActiveWorkout(state) {
+         if (state.isWorkoutActive) {
+         } else {
+            let interval;
+            state.isWorkoutActive = true;
+            interval = window.setInterval(() => {
+               state.timerInSeconds++;
+            }, 1000);
+         }
+      },
    },
 });
 
@@ -39,7 +52,11 @@ export const {
    subtractFromAmrapGoal,
    addToAmrapGoal,
    setCurrentAmrapGoal,
+   beginActiveWorkout,
 } = activeWorkoutSlice.actions;
+
+export const selectActiveWorkoutTimer = (state: RootState) =>
+   state.activeWorkout.timerInSeconds;
 
 //this will allow us to get the state when calling useAppSelector
 export const selectModalStatus = (state: RootState) =>
