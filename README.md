@@ -1,6 +1,6 @@
 # MacroTrainer Mobile App
 
-A mobile version of the MacroTrainer app created using React Native.
+A mobile application created using React Native using data from the MacroTrainer API.
 
 ## Roadmap
 
