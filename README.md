@@ -1,6 +1,7 @@
 # MacroTrainer Mobile App
 
 A mobile application created using React Native using data from the MacroTrainer API.
+Uses Expo Go to run application for development purposes.
 
 ## Roadmap
 
